@@ -7,14 +7,11 @@ public class Fou extends Piece
 	{
 	}
 
-	@Override
-	public boolean mouvement(int deltaX, int deltaY)
+	public boolean mouvement(int deltaX, int deltaY) 
 	{
-		// TODO Auto-generated method stub
-		return false;
+		return deltaX == deltaY;
 	}
-
-
+		
 	public char getType() {return 'F';}
 
 

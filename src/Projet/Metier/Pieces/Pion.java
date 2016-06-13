@@ -6,13 +6,11 @@ public class Pion extends Piece
 	{
 	}
 
-	@Override
-	public boolean  mouvement(int deltaX, int deltaY)
+	public boolean mouvement(int deltaX, int deltaY ) 
 	{
-		// TODO Auto-generated method stub
-		return false;
+		return (deltaX == -1 || deltaX == 1) && deltaY == -1;
 	}
-
+	
 
 	public char getType() {return 'P';}
 

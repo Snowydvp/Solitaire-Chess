@@ -9,9 +9,7 @@ public class Tour extends Piece
 
 	public boolean mouvement(int deltaX, int deltaY)
 	{
-		if(deltaX==0 || deltaY==0)
-			return true;
-		return false;
+		return (deltaX==0 ^ deltaY==0);
 	}
 
 
