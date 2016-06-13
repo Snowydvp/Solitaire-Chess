@@ -41,5 +41,5 @@ public class InitialisateurNiveau
 		}catch (Exception e){System.out.println(e.toString());}
 	}
 	
-	public ArrayList<Piece> getPiece(){return alPiece;}
+	public Piece[][] getPiece(){return this.tabPiece;}
 }
