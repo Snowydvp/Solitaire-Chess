@@ -7,7 +7,8 @@ public class Pion extends Piece
 	}
 
 	@Override
-	public boolean mouvement(int x, int y) {
+	public boolean  mouvement(int deltaX, int deltaY)
+	{
 		// TODO Auto-generated method stub
 		return false;
 	}
