@@ -1,22 +1,22 @@
 package Projet.Metier.Pieces;
 
+
 public class Reine extends Piece
 {
 
-	public Reine(int posX, int posY)
+	public Reine()
 	{
-		super(posX, posY);
 	}
 
 	@Override
-	public boolean mouvement(int x, int y) {
+	public boolean mouvement(int deltaX, int deltaY)
+	{
 		// TODO Auto-generated method stub
 		return false;
 	}
 
 	@Override
 	public char getType() {return 'R';}
-
 
 
 }

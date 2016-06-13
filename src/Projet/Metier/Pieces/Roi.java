@@ -3,14 +3,14 @@ package Projet.Metier.Pieces;
 public class Roi extends Piece
 {
 
-	public Roi(int posX, int posY) 
+	public Roi() 
 	{
-		super(posX, posY);
 	}
 
 	@Override
-	public boolean mouvement(int x, int y) {
-		// TODO Auto-generated method stub
+	public boolean mouvement(int deltaX, int deltaY)
+	{
+		
 		return false;
 	}
 

@@ -3,13 +3,13 @@ package Projet.Metier.Pieces;
 public class Fou extends Piece
 {
 
-	public Fou(int posX, int posY)
+	public Fou()
 	{
-		super(posX, posY);
 	}
 
 	@Override
-	public boolean mouvement(int x, int y) {
+	public boolean mouvement(int deltaX, int deltaY)
+	{
 		// TODO Auto-generated method stub
 		return false;
 	}
