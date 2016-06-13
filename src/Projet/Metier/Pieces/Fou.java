@@ -10,7 +10,7 @@ public class Fou extends Piece
 
 	public boolean deplacementValide(int deltaX, int deltaY) 
 	{
-		return deltaX == deltaY;
+		return deltaX == deltaY || deltaX == -deltaY;
 	}
 		
 	public char getType() {return 'F';}

@@ -17,7 +17,7 @@ public class Plateau
 	
 	public boolean deplacer(Piece p, int cibleX, int cibleY)
 	{
-		if(p.deplacementValide(p.getPosX()-cibleX, p.getPosY()-cibleY) && this.tabPiece[cibleY][cibleX] != null)
+		if(p.deplacementValide(p.getPosX()-cibleX, p.getPosY()-cibleY) && this.tabPiece[cibleX][cibleY] != null)
 		{
 			tabPiece[p.getPosX()][p.getPosY()] = null;
 			tabPiece[cibleX][cibleY] = p;
