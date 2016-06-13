@@ -19,8 +19,8 @@ public class Plateau
 	{
 		if(p.deplacementValide(p.getPosX()-cibleX, p.getPosY()-cibleY) && this.tabPiece[cibleY][cibleX] != null)
 		{
-			tabPiece[p.getPosY()][p.getPosX()] = null;
-			tabPiece[cibleY][cibleX] = p;
+			tabPiece[p.getPosX()][p.getPosY()] = null;
+			tabPiece[cibleX][cibleY] = p;
 			p.setPosX(cibleX);
 			p.setPosY(cibleY);
 			return true;
