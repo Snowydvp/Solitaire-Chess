@@ -3,9 +3,8 @@ package Projet.Metier.Pieces;
 public class Cavalier extends Piece
 {
 
-	public Cavalier(int posX, int posY) 
+	public Cavalier() 
 	{
-		super(posX, posY);
 	}
 
 	@Override

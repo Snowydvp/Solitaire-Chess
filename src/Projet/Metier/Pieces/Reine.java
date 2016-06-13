@@ -1,11 +1,11 @@
 package Projet.Metier.Pieces;
 
+
 public class Reine extends Piece
 {
 
-	public Reine(int posX, int posY)
+	public Reine()
 	{
-		super(posX, posY);
 	}
 
 	@Override
@@ -16,7 +16,6 @@ public class Reine extends Piece
 
 	@Override
 	public char getType() {return 'R';}
-
 
 
 }
