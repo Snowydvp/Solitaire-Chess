@@ -19,7 +19,7 @@ public class Controleur
 		InitialisateurNiveau iN = new InitialisateurNiveau(niveau, tabDifficulter[difficulter]);
 		pl = new Plateau(iN.getPiece());
 		
-		System.out.println(niveau + " " + difficulter);
+		System.out.println(niveau + "  " + difficulter);
 		System.out.println(pl.toString());
 	}
 	
