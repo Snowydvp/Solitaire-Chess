@@ -8,7 +8,7 @@ public class Fou extends Piece
 		super(posX, posY);
 	}
 
-	public boolean mouvement(int deltaX, int deltaY) 
+	public boolean deplacementValide(int deltaX, int deltaY) 
 	{
 		return deltaX == deltaY;
 	}

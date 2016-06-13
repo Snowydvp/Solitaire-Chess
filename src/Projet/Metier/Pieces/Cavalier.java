@@ -7,7 +7,7 @@ public class Cavalier extends Piece
 		super(posX, posY);
 	}
 
-	public boolean mouvement(int deltaX, int deltaY) 
+	public boolean deplacementValide(int deltaX, int deltaY) 
 	{
 		if(deltaX == -2 || deltaX == 2)
 			if (deltaY == -1 || deltaY == 1)

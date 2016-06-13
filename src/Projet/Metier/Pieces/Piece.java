@@ -15,7 +15,7 @@ public abstract class Piece
 	}
 	
 	
-	public abstract boolean mouvement(int deltaX, int deltaY);
+	public abstract boolean deplacementValide(int deltaX, int deltaY);
 	public abstract char    getType();
 	
 }
