@@ -65,11 +65,10 @@ public class Jeu extends JFrame implements MouseListener
 		}
 		else
 		{
-			if(this.ctrl.getPlateau().getTabPiece()[y][x] != null && this.ctrl.getPlateau().getTabPiece()[y][x] != this.pieceSelectionnee)
+			if(this.ctrl.getPlateau().deplacer(pieceSelectionnee, y, x))
 			{
 				System.out.println("Piece posée");
-				this.ctrl.getPlateau().getTabPiece()[y][x] = this.pieceSelectionnee;
-				this.ctrl.getPlateau().getTabPiece()[this.pY][this.pX] = null;
+				this.ctrl.getPlateau().deplacer(pieceSelectionnee, y, x);
 				this.estSelectionne = false;
 				this.pieceSelectionnee = null;
 			}
@@ -93,6 +92,7 @@ public class Jeu extends JFrame implements MouseListener
 	
 	public void refreshFenetre() 
 	{
+		//Je n'ai aucune idée de ce que font ces deux lignes, mais CA MARCHE !
 		this.grille.removeAll();
 		this.grille.updateUI();
 		for(int y = 0; y < 4; y++)
