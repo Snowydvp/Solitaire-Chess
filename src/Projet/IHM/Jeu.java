@@ -1,15 +1,21 @@
 package Projet.IHM;
 
+
+import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.GridLayout;
 import java.awt.Image;
+import java.awt.Insets;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
+import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.border.Border;
 
 import Projet.Controleur;
 import Projet.Metier.Pieces.*;
@@ -100,6 +106,10 @@ public class Jeu extends JFrame implements MouseListener
 			{
 				ImagePanel panelTmp;
 				Piece pieceTmp = this.ctrl.getPlateau().getTabPiece()[y][x];
+				boolean b = false;
+				if ( pieceTmp != null && pieceTmp == this.pieceSelectionnee )
+					b = true;
+					
 				if ( pieceTmp != null ) {
 					if ( pieceTmp instanceof Cavalier )
 						this.imgPiece = new ImageIcon("images/cavalier.gif").getImage();
@@ -118,9 +128,9 @@ public class Jeu extends JFrame implements MouseListener
 					this.imgPiece = new ImageIcon("images/vide52.gif").getImage();
 				
 				if ( (y + x) % 2 == 0)
-					panelTmp = new ImagePanel("images/pair.gif", this.imgPiece);
+					panelTmp = new ImagePanel("images/pair.gif", this.imgPiece, b);
 				else
-					panelTmp = new ImagePanel("images/impair.gif", this.imgPiece);
+					panelTmp = new ImagePanel("images/impair.gif", this.imgPiece, b);
 				
 				this.grille.add(panelTmp);
 			}
@@ -132,9 +142,11 @@ class ImagePanel extends JPanel
 {
 	private Image img;
 	private Image imgPiece;
+	private boolean estSelectionne;
 
-	public ImagePanel(String img, Image imgPiece) 
+	public ImagePanel(String img, Image imgPiece, boolean estSelectionnee) 
 	{
+		this.estSelectionne = estSelectionnee;
 		this.img = new ImageIcon(img).getImage();
 		this.imgPiece = imgPiece;
 		Dimension size = new Dimension(this.img.getWidth(null), this.img.getHeight(null));
@@ -146,5 +158,12 @@ class ImagePanel extends JPanel
 		super.paintComponent(g);
 		g.drawImage(img, 0, 0, null);
 		g.drawImage(imgPiece, 0, 0, null);
+		if ( this.estSelectionne ) {
+			g.setColor(Color.GREEN);
+			g.drawLine(0, 0, 0, 63);
+			g.drawLine(0, 0, 63, 0);
+			g.drawLine(0, 63, 63, 63);
+			g.drawLine(63, 0, 63, 63);
+		}
 	}
 }
