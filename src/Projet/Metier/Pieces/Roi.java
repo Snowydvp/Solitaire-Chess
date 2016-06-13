@@ -4,6 +4,11 @@ public class Roi extends Piece
 {
 
 
+	public Roi(int posX, int posY) 
+	{
+		super(posX, posY);
+	}
+
 	@Override
 	public boolean mouvement(int deltaX, int deltaY)
 	{

@@ -2,6 +2,11 @@ package Projet.Metier.Pieces;
 
 public class Cavalier extends Piece
 {
+	public Cavalier(int posX, int posY)
+	{
+		super(posX, posY);
+	}
+
 	public boolean mouvement(int deltaX, int deltaY) 
 	{
 		if(deltaX == -2 || deltaX == 2)
