@@ -11,7 +11,7 @@ public abstract class Piece
 	}
 	
 	
-	public abstract boolean mouvement(int x, int y);
+	public abstract boolean mouvement(int xOrigine, int yOrigine, int xCible, int yCible);
 	public abstract char    getType();
 	
 }

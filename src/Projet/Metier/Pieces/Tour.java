@@ -7,7 +7,7 @@ public class Tour extends Piece
 	{
 	}
 
-	public boolean mouvement(int x, int y) 
+	public boolean  mouvement(int xOrigine, int yOrigine, int xCible, int yCible)
 	{
 		
 		return false;

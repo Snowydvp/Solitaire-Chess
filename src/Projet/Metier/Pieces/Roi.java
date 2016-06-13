@@ -8,7 +8,8 @@ public class Roi extends Piece
 	}
 
 	@Override
-	public boolean mouvement(int x, int y) {
+	public boolean mouvement(int xOrigine, int yOrigine, int xCible, int yCible)
+	{
 		// TODO Auto-generated method stub
 		return false;
 	}
