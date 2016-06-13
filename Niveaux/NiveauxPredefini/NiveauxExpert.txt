@@ -1,0 +1,89 @@
+1
+. C . F
+. . . .
+T T . .
+C . F .
+
+2
+. . . C
+. . C .
+. T T P
+P F . .
+
+3
+. T T .
+. F . P
+C F . .
+C . . .
+
+4
+. . . C
+. . . T
+F F C .
+T P P .
+
+5
+. T . P
+C T . .
+. F . .
+. F C .
+
+6
+. F C .
+. F P .
+. T . .
+P C . .
+
+7
+. . . T
+F r C .
+. T . .
+P F P .
+
+8
+. . P F
+. T T .
+P F . .
+C C . .
+
+9
+. . P .
+. . . .
+C T F P
+. T C .
+
+10
+. . . F
+. . . T
+F C C .
+P P T .
+
+11
+C . . .
+F P . F
+. . . C
+T T P .
+
+12
+. T F C
+. C . P
+. . . F
+P T . .
+
+13
+C . . .
+F P . F
+. . . C
+T T P .
+
+14
+. P . .
+. T T .
+. . C C
+F . P F
+
+15
+. . T P
+C F T .
+F P . .
+. . C .
