@@ -18,7 +18,7 @@ public class InitialisateurNiveau
 			  Scanner sc = new Scanner ( fr );
 			  
 			  
-			  while(sc.hasNextInt())
+			  while(sc.hasNextLine())
 				 if (sc.nextInt() == numNiveau )
 				 {
 					  sc.nextLine();
@@ -38,6 +38,7 @@ public class InitialisateurNiveau
 				 else
 					 for(int i = 0; i<5 ; i++)
 						 sc.nextLine();
+			  
 		}catch (Exception e){System.out.println(e.toString());}
 	}
 	

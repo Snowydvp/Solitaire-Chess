@@ -2,9 +2,6 @@ package Projet.Metier.Pieces;
 
 public class Pion extends Piece 
 {
-	public Pion() 
-	{
-	}
 
 	public boolean mouvement(int deltaX, int deltaY ) 
 	{
