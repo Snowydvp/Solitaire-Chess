@@ -8,7 +8,7 @@ import Projet.Metier.Pieces.*;
 
 public class InitialisateurNiveau
 {
-	private ArrayList<Piece> alPiece = new ArrayList<Piece>();
+	private Piece[][] tabPiece = new Piece[4][4];
 	
 	public InitialisateurNiveau(int numNiveau, String difficulter)
 	{
@@ -26,12 +26,12 @@ public class InitialisateurNiveau
 						  for(int j = 0; j < 4; j++)
 							  switch(sc.next())
 							  {
-							  	case "F" : alPiece.add(new Fou     (i, j)); break;
-							  	case "C" : alPiece.add(new Cavalier(i, j)); break;
-							  	case "P" : alPiece.add(new Pion    (i, j)); break;
-							  	case "R" : alPiece.add(new Reine   (i, j)); break;
-							  	case "r" : alPiece.add(new Roi     (i, j)); break;
-							  	case "T" : alPiece.add(new Tour    (i, j)); break;
+							  	case "F" : this.tabPiece[i][j] = new Fou     (); break;
+							  	case "C" : this.tabPiece[i][j] = new Cavalier(); break;
+							  	case "P" : this.tabPiece[i][j] = new Pion    (); break;
+							  	case "R" : this.tabPiece[i][j] = new Reine   (); break;
+							  	case "r" : this.tabPiece[i][j] = new Roi     (); break;
+							  	case "T" : this.tabPiece[i][j] = new Tour    (); break;
 							  }
 					 sc.close();
 				 }
