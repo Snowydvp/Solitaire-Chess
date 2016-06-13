@@ -1,7 +1,10 @@
 package Projet.IHM;
 
 import java.awt.BorderLayout;
+import java.awt.Dimension;
+import java.awt.Graphics;
 import java.awt.GridLayout;
+import java.awt.Image;
 
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
@@ -21,11 +24,11 @@ public class Jeu extends JFrame
 {
 	private Controleur ctrl;
 	private JPanel grille;
+	private Image imgPiece;
 	
 	public Jeu(Controleur ctrl) 
 	{
 		this.setTitle("Fenetre de jeu");
-		this.setSize(300, 300);
 		this.setResizable(false);
 		
 		this.ctrl = ctrl;
@@ -35,41 +38,55 @@ public class Jeu extends JFrame
 		{
 			for(int x = 0; x < 4; x++)
 			{
-				JPanel panelTmp = new JPanel(new BorderLayout());
-				JLabel imagePiece = new JLabel();
-				JLabel imageGrille = new JLabel();
+				ImagePanel panelTmp;
 				Piece pieceTmp = this.ctrl.getPlateau().getTabPiece()[y][x];
 				if ( pieceTmp != null ) {
 					if ( pieceTmp instanceof Cavalier )
-						imagePiece.setIcon(new ImageIcon("images/cavalier.gif"));
+						this.imgPiece = new ImageIcon("images/cavalier.gif").getImage();
 					else if ( pieceTmp instanceof Fou )
-						imagePiece.setIcon(new ImageIcon("images/fou.gif"));
+						this.imgPiece = new ImageIcon("images/fou.gif").getImage();
 					else if ( pieceTmp instanceof Pion )
-						imagePiece.setIcon(new ImageIcon("images/pion.gif"));
+						this.imgPiece = new ImageIcon("images/pion.gif").getImage();
 					else if ( pieceTmp instanceof Reine)
-						imagePiece.setIcon(new ImageIcon("images/reine.gif"));
+						this.imgPiece = new ImageIcon("images/reine.gif").getImage();
 					else if ( pieceTmp instanceof Roi )
-						imagePiece.setIcon(new ImageIcon("images/roi.gif"));
+						this.imgPiece = new ImageIcon("images/roi.gif").getImage();
 					else if ( pieceTmp instanceof Tour)
-						imagePiece.setIcon(new ImageIcon("images/tour.gif"));
+						this.imgPiece = new ImageIcon("images/tour.gif").getImage();
 				}
 				else
-					imagePiece.setIcon(new ImageIcon("images/vide52.gif"));
+					this.imgPiece = new ImageIcon("images/vide52.gif").getImage();
 				
 				if ( (y+x)%2 == 0)
-					imageGrille.setIcon(new ImageIcon("images/pair.gif"));
+					panelTmp = new ImagePanel("images/pair.gif", this.imgPiece);
 				else
-					imageGrille.setIcon(new ImageIcon("images/impair.gif"));
+					panelTmp = new ImagePanel("images/impair.gif", this.imgPiece);
 				
-				panelTmp.add(imageGrille);
-				panelTmp.add(imagePiece);
 				this.grille.add(panelTmp);
 			}
 		}
 		
 		
 		this.add(this.grille);
-		
+		this.pack();
 		this.setVisible(true);
 	}
+}
+
+class ImagePanel extends JPanel 
+{
+	  private Image img;
+	  private Image imgPiece;
+	
+	  public ImagePanel(String img, Image imgPiece) {
+	    this.img = new ImageIcon(img).getImage();
+	    this.imgPiece = imgPiece;
+	    Dimension size = new Dimension(this.img.getWidth(null), this.img.getHeight(null));
+	    setPreferredSize(size);
+	  }
+	
+	  public void paintComponent(Graphics g) {
+	    g.drawImage(img, 0, 0, null);
+	    g.drawImage(imgPiece, 0, 0, null);
+	  }
 }
