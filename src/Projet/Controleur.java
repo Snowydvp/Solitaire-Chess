@@ -24,6 +24,7 @@ public class Controleur
 		pl = new Plateau(iN.getPiece());
 		
 		this.fenetreJeu = new Jeu(this);
+		this.fenetreMenu = new Menu(this);
 		
 		System.out.println(niveau + "  " + difficulter);
 		System.out.println(pl.toString());
