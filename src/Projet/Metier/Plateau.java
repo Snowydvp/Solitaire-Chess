@@ -15,12 +15,12 @@ public class Plateau
 		this.tabPiece = tabPiece;
 	}
 	
-	public boolean deplacer(Piece p, int cibleX, int cibleY)
+	public boolean deplacer(Piece p, int cibleY, int cibleX)
 	{
-		if(p.deplacementValide(p.getPosX()-cibleX, p.getPosY()-cibleY) && this.tabPiece[cibleX][cibleY]!=null)
+		if(p.deplacementValide(p.getPosX()-cibleX, p.getPosY()-cibleY) && this.tabPiece[cibleY][cibleX] != null)
 		{
-			tabPiece[p.getPosX()][p.getPosY()] = null;
-			tabPiece[cibleX][cibleY] = p;
+			tabPiece[p.getPosY()][p.getPosX()] = null;
+			tabPiece[cibleY][cibleX] = p;
 			p.setPosX(cibleX);
 			p.setPosY(cibleY);
 			return true;
