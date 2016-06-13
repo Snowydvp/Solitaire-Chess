@@ -2,9 +2,8 @@ package Projet.Metier.Pieces;
 
 public class Pion extends Piece 
 {
-	public Pion(int posX, int posY) 
+	public Pion() 
 	{
-		super(posX, posY);
 	}
 
 	@Override
