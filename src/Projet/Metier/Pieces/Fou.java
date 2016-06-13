@@ -3,11 +3,12 @@ package Projet.Metier.Pieces;
 public class Fou extends Piece
 {
 
-	public Fou()
+	public Fou(int posX, int posY)
 	{
+		super(posX, posY);
 	}
 
-	public boolean mouvement(int deltaX, int deltaY) 
+	public boolean deplacementValide(int deltaX, int deltaY) 
 	{
 		return deltaX == deltaY;
 	}
