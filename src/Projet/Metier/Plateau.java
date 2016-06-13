@@ -1,22 +1,21 @@
 package Projet.Metier;
 
-import java.util.ArrayList;
+
 
 import Projet.Metier.Pieces.Piece;
 
 public class Plateau
 {
-	private ArrayList<Piece> alPiece ;
 	private Piece[][]        tabPiece;
 	
-	public Plateau(ArrayList<Piece> alPiece)
+	public Plateau(Piece[][] tabPiece)
 	{
-		this.alPiece = alPiece;
 		this.tabPiece = new Piece[4][4];
 		
-		for (int i = 0; i < this.alPiece.size(); i++)
-			this.tabPiece[this.alPiece.get(i).getPosX()][this.alPiece.get(i).getPosY()] = this.alPiece.get(i);
+		this.tabPiece = tabPiece;
 	}
+	
+	
 	
 	public Piece[][] getTabPiece(){return this.tabPiece;}
 	
