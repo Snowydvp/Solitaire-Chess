@@ -30,14 +30,21 @@ public abstract class Piece
 		if     (cibleY - posY > 0) dirY = 1;
 		else if(cibleY - posY < 0) dirY = -1;
 		
-		for(int caseX = this.posX + dirX; !pieceEntreDeux && caseX < cibleX - dirX; caseX += dirX)
-			for(int caseY = this.posY + dirY; !pieceEntreDeux && caseY < cibleY - dirY; caseY += dirY)
-				if(plateau[caseX][caseY] != null)
-				{
-					pieceEntreDeux = true;
-					//System.out.println("X: "+caseX+" Y:"+caseY+" /existePiece="+plateau[caseX][caseY]!=null);
-				}
 		
+
+		
+		int caseX = this.posX + dirX;
+		int caseY = this.posY + dirY;
+		while(!pieceEntreDeux && (caseX < cibleX || caseY < cibleY))
+		{
+			if(plateau[caseX][caseY] != null)
+				pieceEntreDeux = true;
+			
+			caseX += dirX;
+			caseY += dirY;
+		}
+				
+
 		return pieceEntreDeux;
 	}
 	
