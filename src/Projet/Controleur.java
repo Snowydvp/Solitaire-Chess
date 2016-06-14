@@ -56,6 +56,6 @@ public class Controleur
 	public void rejouer()
 	{
 		pl = new Plateau(this.niveau.getPiece());
-		this.fenetre = new Fenetre(this);
+		
 	}
 }
