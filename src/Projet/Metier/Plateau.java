@@ -32,7 +32,7 @@ public class Plateau
 		return false;
 	}
 	
-	public Piece[][] getplateau(){return this.plateau;}
+	public Piece[][] getPlateau(){return this.plateau;}
 	public ArrayList<Piece> getPiecesCapturees(){return this.capturees;}
 	
 	public String toString()
