@@ -275,6 +275,7 @@ class ImagePanel extends JPanel
 		super.paintComponent(g);
 		g.drawImage(img, 0, 0, null);
 		g.drawImage(imgPiece, 0, 0, null);
+		
 		if ( this.estSelectionne ) {
 			g.setColor(Color.BLACK);
 			g.drawLine(0, 0, 0, 63);
