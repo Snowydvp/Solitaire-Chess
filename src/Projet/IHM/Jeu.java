@@ -71,9 +71,8 @@ public class Jeu extends JFrame implements MouseListener
 		}
 		else
 		{
-			if(this.ctrl.getPlateau().getTabPiece()[y][x] != this.pieceSelectionnee && this.ctrl.getPlateau().deplacer(pieceSelectionnee, y, x) )
+			if(this.ctrl.getPlateau().getTabPiece()[y][x] != this.pieceSelectionnee && this.ctrl.getPlateau().deplacer(pieceSelectionnee, y, x) != null )
 			{
-				System.out.println("Piece posée");
 				this.estSelectionne = false;
 				this.pieceSelectionnee = null;
 			}
@@ -81,7 +80,6 @@ public class Jeu extends JFrame implements MouseListener
 			{
 				if(this.ctrl.getPlateau().getTabPiece()[y][x] == this.pieceSelectionnee)
 				{
-					System.out.println("Piece deselectionnée");
 					this.estSelectionne = false;
 					this.pieceSelectionnee = null;
 				}
