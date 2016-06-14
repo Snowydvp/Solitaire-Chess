@@ -4,6 +4,7 @@ package Projet.IHM;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.GridLayout;
@@ -16,6 +17,7 @@ import java.util.ArrayList;
 import javax.swing.BorderFactory;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -31,6 +33,7 @@ public class Jeu extends JFrame implements MouseListener
 	
 	private JPanel grille;
 	private JPanel pieceCapturee;
+	private JPanel menuWest;
 	
 	private Image imgPiece;
 	private boolean estSelectionne;
@@ -48,8 +51,19 @@ public class Jeu extends JFrame implements MouseListener
 		this.pieceSelectionnee = null;
 		this.pX = this.pY = -1;
 
-		this.pieceCapturee = new ImagePanel("images/bgpiececapturee.gif",new ImageIcon("images/vide52.gif").getImage(),false);
+		this.pieceCapturee = new ImageBackground(new ImageIcon("images/bgpiececapturee.gif").getImage());
 		this.pieceCapturee.setPreferredSize(new Dimension(0, 50));
+		
+		this.menuWest = new ImageBackground(new ImageIcon("images/bgpiececapturee.gif").getImage());
+		this.menuWest.setPreferredSize(new Dimension(100, 0));
+		this.menuWest.setLayout(new FlowLayout());
+		JButton b1 = new JButton("Menu");
+		b1.setPreferredSize(new Dimension(30, 30));
+		this.menuWest.add(new JButton("Menu"));
+		this.menuWest.add(new JButton("Rejouer"));
+		this.menuWest.add(new JButton("Annuler"));
+		this.menuWest.add(new JButton("Aide"));
+		
 		this.grille = new JPanel(new GridLayout(4, 4));
 		this.grille.addMouseListener(this);
 		
@@ -57,6 +71,7 @@ public class Jeu extends JFrame implements MouseListener
 		
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		
+		this.add(this.menuWest, BorderLayout.WEST);
 		this.add(this.pieceCapturee, BorderLayout.SOUTH);
 		this.add(this.grille);
 		this.pack();
@@ -80,7 +95,7 @@ public class Jeu extends JFrame implements MouseListener
 		}
 		else
 		{
-			if(this.ctrl.getPlateau().getPlateau()[y][x] != this.pieceSelectionnee && this.ctrl.getPlateau().deplacer(pieceSelectionnee, x, y) )
+			if(this.ctrl.getPlateau().getPlateau()[y][x] != this.pieceSelectionnee && this.ctrl.getPlateau().deplacer(pieceSelectionnee, y, x) )
 			{
 				this.estSelectionne = false;
 				this.pieceSelectionnee = null;
@@ -190,4 +205,19 @@ class ImagePanel extends JPanel
 			g.drawLine(63, 0, 63, 63);
 		}
 	}
+}
+
+class ImageBackground extends JPanel 
+{
+	private Image background;
+	
+	public ImageBackground(Image img)
+	{
+		this.background = img;
+	}
+	
+    public void paintComponent(Graphics g)
+    {
+    	g.drawImage(this.background, 0, 0, getWidth(), getHeight(), null);
+    }
 }
