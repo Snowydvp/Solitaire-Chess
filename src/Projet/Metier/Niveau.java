@@ -9,15 +9,15 @@ public class Niveau
 {
 	private Piece[][] tabPiece = new Piece[4][4];
 	
-	public Niveau(int numNiveau, String difficulter)
+	public Niveau(int numNiveau, String difficultee)
 	{
 		try
 		{
-			  FileReader fr = new FileReader("Niveaux/NiveauxPredefini/Niveaux"+ difficulter + ".txt");
+			  FileReader fr = new FileReader("Niveaux/NiveauxPredefini/Niveaux"+ difficultee + ".txt");
 			  Scanner sc = new Scanner ( fr );
+			  boolean niveauTrouve = false;
 			  
-			  
-			  while(sc.hasNextLine())
+			  while(sc.hasNextLine() && !niveauTrouve)
 				 if(sc.hasNextInt())
 				 {
 					 if (sc.nextInt() == numNiveau )
@@ -34,11 +34,12 @@ public class Niveau
 								  	case 'r' : this.tabPiece[i][j] = new Roi     (j,i); break;
 								  	case 'T' : this.tabPiece[i][j] = new Tour    (j,i); break;
 								  }
-						 sc.close();
+						  niveauTrouve = true;
 					 }
 				}
 				else
 					sc.nextLine();
+			  sc.close();
 			  
 		}catch (Exception e){System.out.println(e.toString());}
 	}

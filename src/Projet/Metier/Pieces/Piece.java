@@ -39,7 +39,7 @@ public abstract class Piece
 		{
 			if(plateau[caseX][caseY] != null)
 				pieceEntreDeux = true;
-			System.out.println(caseX+"/"+caseY);
+			System.out.println(caseX+"/"+caseY+" existence piece:"+plateau[caseX][caseY]!=null);
 			caseX += dirX;
 			caseY += dirY;
 		}
