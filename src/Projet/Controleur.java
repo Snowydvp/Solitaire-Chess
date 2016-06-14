@@ -20,7 +20,7 @@ public class Controleur
 		int niveau = (int)(Math.random()*15+1);
 		int difficulter = (int)(Math.random()*4);
 		
-		InitialisateurNiveau iN = new InitialisateurNiveau(0, tabDifficulter[0]);
+		InitialisateurNiveau iN = new InitialisateurNiveau(niveau, tabDifficulter[difficulter]);
 		pl = new Plateau(iN.getPiece());
 		
 		this.fenetreJeu = new Jeu(this);
