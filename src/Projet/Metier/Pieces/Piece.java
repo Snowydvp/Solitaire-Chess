@@ -35,7 +35,7 @@ public abstract class Piece
 				if(plateau[caseX][caseY] != null)
 				{
 					pieceEntreDeux = true;
-					System.out.println("X: "+caseX+" Y:"+caseY+" /existePiece="+plateau[caseX][caseY]!=null);
+					//System.out.println("X: "+caseX+" Y:"+caseY+" /existePiece="+plateau[caseX][caseY]!=null);
 				}
 		
 		return pieceEntreDeux;

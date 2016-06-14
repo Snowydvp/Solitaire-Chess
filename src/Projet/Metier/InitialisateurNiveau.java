@@ -27,12 +27,12 @@ public class InitialisateurNiveau
 							  for(int j = 0; j < 4; j++)
 								  switch(sc.next().charAt(0))
 								  {
-								  	case 'F' : this.tabPiece[i][j] = new Fou     (i,j); break;
-								  	case 'C' : this.tabPiece[i][j] = new Cavalier(i,j); break;
-								  	case 'P' : this.tabPiece[i][j] = new Pion    (i,j); break;
-								  	case 'R' : this.tabPiece[i][j] = new Reine   (i,j); break;
-								  	case 'r' : this.tabPiece[i][j] = new Roi     (i,j); break;
-								  	case 'T' : this.tabPiece[i][j] = new Tour    (i,j); break;
+								  	case 'F' : this.tabPiece[i][j] = new Fou     (j,i); break;
+								  	case 'C' : this.tabPiece[i][j] = new Cavalier(j,i); break;
+								  	case 'P' : this.tabPiece[i][j] = new Pion    (j,i); break;
+								  	case 'R' : this.tabPiece[i][j] = new Reine   (j,i); break;
+								  	case 'r' : this.tabPiece[i][j] = new Roi     (j,i); break;
+								  	case 'T' : this.tabPiece[i][j] = new Tour    (j,i); break;
 								  }
 						 sc.close();
 					 }

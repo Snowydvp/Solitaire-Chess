@@ -13,7 +13,7 @@ public class Pion extends Piece
 	{
 		int deltaX = cibleX - this.posX;
 		int deltaY = cibleY - this.posY;
-		System.out.println("x="+deltaX+" y="+deltaY);
+
 		return (deltaX == -1 || deltaX == 1) && deltaY == -1;
 	}
 	

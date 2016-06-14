@@ -20,11 +20,12 @@ public class Plateau
 	
 	public boolean deplacer(Piece p, int cibleX, int cibleY)
 	{
-		if(p.deplacementValide(cibleX, cibleY, this.plateau) && this.plateau[cibleX][cibleY] != null)
+		if(p.deplacementValide(cibleX, cibleY, this.plateau) && this.plateau[cibleY][cibleX] != null)
 		{
-			plateau[p.getPosX()][p.getPosY()] = null;
-			this.capturees.add(plateau[cibleX][cibleY]);
-			plateau[cibleX][cibleY] = p;
+			plateau[p.getPosY()][p.getPosX()] = null;
+			
+			this.capturees.add(plateau[cibleY][cibleX]);
+			plateau[cibleY][cibleX] = p;
 			p.setPosX(cibleX);
 			p.setPosY(cibleY);
 			return true;
