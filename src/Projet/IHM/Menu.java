@@ -1,5 +1,6 @@
 package Projet.IHM;
 
+import java.awt.BorderLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -9,43 +10,56 @@ import Projet.Controleur;
 public class Menu extends JPanel implements ActionListener
 {
 	private Controleur ctrl;
-	private JButton continuer, nouvellePartie, choisirNiveau, chargerPartie,
-	                aide, score;
+	private JButton continuer, nouvellePartie, choisirNiveau, creerNiveau,
+	                aide, scores, quitter;
+	private Fenetre fenetre;
 	
-	public Menu(Controleur ctrl)
+	public Menu(Controleur ctrl, Fenetre fenetre)
 	{
 		this.ctrl = ctrl;
+		this.fenetre = fenetre;
 		
 		this.setLayout(new GridLayout(8, 1));
 		
-		JButton continuer = new JButton("Continuer");
+		continuer = new JButton("Continuer");
+		this.continuer.addActionListener(this);
 		this.add(continuer);
 		
-		JButton nouvellePartie = new JButton("Nouvelle partie");
+		nouvellePartie = new JButton("Nouvelle partie");
+		this.nouvellePartie.addActionListener(this);
 		this.add(nouvellePartie);
 
-		JButton choisirNiveau = new JButton("Choisir niveau");
+		choisirNiveau = new JButton("Choisir un niveau");
+		this.choisirNiveau.addActionListener(this);
 		this.add(choisirNiveau);
 		
-		JButton chargerPartie = new JButton("Charger");
-		this.add(chargerPartie);
-		
-		JButton aide = new JButton("Aide");
+		aide = new JButton("Aide");
+		this.aide.addActionListener(this);
 		this.add(aide);
 		
-		JButton scores = new JButton("Scores");
+		scores = new JButton("Scores");
+		this.scores.addActionListener(this);
 		this.add(scores);
 		
 
-		JButton creerNiveau = new JButton("Créer un niveau");
+		creerNiveau = new JButton("Créer un niveau");
+		this.creerNiveau.addActionListener(this);
 		this.add(creerNiveau);
 		
-		JButton quitter = new JButton("Quitter");
+		quitter = new JButton("Quitter");
+		this.quitter.addActionListener(this);
 		this.add(quitter);
 	}
 
 	public void actionPerformed(ActionEvent e) {
-		
+		if (e.getSource() == continuer)
+		{
+			this.setVisible(false);
+			Jeu j = new Jeu(this.ctrl, this.fenetre);
+			this.fenetre.setJeu(j);
+			this.fenetre.add(j,BorderLayout.CENTER);
+			this.fenetre.pack();
+		}
 		
 	}
 }

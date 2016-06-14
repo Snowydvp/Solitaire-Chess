@@ -46,11 +46,15 @@ public class Jeu extends JPanel implements MouseListener, ActionListener
 	private JButton suivant;
 	private JButton precedent;
 	private JButton rejouer;
+	private JButton menu;
 	
-	public Jeu(Controleur ctrl) 
+	private Fenetre fenetre;
+	
+	public Jeu(Controleur ctrl, Fenetre fenetre) 
 	{
 		this.setLayout(new BorderLayout());
 		this.ctrl = ctrl;
+		this.fenetre = fenetre;
 		this.estSelectionne = false;
 		this.pieceSelectionnee = null;
 		this.pX = this.pY = -1;
@@ -63,9 +67,12 @@ public class Jeu extends JPanel implements MouseListener, ActionListener
 		this.menuWest.setLayout(new FlowLayout());
 		JButton b1 = new JButton("Menu");
 		b1.setPreferredSize(new Dimension(30, 30));
-		this.menuWest.add(new JButton("Menu"));
 		this.menuWest.add(new JButton("Annuler"));
 		this.menuWest.add(new JButton("Aide"));
+		
+		this.menu = new JButton("Menu");
+		this.menu.addActionListener(this);
+		this.menuWest.add(menu);
 		
 		suivant = new JButton("Suivant");
 		this.suivant.addActionListener(this);
@@ -160,7 +167,6 @@ public class Jeu extends JPanel implements MouseListener, ActionListener
 		this.pieceCapturee.removeAll();
 		this.pieceCapturee.updateUI();
 		ArrayList<Piece> listeCapturee = this.ctrl.getPlateau().getPiecesCapturees();
-		
 		for ( int i = 0; i < listeCapturee.size(); i++)
 		{
 			Piece pieceTmp = listeCapturee.get(i);
@@ -204,6 +210,11 @@ public class Jeu extends JPanel implements MouseListener, ActionListener
 			this.ctrl.rejouer();
 			this.refreshFenetre();
 			this.refreshPieceCapturee();
+		}
+		else if(e.getSource() == menu) {
+			this.fenetre.getMenu().setVisible(true);
+			this.fenetre.getJeu().setVisible(false);
+			//this.fenetre.pack();
 		}
 		
 	}

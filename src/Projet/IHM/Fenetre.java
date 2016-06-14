@@ -7,6 +7,8 @@ import Projet.Controleur;
 public class Fenetre extends JFrame
 {
 	private Controleur ctrl;
+	private Menu menu;
+	private Jeu jeu;
 	
 	public Fenetre(Controleur ctrl) 
 	{	
@@ -18,11 +20,25 @@ public class Fenetre extends JFrame
 		
 		this.ctrl = ctrl;
 		
-		this.add(new Jeu(this.ctrl));
+		this.jeu = null;
+		this.menu = new Menu(this.ctrl,this);
+		this.add(this.menu);
 		
 		this.pack();
 		
 		this.setVisible(true);
+	}
+	
+	public Menu getMenu() {
+		return this.menu;
+	}
+	
+	public Jeu getJeu() {
+		return this.jeu;
+	}
+	
+	public void setJeu(Jeu j) {
+		this.jeu = j;
 	}
 	
 
