@@ -1,6 +1,7 @@
 package Projet.IHM;
 
 
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
@@ -10,10 +11,13 @@ import java.awt.Image;
 import java.awt.Insets;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.util.ArrayList;
 
 import javax.swing.BorderFactory;
+import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.Border;
 
@@ -45,6 +49,7 @@ public class Jeu extends JFrame implements MouseListener
 		this.pX = this.pY = -1;
 
 		this.pieceCapturee = new JPanel();
+		this.pieceCapturee.setPreferredSize(new Dimension(0, 50));
 		this.grille = new JPanel(new GridLayout(4, 4));
 		this.grille.addMouseListener(this);
 		
@@ -52,6 +57,7 @@ public class Jeu extends JFrame implements MouseListener
 		
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		
+		this.add(this.pieceCapturee, BorderLayout.SOUTH);
 		this.add(this.grille);
 		this.pack();
 		this.setVisible(true);
@@ -64,25 +70,25 @@ public class Jeu extends JFrame implements MouseListener
 		
 		if(!this.estSelectionne)
 		{
-			if(this.ctrl.getPlateau().getTabPiece()[y][x] != null)
+			if(this.ctrl.getPlateau().getPlateau()[y][x] != null)
 			{
 				this.estSelectionne = true;
 				System.out.println("Piece selectionné");
-				this.pieceSelectionnee = this.ctrl.getPlateau().getTabPiece()[y][x];
+				this.pieceSelectionnee = this.ctrl.getPlateau().getPlateau()[y][x];
 				this.pX = x;
 				this.pY = y;
 			}
 		}
 		else
 		{
-			if(this.ctrl.getPlateau().getTabPiece()[y][x] != this.pieceSelectionnee && this.ctrl.getPlateau().deplacer(pieceSelectionnee, y, x) )
+			if(this.ctrl.getPlateau().getPlateau()[y][x] != this.pieceSelectionnee && this.ctrl.getPlateau().deplacer(pieceSelectionnee, y, x) )
 			{
 				this.estSelectionne = false;
 				this.pieceSelectionnee = null;
 			}
 			else
 			{
-				if(this.ctrl.getPlateau().getTabPiece()[y][x] == this.pieceSelectionnee)
+				if(this.ctrl.getPlateau().getPlateau()[y][x] == this.pieceSelectionnee)
 				{
 					this.estSelectionne = false;
 					this.pieceSelectionnee = null;
@@ -90,6 +96,7 @@ public class Jeu extends JFrame implements MouseListener
 			}
 		}
 		this.refreshFenetre();
+		this.refreshPieceCapturee();
 	}
 
 	public void mouseEntered(MouseEvent e) {}
@@ -99,7 +106,6 @@ public class Jeu extends JFrame implements MouseListener
 	
 	public void refreshFenetre() 
 	{
-		//Je n'ai aucune idée de ce que font ces deux lignes, mais CA MARCHE !
 		this.grille.removeAll();
 		this.grille.updateUI();
 		for(int y = 0; y < 4; y++)
@@ -107,36 +113,53 @@ public class Jeu extends JFrame implements MouseListener
 			for(int x = 0; x < 4; x++)
 			{
 				ImagePanel panelTmp;
-				Piece pieceTmp = this.ctrl.getPlateau().getTabPiece()[y][x];
+				Piece pieceTmp = this.ctrl.getPlateau().getPlateau()[y][x];
+				
 				boolean b = false;
 				if ( pieceTmp != null && pieceTmp == this.pieceSelectionnee )
 					b = true;
 					
-				if ( pieceTmp != null ) {
-					if ( pieceTmp instanceof Cavalier )
-						this.imgPiece = new ImageIcon("images/cavalier.gif").getImage();
-					else if ( pieceTmp instanceof Fou )
-						this.imgPiece = new ImageIcon("images/fou.gif").getImage();
-					else if ( pieceTmp instanceof Pion )
-						this.imgPiece = new ImageIcon("images/pion.gif").getImage();
-					else if ( pieceTmp instanceof Reine)
-						this.imgPiece = new ImageIcon("images/reine.gif").getImage();
-					else if ( pieceTmp instanceof Roi )
-						this.imgPiece = new ImageIcon("images/roi.gif").getImage();
-					else if ( pieceTmp instanceof Tour)
-						this.imgPiece = new ImageIcon("images/tour.gif").getImage();
-				}
-				else
-					this.imgPiece = new ImageIcon("images/vide52.gif").getImage();
+				if ( pieceTmp != null ) this.imgPiece = this.getImage(pieceTmp);
+				else this.imgPiece = new ImageIcon("images/vide52.gif").getImage();
 				
-				if ( (y + x) % 2 == 0)
-					panelTmp = new ImagePanel("images/pair.gif", this.imgPiece, b);
-				else
-					panelTmp = new ImagePanel("images/impair.gif", this.imgPiece, b);
+				if ( (y + x) % 2 == 0) panelTmp = new ImagePanel("images/pair.gif", this.imgPiece, b);
+				else panelTmp = new ImagePanel("images/impair.gif", this.imgPiece, b);
 				
 				this.grille.add(panelTmp);
 			}
 		}
+	}
+	
+	public void refreshPieceCapturee() {
+		this.pieceCapturee.removeAll();
+		ArrayList<Piece> listeCapturee = this.ctrl.getPlateau().getPiecesCapturees();
+		
+		for ( int i = 0; i < listeCapturee.size(); i++)
+		{
+			Piece pieceTmp = listeCapturee.get(i);
+			this.imgPiece = this.getImage(pieceTmp);
+			
+			JLabel labelTmp = new JLabel();
+			ImageIcon imageIcon = new ImageIcon(this.imgPiece.getScaledInstance(40, 40, Image.SCALE_DEFAULT));
+			labelTmp.setIcon(imageIcon);
+			this.pieceCapturee.add(labelTmp);
+		}
+	}
+	
+	private Image getImage(Piece p ) {
+		if ( p instanceof Cavalier )
+			return new ImageIcon("images/cavalier.gif").getImage();
+		else if ( p instanceof Fou )
+			return new ImageIcon("images/fou.gif").getImage();
+		else if ( p instanceof Pion )
+			return new ImageIcon("images/pion.gif").getImage();
+		else if ( p instanceof Reine)
+			return new ImageIcon("images/reine.gif").getImage();
+		else if ( p instanceof Roi )
+			return new ImageIcon("images/roi.gif").getImage();
+		else if ( p instanceof Tour)
+			return new ImageIcon("images/tour.gif").getImage();
+		return null;
 	}
 }
 
