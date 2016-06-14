@@ -9,7 +9,7 @@ public class Pion extends Piece
 	}
 
 
-	public boolean deplacementValide(int cibleX, int cibleY, Piece[][] plateau) 
+	public boolean deplacementValide(int cibleX, int cibleY, Piece[][] plateau)
 	{
 		int deltaX = cibleX - this.posX;
 		int deltaY = cibleY - this.posY;
