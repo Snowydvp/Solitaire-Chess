@@ -16,7 +16,7 @@ public class Reine extends Piece
 		int deltaY = cibleY - this.posY;
 		
 		return (!super.pieceGenantDeplacement(cibleX, cibleY, plateau) 
-				&& (deltaX==deltaY || deltaX==0 || deltaY==0)); 	//return true si la piece se deplace verticalement, horizontalement 
+				&& (deltaX==deltaY || deltaX==0 || deltaY==0 || deltaX==-deltaY)); 	//return true si la piece se deplace verticalement, horizontalement 
 															//diagonalement
 	}
 
