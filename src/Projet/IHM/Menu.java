@@ -1,14 +1,16 @@
 package Projet.IHM;
 
 import java.awt.GridLayout;
-
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import javax.swing.*;
-
 import Projet.Controleur;
 
-public class Menu extends JPanel
+public class Menu extends JPanel implements ActionListener
 {
 	private Controleur ctrl;
+	private JButton continuer, nouvellePartie, choisirNiveau, chargerPartie,
+	                aide, score;
 	
 	public Menu(Controleur ctrl)
 	{
@@ -16,39 +18,34 @@ public class Menu extends JPanel
 		
 		this.setLayout(new GridLayout(8, 1));
 		
-		JButton init;
+		JButton continuer = new JButton("Continuer");
+		this.add(continuer);
 		
-		init = new JButton();
-		init.setText("Continuer");
-		this.add(init);
-		
-		init = new JButton();
-		init.setText("Nouvelle partie");
-		this.add(init);
+		JButton nouvellePartie = new JButton("Nouvelle partie");
+		this.add(nouvellePartie);
 
-		init = new JButton();
-		init.setText("Choisir niveau");
-		this.add(init);
+		JButton choisirNiveau = new JButton("Choisir niveau");
+		this.add(choisirNiveau);
 		
-		init = new JButton();
-		init.setText("Charger");
-		this.add(init);
+		JButton chargerPartie = new JButton("Charger");
+		this.add(chargerPartie);
 		
-		init = new JButton();
-		init.setText("Aide");
-		this.add(init);
+		JButton aide = new JButton("Aide");
+		this.add(aide);
 		
-		init = new JButton();
-		init.setText("Scores");
-		this.add(init);
+		JButton scores = new JButton("Scores");
+		this.add(scores);
 		
 
-		init = new JButton();
-		init.setText("Créer un niveau");
-		this.add(init);
+		JButton creerNiveau = new JButton("Créer un niveau");
+		this.add(creerNiveau);
 		
-		init = new JButton();
-		init.setText("Quitter");
-		this.add(init);
+		JButton quitter = new JButton("Quitter");
+		this.add(quitter);
+	}
+
+	public void actionPerformed(ActionEvent e) {
+		
+		
 	}
 }
