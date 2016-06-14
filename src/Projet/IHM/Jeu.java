@@ -3,6 +3,7 @@ package Projet.IHM;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
@@ -27,7 +28,7 @@ import Projet.Controleur;
 import Projet.Metier.Pieces.*;
 
 
-public class Jeu extends JFrame implements MouseListener
+public class Jeu extends JPanel implements MouseListener
 {
 	private Controleur ctrl;
 	
@@ -42,10 +43,7 @@ public class Jeu extends JFrame implements MouseListener
 	
 	public Jeu(Controleur ctrl) 
 	{
-		this.setTitle("Fenetre de jeu");
-		this.setResizable(false);
-		this.setLocationRelativeTo(null);
-		
+		this.setLayout(new BorderLayout());
 		this.ctrl = ctrl;
 		this.estSelectionne = false;
 		this.pieceSelectionnee = null;
@@ -69,12 +67,9 @@ public class Jeu extends JFrame implements MouseListener
 		
 		this.refreshFenetre();
 		
-		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
-		
 		this.add(this.menuWest, BorderLayout.WEST);
 		this.add(this.pieceCapturee, BorderLayout.SOUTH);
 		this.add(this.grille);
-		this.pack();
 		this.setVisible(true);
 	}
 
@@ -95,7 +90,7 @@ public class Jeu extends JFrame implements MouseListener
 		}
 		else
 		{
-			if(this.ctrl.getPlateau().getPlateau()[y][x] != this.pieceSelectionnee && this.ctrl.getPlateau().deplacer(pieceSelectionnee, y, x) )
+			if(this.ctrl.getPlateau().getPlateau()[y][x] != this.pieceSelectionnee && this.ctrl.getPlateau().deplacer(pieceSelectionnee, x, y) )
 			{
 				this.estSelectionne = false;
 				this.pieceSelectionnee = null;

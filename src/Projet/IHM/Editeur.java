@@ -1,10 +1,10 @@
 package Projet.IHM;
 
-import javax.swing.JFrame;
+import javax.swing.JPanel;
 
 import Projet.Controleur;
 
-public class Editeur extends JFrame
+public class Editeur extends JPanel
 {
 	private Controleur ctrl;
 	

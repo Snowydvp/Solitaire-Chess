@@ -6,7 +6,7 @@ import javax.swing.*;
 
 import Projet.Controleur;
 
-public class Menu extends JFrame
+public class Menu extends JPanel
 {
 	private Controleur ctrl;
 	
@@ -50,15 +50,5 @@ public class Menu extends JFrame
 		init = new JButton();
 		init.setText("Quitter");
 		this.add(init);
-		
-		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
-		this.pack();
-		this.setVisible(true);
-		//nouveau jeu
-		//continuer
-		//selection niveau
-		//option
-		//quitter
-		//son
 	}
 }

@@ -1,8 +1,6 @@
 package Projet;
 
-import Projet.IHM.Editeur;
-import Projet.IHM.Jeu;
-import Projet.IHM.Menu;
+import Projet.IHM.Fenetre;
 import Projet.Metier.InitialisateurNiveau;
 import Projet.Metier.Plateau;
 
@@ -10,9 +8,7 @@ public class Controleur
 {
 	private final String[] tabDifficulter = {"Debutant", "Intermediaire", "Avance", "Expert"};
 	private Plateau pl;
-	private Jeu fenetreJeu;
-	private Editeur fenetreEditeur;
-	private Menu fenetreMenu;
+	private Fenetre fenetre;
 	
 	public Controleur()
 	{
@@ -23,8 +19,7 @@ public class Controleur
 		InitialisateurNiveau iN = new InitialisateurNiveau(niveau, tabDifficulter[difficulter]);
 		pl = new Plateau(iN.getPiece());
 		
-		this.fenetreJeu = new Jeu(this);
-		this.fenetreMenu = new Menu(this);
+		this.fenetre= new Fenetre(this);
 		
 		System.out.println(niveau + "  " + difficulter);
 		System.out.println(pl.toString());
