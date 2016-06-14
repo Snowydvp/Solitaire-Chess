@@ -5,11 +5,11 @@ import java.util.Scanner;
 
 import Projet.Metier.Pieces.*;
 
-public class InitialisateurNiveau
+public class Niveau
 {
 	private Piece[][] tabPiece = new Piece[4][4];
 	
-	public InitialisateurNiveau(int numNiveau, String difficulter)
+	public Niveau(int numNiveau, String difficulter)
 	{
 		try
 		{

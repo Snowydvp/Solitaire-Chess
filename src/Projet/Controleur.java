@@ -1,7 +1,7 @@
 package Projet;
 
 import Projet.IHM.Fenetre;
-import Projet.Metier.InitialisateurNiveau;
+import Projet.Metier.Niveau;
 import Projet.Metier.Plateau;
 
 public class Controleur
@@ -9,6 +9,7 @@ public class Controleur
 	private final String[] tabDifficultee = {"Debutant", "Intermediaire", "Avance", "Expert"};
 	private Plateau pl;
 	private Fenetre fenetre;
+	private Niveau niveau;
 	
 	public Controleur()
 	{
@@ -16,10 +17,10 @@ public class Controleur
 		int niveau = (int)(Math.random()*15+1);
 		int difficultee = (int)(Math.random()*4);
 		
-		InitialisateurNiveau iN = new InitialisateurNiveau(0, tabDifficultee[0]);
+		Niveau iN = new Niveau(niveau, tabDifficultee[difficultee]);
 		pl = new Plateau(iN.getPiece());
 		
-		this.fenetre= new Fenetre(this);
+		this.fenetre = new Fenetre(this);
 		
 		System.out.println(niveau + "  " + difficultee);
 		System.out.println(pl.toString());
@@ -30,5 +31,23 @@ public class Controleur
 	public static void main(String[] a)
 	{
 		new Controleur();
+	}
+	
+	public void augmenterNiveau()
+	{
+		//niveau aleatoire
+		int niveau = (int)(Math.random()*15+1);
+		int difficultee = (int)(Math.random()*4);
+		
+		Niveau iN = new Niveau(niveau, tabDifficultee[difficultee]);
+		pl = new Plateau(iN.getPiece());
+	}
+	public void diminuerNiveau()
+	{
+		int niveau = (int)(Math.random()*15+1);
+		int difficultee = (int)(Math.random()*4);
+		
+		Niveau iN = new Niveau(niveau, tabDifficultee[difficultee]);
+		pl = new Plateau(iN.getPiece());
 	}
 }
