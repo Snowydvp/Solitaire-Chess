@@ -48,7 +48,7 @@ public class Jeu extends JFrame implements MouseListener
 		this.pieceSelectionnee = null;
 		this.pX = this.pY = -1;
 
-		this.pieceCapturee = new JPanel();
+		this.pieceCapturee = new ImagePanel("images/bgpiececapturee.gif",new ImageIcon("images/vide52.gif").getImage(),false);
 		this.pieceCapturee.setPreferredSize(new Dimension(0, 50));
 		this.grille = new JPanel(new GridLayout(4, 4));
 		this.grille.addMouseListener(this);
@@ -73,7 +73,6 @@ public class Jeu extends JFrame implements MouseListener
 			if(this.ctrl.getPlateau().getPlateau()[y][x] != null)
 			{
 				this.estSelectionne = true;
-				System.out.println("Piece selectionné");
 				this.pieceSelectionnee = this.ctrl.getPlateau().getPlateau()[y][x];
 				this.pX = x;
 				this.pY = y;
@@ -81,7 +80,7 @@ public class Jeu extends JFrame implements MouseListener
 		}
 		else
 		{
-			if(this.ctrl.getPlateau().getPlateau()[y][x] != this.pieceSelectionnee && this.ctrl.getPlateau().deplacer(pieceSelectionnee, y, x) )
+			if(this.ctrl.getPlateau().getPlateau()[y][x] != this.pieceSelectionnee && this.ctrl.getPlateau().deplacer(pieceSelectionnee, x, y) )
 			{
 				this.estSelectionne = false;
 				this.pieceSelectionnee = null;
