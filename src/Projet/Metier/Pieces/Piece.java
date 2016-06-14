@@ -37,9 +37,9 @@ public abstract class Piece
 		int caseY = this.posY + dirY;
 		while(!pieceEntreDeux && (caseX != cibleX || caseY != cibleY))
 		{
-			if(plateau[caseX][caseY] != null)
+			if(plateau[caseY][caseX] != null)
 				pieceEntreDeux = true;
-			System.out.println(caseX+"/"+caseY+" existence piece:"+plateau[caseX][caseY]!=null);
+
 			caseX += dirX;
 			caseY += dirY;
 		}

@@ -17,7 +17,7 @@ public class Controleur
 		int niveau = (int)(Math.random()*15+1);
 		int difficultee = (int)(Math.random()*4);
 		
-		Niveau iN = new Niveau(niveau, tabDifficultee[difficultee]);
+		Niveau iN = new Niveau(0, tabDifficultee[0]);
 		pl = new Plateau(iN.getPiece());
 		
 		this.fenetre = new Fenetre(this);
