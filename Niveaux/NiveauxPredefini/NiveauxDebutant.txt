@@ -1,3 +1,9 @@
+0
+P P P P
+P P P P
+P P P P
+P P P P
+
 1
 C . . .
 . F . .
