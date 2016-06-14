@@ -154,6 +154,7 @@ public class Jeu extends JPanel implements MouseListener, ActionListener
 	
 	public void refreshPieceCapturee() {
 		this.pieceCapturee.removeAll();
+		this.pieceCapturee.updateUI();
 		ArrayList<Piece> listeCapturee = this.ctrl.getPlateau().getPiecesCapturees();
 		
 		for ( int i = 0; i < listeCapturee.size(); i++)
