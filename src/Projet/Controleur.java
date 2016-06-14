@@ -14,16 +14,16 @@ public class Controleur
 	public Controleur()
 	{
 		//niveau aleatoire
-		int niveau = (int)(Math.random()*15+1);
-		int difficultee = (int)(Math.random()*4);
+		//int niveau = (int)(Math.random()*15+1);
+		//int difficultee = (int)(Math.random()*4);
 		
-		Niveau iN = new Niveau(0, tabDifficultee[0]);
-		pl = new Plateau(iN.getPiece());
+		this.niveau = new Niveau(0, tabDifficultee[0]);
+		pl = new Plateau(this.niveau.getPiece());
 		
 		this.fenetre = new Fenetre(this);
 		
-		System.out.println(niveau + "  " + difficultee);
-		System.out.println(pl.toString());
+		//System.out.println(niveau + "  " + difficultee);
+		//System.out.println(pl.toString());
 	}
 	
 	public Plateau getPlateau(){return this.pl;}
@@ -37,16 +37,25 @@ public class Controleur
 	{
 		
 	}
+	
 	public void diminuerNiveau()
 	{
 		
 	}
+	
 	public void creerPartie(String nom)
 	{
 		
 	}
+	
 	public void chargerPartie(String nom)
 	{
 		
+	}
+	
+	public void rejouer()
+	{
+		pl = new Plateau(this.niveau.getPiece());
+		this.fenetre = new Fenetre(this);
 	}
 }
