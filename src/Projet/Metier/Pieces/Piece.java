@@ -35,7 +35,7 @@ public abstract class Piece
 		
 		int caseX = this.posX + dirX;
 		int caseY = this.posY + dirY;
-		while(!pieceEntreDeux && (caseX != cibleX - dirX || caseY != cibleY - dirY))
+		while(!pieceEntreDeux && (caseX != cibleX || caseY != cibleY))
 		{
 			if(plateau[caseX][caseY] != null)
 				pieceEntreDeux = true;

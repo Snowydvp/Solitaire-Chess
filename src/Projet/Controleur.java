@@ -6,7 +6,7 @@ import Projet.Metier.Plateau;
 
 public class Controleur
 {
-	private final String[] tabDifficulter = {"Debutant", "Intermediaire", "Avance", "Expert"};
+	private final String[] tabDifficultee = {"Debutant", "Intermediaire", "Avance", "Expert"};
 	private Plateau pl;
 	private Fenetre fenetre;
 	
@@ -14,14 +14,14 @@ public class Controleur
 	{
 		//niveau aleatoire
 		int niveau = (int)(Math.random()*15+1);
-		int difficulter = (int)(Math.random()*4);
+		int difficultee = (int)(Math.random()*4);
 		
-		InitialisateurNiveau iN = new InitialisateurNiveau(0, tabDifficulter[0]);
+		InitialisateurNiveau iN = new InitialisateurNiveau(0, tabDifficultee[0]);
 		pl = new Plateau(iN.getPiece());
 		
 		this.fenetre= new Fenetre(this);
 		
-		System.out.println(niveau + "  " + difficulter);
+		System.out.println(niveau + "  " + difficultee);
 		System.out.println(pl.toString());
 	}
 	
