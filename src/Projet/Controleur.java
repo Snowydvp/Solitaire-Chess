@@ -22,7 +22,7 @@ public class Controleur
 		
 		this.fenetre = new Fenetre(this);
 		
-		System.out.println(niveau.getNumNiveau() + "  " + niveau.getDifficultee());
+		//System.out.println(niveau.getNumNiveau() + "  " + niveau.getDifficultee());
 		//System.out.println(pl.toString());
 	}
 	
@@ -37,7 +37,7 @@ public class Controleur
 	{
 		if ( this.niveau.getNumNiveau() < 15)
 			this.niveau = new Niveau(this.niveau.getNumNiveau()+1, this.niveau.getDifficultee());
-		else
+		else if ( !this.niveau.getDifficultee().equals("Expert"))
 			this.niveau = new Niveau(1, this.tabDifficultee[this.augmenterDifficulte(this.niveau.getDifficultee())]);
 			
 		pl = new Plateau(this.niveau.getPiece());	
@@ -47,7 +47,7 @@ public class Controleur
 	{
 		if ( this.niveau.getNumNiveau() > 1)
 			this.niveau = new Niveau(this.niveau.getNumNiveau()-1, this.niveau.getDifficultee());
-		else
+		else if ( !this.niveau.getDifficultee().equals("Debutant"))
 			this.niveau = new Niveau(15, this.tabDifficultee[this.diminuerDifficulte(this.niveau.getDifficultee())]);
 		
 		pl = new Plateau(this.niveau.getPiece());
@@ -97,6 +97,22 @@ public class Controleur
 			return index;
 		else
 			return index+1;
+	}
+	
+	public void victoireNiveauCourant() {
+		int nbPiece = 0;
+		
+		for ( int i = 0; i < 4; i++)
+		{
+			for ( int j = 0; j < 4; j++ )
+			{
+				if ( this.pl.getPlateau()[i][j] != null )
+					nbPiece++;
+			}
+		}
+		
+		if ( nbPiece == 1)
+			this.augmenterNiveau();
 	}
 	
 	public Niveau getNiveau() { return this.niveau; }

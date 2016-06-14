@@ -138,6 +138,7 @@ public class Jeu extends JPanel implements MouseListener, ActionListener
 			{
 				this.estSelectionne = false;
 				this.pieceSelectionnee = null;
+				this.ctrl.victoireNiveauCourant();
 			}
 			else
 			{
@@ -224,11 +225,17 @@ public class Jeu extends JPanel implements MouseListener, ActionListener
 	public void actionPerformed(ActionEvent e) {
 		if( e.getSource() == suivant) {
 			this.ctrl.augmenterNiveau();
+			this.estSelectionne = false;
+			this.pieceSelectionnee = null;
+			this.pX = this.pY = -1;
 			this.refreshFenetre();
 			this.refreshPieceCapturee();
 		}
 		else if(e.getSource() == precedent) {
 			this.ctrl.diminuerNiveau();
+			this.estSelectionne = false;
+			this.pieceSelectionnee = null;
+			this.pX = this.pY = -1;
 			this.refreshFenetre();
 			this.refreshPieceCapturee();
 		}
