@@ -25,15 +25,18 @@ public abstract class Piece
 		boolean pieceEntreDeux = false;
 		int dirX = 0;
 		int dirY = 0;
-		if(cibleX - posX > 0)      dirX = 1;
+		if     (cibleX - posX > 0) dirX = 1;
 		else if(cibleX - posX < 0) dirX = -1;
-		if(cibleY - posY > 0)      dirY = 1;
+		if     (cibleY - posY > 0) dirY = 1;
 		else if(cibleY - posY < 0) dirY = -1;
 		
 		for(int caseX = this.posX + dirX; !pieceEntreDeux && caseX < cibleX - dirX; caseX += dirX)
 			for(int caseY = this.posY + dirY; !pieceEntreDeux && caseY < cibleY - dirY; caseY += dirY)
 				if(plateau[caseX][caseY] != null)
+				{
 					pieceEntreDeux = true;
+					System.out.println("X: "+caseX+" Y:"+caseY+" /existePiece="+plateau[caseX][caseY]!=null);
+				}
 		
 		return pieceEntreDeux;
 	}

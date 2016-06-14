@@ -41,7 +41,7 @@ public class Plateau
 		
 		for(int i = 0; i < plateau.length; i++)
 		{
-			for (int j =0; j < plateau[i].length; j++)
+			for (int j = 0; j < plateau[i].length; j++)
 				if (plateau[i][j] != null)
 					sRet += "| "+ plateau[i][j].getType() +" |";
 				else
