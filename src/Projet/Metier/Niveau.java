@@ -44,5 +44,12 @@ public class Niveau
 		}catch (Exception e){System.out.println(e.toString());}
 	}
 	
-	public Piece[][] getPiece(){return this.tabPiece;}
+	public Piece[][] getPiece()
+	{
+		Piece[][] pieceOrigine = new Piece[4][4];
+		for(int i = 0; i < 4;i++)
+			for(int j = 0;j < 4;j++)
+				pieceOrigine[i][j]=this.tabPiece[i][j];
+		return pieceOrigine;
+	}
 }
