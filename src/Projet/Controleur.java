@@ -1,8 +1,7 @@
 package Projet;
 
 import Projet.IHM.Fenetre;
-import Projet.Metier.Niveau;
-import Projet.Metier.Plateau;
+import Projet.Metier.*;
 
 public class Controleur
 {
@@ -10,6 +9,7 @@ public class Controleur
 	private Plateau pl;
 	private Fenetre fenetre;
 	private Niveau niveau;
+	private Partie partie;
 	
 	public Controleur()
 	{
@@ -35,19 +35,18 @@ public class Controleur
 	
 	public void augmenterNiveau()
 	{
-		//niveau aleatoire
-		int niveau = (int)(Math.random()*15+1);
-		int difficultee = (int)(Math.random()*4);
 		
-		Niveau iN = new Niveau(niveau, tabDifficultee[difficultee]);
-		pl = new Plateau(iN.getPiece());
 	}
 	public void diminuerNiveau()
 	{
-		int niveau = (int)(Math.random()*15+1);
-		int difficultee = (int)(Math.random()*4);
 		
-		Niveau iN = new Niveau(niveau, tabDifficultee[difficultee]);
-		pl = new Plateau(iN.getPiece());
+	}
+	public void creerPartie(String nom)
+	{
+		
+	}
+	public void chargerPartie(String nom)
+	{
+		
 	}
 }
