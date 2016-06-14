@@ -1,7 +1,6 @@
 package Projet.Metier;
 
 import java.io.FileReader;
-import java.util.ArrayList;
 import java.util.Scanner;
 
 import Projet.Metier.Pieces.*;
@@ -19,25 +18,27 @@ public class InitialisateurNiveau
 			  
 			  
 			  while(sc.hasNextLine())
-				 if (sc.nextInt() == numNiveau )
+				 if(sc.hasNextInt())
 				 {
-					  sc.nextLine();
-					  for(int i = 0; i < 4; i++)
-						  for(int j = 0; j < 4; j++)
-							  switch(sc.next())
-							  {
-							  	case "F" : this.tabPiece[i][j] = new Fou     (i,j); break;
-							  	case "C" : this.tabPiece[i][j] = new Cavalier(i,j); break;
-							  	case "P" : this.tabPiece[i][j] = new Pion    (i,j); break;
-							  	case "R" : this.tabPiece[i][j] = new Reine   (i,j); break;
-							  	case "r" : this.tabPiece[i][j] = new Roi     (i,j); break;
-							  	case "T" : this.tabPiece[i][j] = new Tour    (i,j); break;
-							  }
-					 sc.close();
-				 }
-				 else
-					 for(int i = 0; i<5 ; i++)
-						 sc.nextLine();
+					 if (sc.nextInt() == numNiveau )
+					 {
+						  sc.nextLine();
+						  for(int i = 0; i < 4; i++)
+							  for(int j = 0; j < 4; j++)
+								  switch(sc.next().charAt(0))
+								  {
+								  	case 'F' : this.tabPiece[i][j] = new Fou     (i,j); break;
+								  	case 'C' : this.tabPiece[i][j] = new Cavalier(i,j); break;
+								  	case 'P' : this.tabPiece[i][j] = new Pion    (i,j); break;
+								  	case 'R' : this.tabPiece[i][j] = new Reine   (i,j); break;
+								  	case 'r' : this.tabPiece[i][j] = new Roi     (i,j); break;
+								  	case 'T' : this.tabPiece[i][j] = new Tour    (i,j); break;
+								  }
+						 sc.close();
+					 }
+				}
+				else
+					sc.nextLine();
 			  
 		}catch (Exception e){System.out.println(e.toString());}
 	}
