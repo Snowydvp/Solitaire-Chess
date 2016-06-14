@@ -18,7 +18,7 @@ public class Fenetre extends JFrame
 		
 		this.ctrl = ctrl;
 		
-		this.add(new Jeu(this.ctrl));
+		this.add(new Menu(this.ctrl));
 		
 		this.pack();
 		
