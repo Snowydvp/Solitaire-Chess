@@ -24,7 +24,10 @@ import Projet.Metier.Pieces.*;
 public class Jeu extends JFrame implements MouseListener
 {
 	private Controleur ctrl;
+	
 	private JPanel grille;
+	private JPanel pieceCapturee;
+	
 	private Image imgPiece;
 	private boolean estSelectionne;
 	private Piece pieceSelectionnee;
@@ -41,6 +44,7 @@ public class Jeu extends JFrame implements MouseListener
 		this.pieceSelectionnee = null;
 		this.pX = this.pY = -1;
 
+		this.pieceCapturee = new JPanel();
 		this.grille = new JPanel(new GridLayout(4, 4));
 		this.grille.addMouseListener(this);
 		
@@ -71,7 +75,7 @@ public class Jeu extends JFrame implements MouseListener
 		}
 		else
 		{
-			if(this.ctrl.getPlateau().getTabPiece()[y][x] != this.pieceSelectionnee && this.ctrl.getPlateau().deplacer(pieceSelectionnee, y, x) != null )
+			if(this.ctrl.getPlateau().getTabPiece()[y][x] != this.pieceSelectionnee && this.ctrl.getPlateau().deplacer(pieceSelectionnee, y, x) )
 			{
 				this.estSelectionne = false;
 				this.pieceSelectionnee = null;
