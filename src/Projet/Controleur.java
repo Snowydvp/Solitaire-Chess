@@ -55,6 +55,7 @@ public class Controleur
 	
 	public void rejouer()
 	{
+		this.niveau = new Niveau(0, "Debutant");
 		pl = new Plateau(this.niveau.getPiece());
 		
 	}
