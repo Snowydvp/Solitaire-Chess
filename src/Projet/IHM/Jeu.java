@@ -11,6 +11,8 @@ import java.awt.Graphics;
 import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.Insets;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
@@ -28,7 +30,7 @@ import Projet.Controleur;
 import Projet.Metier.Pieces.*;
 
 
-public class Jeu extends JPanel implements MouseListener
+public class Jeu extends JPanel implements MouseListener, ActionListener
 {
 	private Controleur ctrl;
 	
@@ -40,6 +42,9 @@ public class Jeu extends JPanel implements MouseListener
 	private boolean estSelectionne;
 	private Piece pieceSelectionnee;
 	private int pX,pY;
+	
+	private JButton suivant;
+	private JButton precedent;
 	
 	public Jeu(Controleur ctrl) 
 	{
@@ -61,6 +66,14 @@ public class Jeu extends JPanel implements MouseListener
 		this.menuWest.add(new JButton("Rejouer"));
 		this.menuWest.add(new JButton("Annuler"));
 		this.menuWest.add(new JButton("Aide"));
+		
+		suivant = new JButton("Suivant");
+		this.suivant.addActionListener(this);
+		this.menuWest.add(suivant);
+		
+		precedent = new JButton("Précédent");
+		this.precedent.addActionListener(this);
+		this.menuWest.add(precedent);
 		
 		this.grille = new JPanel(new GridLayout(4, 4));
 		this.grille.addMouseListener(this);
@@ -169,6 +182,20 @@ public class Jeu extends JPanel implements MouseListener
 		else if ( p instanceof Tour)
 			return new ImageIcon("images/tour.gif").getImage();
 		return null;
+	}
+
+	public void actionPerformed(ActionEvent e) {
+		if( e.getSource() == suivant) {
+			this.ctrl.augmenterNiveau();
+			this.refreshFenetre();
+			this.refreshPieceCapturee();
+		}
+		else if(e.getSource() == precedent) {
+			this.ctrl.diminuerNiveau();
+			this.refreshFenetre();
+			this.refreshPieceCapturee();
+		}
+		
 	}
 }
 
