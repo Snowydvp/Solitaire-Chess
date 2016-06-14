@@ -8,23 +8,23 @@ import Projet.Metier.Pieces.Piece;
 
 public class Plateau
 {
-	private Piece[][]        tabPiece;
+	private Piece[][]        plateau;
 	private ArrayList<Piece> capturees;
 	
-	public Plateau(Piece[][] tabPiece)
+	public Plateau(Piece[][] plateau)
 	{
-		this.tabPiece = new Piece[4][4];
+		this.plateau = new Piece[4][4];
 		this.capturees = new ArrayList<>();
-		this.tabPiece = tabPiece;
+		this.plateau = plateau;
 	}
 	
 	public boolean deplacer(Piece p, int cibleX, int cibleY)
 	{
-		if(p.deplacementValide(p.getPosX()-cibleX, p.getPosY()-cibleY) && this.tabPiece[cibleX][cibleY] != null)
+		if(p.deplacementValide(cibleX, cibleY, this.plateau) && this.plateau[cibleX][cibleY] != null)
 		{
-			tabPiece[p.getPosX()][p.getPosY()] = null;
-			this.capturees.add(tabPiece[cibleX][cibleY]);
-			tabPiece[cibleX][cibleY] = p;
+			plateau[p.getPosX()][p.getPosY()] = null;
+			this.capturees.add(plateau[cibleX][cibleY]);
+			plateau[cibleX][cibleY] = p;
 			p.setPosX(cibleX);
 			p.setPosY(cibleY);
 			return true;
@@ -32,18 +32,18 @@ public class Plateau
 		return false;
 	}
 	
-	public Piece[][] getTabPiece(){return this.tabPiece;}
+	public Piece[][] getplateau(){return this.plateau;}
 	public ArrayList<Piece> getPiecesCapturees(){return this.capturees;}
 	
 	public String toString()
 	{
 		String sRet = "";
 		
-		for(int i = 0; i < tabPiece.length; i++)
+		for(int i = 0; i < plateau.length; i++)
 		{
-			for (int j =0; j < tabPiece[i].length; j++)
-				if (tabPiece[i][j] != null)
-					sRet += "| "+ tabPiece[i][j].getType() +" |";
+			for (int j =0; j < plateau[i].length; j++)
+				if (plateau[i][j] != null)
+					sRet += "| "+ plateau[i][j].getType() +" |";
 				else
 					sRet += "|   |";
 			sRet += "\n";

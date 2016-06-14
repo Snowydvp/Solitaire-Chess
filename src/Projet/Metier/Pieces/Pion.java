@@ -9,8 +9,10 @@ public class Pion extends Piece
 	}
 
 
-	public boolean deplacementValide(int deltaX, int deltaY ) 
+	public boolean deplacementValide(int cibleX, int cibleY, Piece[][] plateau) 
 	{
+		int deltaX = cibleX - this.posX;
+		int deltaY = cibleY - this.posY;
 		return (deltaX == -1 || deltaX == 1) && deltaY == -1;
 	}
 	

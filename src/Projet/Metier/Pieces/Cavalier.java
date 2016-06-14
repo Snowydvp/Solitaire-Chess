@@ -7,8 +7,11 @@ public class Cavalier extends Piece
 		super(posX, posY);
 	}
 
-	public boolean deplacementValide(int deltaX, int deltaY) 
+	public boolean deplacementValide(int cibleX, int cibleY, Piece[][] plateau) 
 	{
+		int deltaX = cibleX - this.posX;
+		int deltaY = cibleY - this.posY;
+		
 		if(deltaX == -2 || deltaX == 2)
 			if (deltaY == -1 || deltaY == 1)
 				return true;

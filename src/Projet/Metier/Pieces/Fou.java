@@ -8,9 +8,13 @@ public class Fou extends Piece
 		super(posX, posY);
 	}
 
-	public boolean deplacementValide(int deltaX, int deltaY) 
+	public boolean deplacementValide(int cibleX, int cibleY, Piece[][] plateau) 
 	{
-		return deltaX == deltaY || deltaX == -deltaY;
+		int deltaX = cibleX - this.posX;
+		int deltaY = cibleY - this.posY;
+		
+		return (!super.pieceGenantDeplacement(cibleX, cibleY, plateau) 
+				&& (deltaX == deltaY || deltaX == -deltaY));
 	}
 		
 	public char getType() {return 'F';}

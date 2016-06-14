@@ -10,9 +10,13 @@ public class Reine extends Piece
 	}
 
 	@Override
-	public boolean deplacementValide(int deltaX, int deltaY)
+	public boolean deplacementValide(int cibleX, int cibleY, Piece[][] plateau)
 	{
-		return (deltaX==deltaY || deltaX==0 || deltaY==0); 	//return true si la piece se deplace verticalement, horizontalement 
+		int deltaX = cibleX - this.posX;
+		int deltaY = cibleY - this.posY;
+		
+		return (!super.pieceGenantDeplacement(cibleX, cibleY, plateau) 
+				&& (deltaX==deltaY || deltaX==0 || deltaY==0)); 	//return true si la piece se deplace verticalement, horizontalement 
 															//diagonalement
 	}
 
