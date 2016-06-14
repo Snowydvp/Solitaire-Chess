@@ -12,7 +12,7 @@ public class Reine extends Piece
 	@Override
 	public boolean deplacementValide(int deltaX, int deltaY)
 	{
-		return (deltaX==deltaX || deltaX==0 || deltaY==0); 	//return true si la piece se deplace verticalement, horizontalement 
+		return (deltaX==deltaY || deltaX==0 || deltaY==0); 	//return true si la piece se deplace verticalement, horizontalement 
 															//diagonalement
 	}
 
