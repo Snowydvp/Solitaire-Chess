@@ -25,6 +25,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.Border;
+import javax.swing.plaf.IconUIResource;
 
 import Projet.Controleur;
 import Projet.Metier.Pieces.*;
@@ -37,6 +38,7 @@ public class Jeu extends JPanel implements MouseListener, ActionListener
 	private JPanel grille;
 	private JPanel pieceCapturee;
 	private JPanel menuWest;
+	private JPanel menuWestAll;
 	
 	private Image imgPiece;
 	private boolean estSelectionne;
@@ -47,6 +49,8 @@ public class Jeu extends JPanel implements MouseListener, ActionListener
 	private JButton precedent;
 	private JButton rejouer;
 	private JButton menu;
+	private JButton aide;
+	private JButton annuler;
 	
 	private Fenetre fenetre;
 	
@@ -62,36 +66,52 @@ public class Jeu extends JPanel implements MouseListener, ActionListener
 		this.pieceCapturee = new ImageBackground(new ImageIcon("images/bgpiececapturee.gif").getImage());
 		this.pieceCapturee.setPreferredSize(new Dimension(0, 50));
 		
-		this.menuWest = new ImageBackground(new ImageIcon("images/bgpiececapturee.gif").getImage());
-		this.menuWest.setPreferredSize(new Dimension(100, 0));
-		this.menuWest.setLayout(new FlowLayout());
-		JButton b1 = new JButton("Menu");
-		b1.setPreferredSize(new Dimension(30, 30));
-		this.menuWest.add(new JButton("Annuler"));
-		this.menuWest.add(new JButton("Aide"));
+		this.menuWestAll = new JPanel(new BorderLayout());
+		this.menuWestAll.add(new ImageBackground(new ImageIcon("images/bgpiececapturee.gif").getImage()),BorderLayout.NORTH);
+		this.menuWestAll.add(new ImageBackground(new ImageIcon("images/bgpiececapturee.gif").getImage()),BorderLayout.SOUTH);
+		this.menuWestAll.add(new ImageBackground(new ImageIcon("images/bgpiececapturee.gif").getImage()),BorderLayout.WEST);
+		this.menuWestAll.add(new ImageBackground(new ImageIcon("images/bgpiececapturee.gif").getImage()),BorderLayout.EAST);
 		
-		this.menu = new JButton("Menu");
+		this.menuWest = new ImageBackground(new ImageIcon("images/bgpiececapturee.gif").getImage());
+		this.menuWest.setPreferredSize(new Dimension(33, 0));
+		this.menuWest.setLayout(new GridLayout(6,1,0,10));
+		
+		this.menu = new JButton();
+		this.menu.setIcon(new ImageIcon("images/iconMenu.gif"));
 		this.menu.addActionListener(this);
 		this.menuWest.add(menu);
 		
-		suivant = new JButton("Suivant");
+		this.annuler = new JButton();
+		this.annuler.setIcon(new ImageIcon("images/annuler.gif"));
+		this.annuler.addActionListener(this);
+		this.menuWest.add(annuler);
+		
+		rejouer = new JButton();
+		this.rejouer.setIcon(new ImageIcon("images/rejouer.gif"));
+		this.rejouer.addActionListener(this);
+		this.menuWest.add(rejouer);
+		
+		suivant = new JButton();
+		this.suivant.setIcon(new ImageIcon("images/suivant.gif"));
 		this.suivant.addActionListener(this);
 		this.menuWest.add(suivant);
 		
-		precedent = new JButton("Précédent");
+		precedent = new JButton();
+		this.precedent.setIcon(new ImageIcon("images/precedent.gif"));
 		this.precedent.addActionListener(this);
 		this.menuWest.add(precedent);
 		
-		rejouer = new JButton("Rejouer");
-		this.rejouer.addActionListener(this);
-		this.menuWest.add(rejouer);
+		this.aide = new JButton();
+		this.aide.setIcon(new ImageIcon("images/aide.gif"));
+		this.aide.addActionListener(this);
+		this.menuWest.add(aide);
 		
 		this.grille = new JPanel(new GridLayout(4, 4));
 		this.grille.addMouseListener(this);
 		
 		this.refreshFenetre();
-		
-		this.add(this.menuWest, BorderLayout.WEST);
+		this.menuWestAll.add(this.menuWest);
+		this.add(this.menuWestAll, BorderLayout.WEST);
 		this.add(this.pieceCapturee, BorderLayout.SOUTH);
 		this.add(this.grille);
 		this.setVisible(true);
@@ -155,7 +175,7 @@ public class Jeu extends JPanel implements MouseListener, ActionListener
 				if ( pieceTmp != null ) this.imgPiece = this.getImage(pieceTmp);
 				else this.imgPiece = new ImageIcon("images/vide52.gif").getImage();
 				
-				if ( (y + x) % 2 == 0) panelTmp = new ImagePanel("images/pair1.png", this.imgPiece, b);
+				if ( (y + x) % 2 == 0) panelTmp = new ImagePanel("images/pair2.png", this.imgPiece, b);
 				else panelTmp = new ImagePanel("images/impair.png", this.imgPiece, b);
 				
 				this.grille.add(panelTmp);
