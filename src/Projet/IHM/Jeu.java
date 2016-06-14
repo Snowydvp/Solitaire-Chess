@@ -45,6 +45,7 @@ public class Jeu extends JPanel implements MouseListener, ActionListener
 	
 	private JButton suivant;
 	private JButton precedent;
+	private JButton rejouer;
 	
 	public Jeu(Controleur ctrl) 
 	{
@@ -63,7 +64,6 @@ public class Jeu extends JPanel implements MouseListener, ActionListener
 		JButton b1 = new JButton("Menu");
 		b1.setPreferredSize(new Dimension(30, 30));
 		this.menuWest.add(new JButton("Menu"));
-		this.menuWest.add(new JButton("Rejouer"));
 		this.menuWest.add(new JButton("Annuler"));
 		this.menuWest.add(new JButton("Aide"));
 		
@@ -74,6 +74,10 @@ public class Jeu extends JPanel implements MouseListener, ActionListener
 		precedent = new JButton("Précédent");
 		this.precedent.addActionListener(this);
 		this.menuWest.add(precedent);
+		
+		rejouer = new JButton("Rejouer");
+		this.rejouer.addActionListener(this);
+		this.menuWest.add(rejouer);
 		
 		this.grille = new JPanel(new GridLayout(4, 4));
 		this.grille.addMouseListener(this);
@@ -193,6 +197,11 @@ public class Jeu extends JPanel implements MouseListener, ActionListener
 		}
 		else if(e.getSource() == precedent) {
 			this.ctrl.diminuerNiveau();
+			this.refreshFenetre();
+			this.refreshPieceCapturee();
+		}
+		else if(e.getSource() == rejouer) {
+			this.ctrl.rejouer();
 			this.refreshFenetre();
 			this.refreshPieceCapturee();
 		}
