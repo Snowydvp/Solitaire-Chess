@@ -1,8 +1,8 @@
 0
-T T T T
-T T T T
-T T T T
-T T T T
+R R R R
+R R R R
+R R R R
+R R R R
 
 1
 C . . .

@@ -35,11 +35,11 @@ public abstract class Piece
 		
 		int caseX = this.posX + dirX;
 		int caseY = this.posY + dirY;
-		while(!pieceEntreDeux && (caseX < cibleX || caseY < cibleY))
+		while(!pieceEntreDeux && (caseX != cibleX - dirX || caseY != cibleY - dirY))
 		{
 			if(plateau[caseX][caseY] != null)
 				pieceEntreDeux = true;
-			
+			System.out.println(caseX+"/"+caseY);
 			caseX += dirX;
 			caseY += dirY;
 		}
