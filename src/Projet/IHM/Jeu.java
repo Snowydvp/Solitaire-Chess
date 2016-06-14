@@ -208,13 +208,15 @@ public class Jeu extends JPanel implements MouseListener, ActionListener
 		}
 		else if(e.getSource() == rejouer) {
 			this.ctrl.rejouer();
+			this.estSelectionne = false;
+			this.pieceSelectionnee = null;
+			this.pX = this.pY = -1;
 			this.refreshFenetre();
 			this.refreshPieceCapturee();
 		}
 		else if(e.getSource() == menu) {
 			this.fenetre.getMenu().setVisible(true);
 			this.fenetre.getJeu().setVisible(false);
-			//this.fenetre.pack();
 		}
 		
 	}
