@@ -144,8 +144,8 @@ public class Jeu extends JPanel implements MouseListener, ActionListener
 				if ( pieceTmp != null ) this.imgPiece = this.getImage(pieceTmp);
 				else this.imgPiece = new ImageIcon("images/vide52.gif").getImage();
 				
-				if ( (y + x) % 2 == 0) panelTmp = new ImagePanel("images/pair.gif", this.imgPiece, b);
-				else panelTmp = new ImagePanel("images/impair.gif", this.imgPiece, b);
+				if ( (y + x) % 2 == 0) panelTmp = new ImagePanel("images/pair1.png", this.imgPiece, b);
+				else panelTmp = new ImagePanel("images/impair.png", this.imgPiece, b);
 				
 				this.grille.add(panelTmp);
 			}
@@ -221,7 +221,7 @@ class ImagePanel extends JPanel
 		g.drawImage(img, 0, 0, null);
 		g.drawImage(imgPiece, 0, 0, null);
 		if ( this.estSelectionne ) {
-			g.setColor(Color.GREEN);
+			g.setColor(Color.BLACK);
 			g.drawLine(0, 0, 0, 63);
 			g.drawLine(0, 0, 63, 0);
 			g.drawLine(0, 63, 63, 63);
