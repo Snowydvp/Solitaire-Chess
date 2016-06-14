@@ -175,7 +175,13 @@ public class Jeu extends JPanel implements MouseListener, ActionListener
 				if ( pieceTmp != null ) this.imgPiece = this.getImage(pieceTmp);
 				else this.imgPiece = new ImageIcon("images/vide52.gif").getImage();
 				
-				if ( (y + x) % 2 == 0) panelTmp = new ImagePanel("images/pair2.png", this.imgPiece, b);
+				if ( (y + x) % 2 == 0) {
+					String difficultee = this.ctrl.getNiveau().getDifficultee();
+					panelTmp = new ImagePanel("images/pair4.png", this.imgPiece, b);
+					if ( difficultee.equals("Debutant")) panelTmp = new ImagePanel("images/pair1.png", this.imgPiece, b);
+					if ( difficultee.equals("Intermediaire")) panelTmp = new ImagePanel("images/pair2.png", this.imgPiece, b);
+					if ( difficultee.equals("Avance")) panelTmp = new ImagePanel("images/pair3.png", this.imgPiece, b);
+				}
 				else panelTmp = new ImagePanel("images/impair.png", this.imgPiece, b);
 				
 				this.grille.add(panelTmp);

@@ -8,9 +8,13 @@ import Projet.Metier.Pieces.*;
 public class Niveau
 {
 	private Piece[][] tabPiece = new Piece[4][4];
+	private int numNiveau;
+	private String difficultee;
 	
 	public Niveau(int numNiveau, String difficultee)
 	{
+		this.numNiveau = numNiveau;
+		this.difficultee = difficultee;
 		try
 		{
 			  FileReader fr = new FileReader("Niveaux/NiveauxPredefini/Niveaux"+ difficultee + ".txt");
@@ -52,4 +56,7 @@ public class Niveau
 				pieceOrigine[i][j]=this.tabPiece[i][j];
 		return pieceOrigine;
 	}
+	
+	public int getNumNiveau() { return this.numNiveau; }
+	public String getDifficultee() { return this.difficultee; }
 }

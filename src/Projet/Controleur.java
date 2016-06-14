@@ -22,7 +22,7 @@ public class Controleur
 		
 		this.fenetre = new Fenetre(this);
 		
-		//System.out.println(niveau + "  " + difficultee);
+		System.out.println(niveau.getNumNiveau() + "  " + niveau.getDifficultee());
 		//System.out.println(pl.toString());
 	}
 	
@@ -35,12 +35,22 @@ public class Controleur
 	
 	public void augmenterNiveau()
 	{
-		
+		if ( this.niveau.getNumNiveau() < 15)
+			this.niveau = new Niveau(this.niveau.getNumNiveau()+1, this.niveau.getDifficultee());
+		else
+			this.niveau = new Niveau(1, this.tabDifficultee[this.augmenterDifficulte(this.niveau.getDifficultee())]);
+			
+		pl = new Plateau(this.niveau.getPiece());	
 	}
 	
 	public void diminuerNiveau()
 	{
+		if ( this.niveau.getNumNiveau() > 1)
+			this.niveau = new Niveau(this.niveau.getNumNiveau()-1, this.niveau.getDifficultee());
+		else
+			this.niveau = new Niveau(15, this.tabDifficultee[this.diminuerDifficulte(this.niveau.getDifficultee())]);
 		
+		pl = new Plateau(this.niveau.getPiece());
 	}
 	
 	public void creerPartie(String nom)
@@ -55,8 +65,39 @@ public class Controleur
 	
 	public void rejouer()
 	{
-		this.niveau = new Niveau(0, "Debutant");
+		this.niveau = new Niveau(this.niveau.getNumNiveau(), this.niveau.getDifficultee());
 		pl = new Plateau(this.niveau.getPiece());
-		
 	}
+	
+	private int diminuerDifficulte(String d) 
+	{
+		int index = -1;
+		for ( int i = 0; i < tabDifficultee.length; i++)
+		{
+			if(tabDifficultee[i].equalsIgnoreCase(d))
+				index = i;
+		}
+		
+		if ( index - 1 < 0)
+			return 0;
+		else
+			return index-1;
+	}
+	
+	private int augmenterDifficulte(String d) 
+	{
+		int index = -1;
+		for ( int i = 0; i < tabDifficultee.length; i++)
+		{
+			if(tabDifficultee[i].equalsIgnoreCase(d))
+				index = i;
+		}
+		
+		if ( index + 1 > 3)
+			return index;
+		else
+			return index+1;
+	}
+	
+	public Niveau getNiveau() { return this.niveau; }
 }
