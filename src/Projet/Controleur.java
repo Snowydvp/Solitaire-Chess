@@ -1,18 +1,14 @@
 package Projet;
 
+import java.applet.Applet;
+import java.applet.AudioClip;
+import java.net.URL;
 import java.util.ArrayList;
 
-import javax.swing.ImageIcon;
-
 import Projet.IHM.Fenetre;
+import Projet.IHM.Son;
 import Projet.Metier.*;
-import Projet.Metier.Pieces.Cavalier;
-import Projet.Metier.Pieces.Fou;
 import Projet.Metier.Pieces.Piece;
-import Projet.Metier.Pieces.Pion;
-import Projet.Metier.Pieces.Reine;
-import Projet.Metier.Pieces.Roi;
-import Projet.Metier.Pieces.Tour;
 
 public class Controleur
 {
@@ -125,8 +121,11 @@ public class Controleur
 				if ( this.pl.getPlateau()[i][j] != null )
 					nbPiece++;
 		
-		if ( nbPiece == 1)
+		if ( nbPiece == 1) {
 			this.augmenterNiveau();
+			Son son = new Son();
+			son.start();
+		}
 	}
 	
 	public void coupPrecedent()
@@ -150,9 +149,8 @@ public class Controleur
 		}
 	}
 	
-	/*
-	  public Piece[][] remplissageTab()
-	 
+	
+	public Piece[][] remplissageTab()
 	{
 		Piece tabPiece[][] = new Piece[4][4];
 		
@@ -163,23 +161,10 @@ public class Controleur
 					Piece piece = (Piece) this.pl.getPlateau()[i][j].clone();
 					tabPiece[i][j] = piece;
 				}
-				if ( tmp instanceof Cavalier)
-					tabPiece[i][j] = new Cavalier(tmp.getPosX(), tmp.getPosY());
-		        else if(tmp instanceof Fou)
-		        	tabPiece[i][j] = new Fou(tmp.getPosX(), tmp.getPosY());
-		        else if(tmp instanceof Pion)
-		        	tabPiece[i][j] = new Pion(tmp.getPosX(), tmp.getPosY());
-		        else if(tmp instanceof Reine)
-		        	tabPiece[i][j] = new Reine(tmp.getPosX(), tmp.getPosY());
-		        else if(tmp instanceof Roi)
-		        	tabPiece[i][j] = new Roi(tmp.getPosX(), tmp.getPosY());
-		        else if(tmp instanceof Tour)
-		        	tabPiece[i][j] = new Tour(tmp.getPosX(), tmp.getPosY());
 			}
 		
 		return tabPiece;
 	}
-	*/
 	
 	public Niveau  getNiveau (){return this.niveau;}
 	public Plateau getPlateau(){return this.pl    ;}
