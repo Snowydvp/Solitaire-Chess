@@ -96,6 +96,16 @@ public class Menu extends JPanel implements ActionListener
             this.fenetre.setTitle("Solitaire Chess - Jeu");
             this.fenetre.pack();
         }
+        
+        if (e.getSource() == this.creerDefi)
+        {
+            this.setVisible(false);
+            Editeur ed = new Editeur(this.ctrl, this.fenetre);
+            this.fenetre.setEditeur(ed);
+            this.fenetre.add(ed,BorderLayout.CENTER);
+            this.fenetre.setTitle("Solitaire Chess - Editeur");
+            this.fenetre.pack();
+        }
 
     }
 }
