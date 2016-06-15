@@ -33,6 +33,7 @@ public class Partie {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+		this.niveauCourant = new Niveau(0, "Debutant");
 	}
 	
 	public void chargerPartie()

@@ -2,17 +2,9 @@ package Projet;
 
 import java.util.ArrayList;
 
-import javax.swing.ImageIcon;
-
 import Projet.IHM.Fenetre;
 import Projet.Metier.*;
-import Projet.Metier.Pieces.Cavalier;
-import Projet.Metier.Pieces.Fou;
 import Projet.Metier.Pieces.Piece;
-import Projet.Metier.Pieces.Pion;
-import Projet.Metier.Pieces.Reine;
-import Projet.Metier.Pieces.Roi;
-import Projet.Metier.Pieces.Tour;
 
 public class Controleur
 {
@@ -34,7 +26,7 @@ public class Controleur
 		
 		alEtatPrecedent = new ArrayList<>();
 		alEtatPrecedent.add(this.pl.clone());
-		
+		this.partie = new Partie();
 		this.fenetre = new Fenetre(this);
 		
 		//System.out.println(niveau.getNumNiveau() + "  " + niveau.getDifficultee());
@@ -44,7 +36,7 @@ public class Controleur
 	
 	public void augmenterNiveau()
 	{
-		if ( this.niveau.getNumNiveau() < 15)
+		if (this.niveau.getNumNiveau() < 15)
 			this.niveau = new Niveau(this.niveau.getNumNiveau()+1, this.niveau.getDifficulte());
 		else if ( !this.niveau.getDifficulte().equals("Expert"))
 			this.niveau = new Niveau(1, this.tabDifficultee[this.augmenterDifficulte(this.niveau.getDifficulte())]);
@@ -69,13 +61,14 @@ public class Controleur
 		alEtatPrecedent.add(this.pl.clone());
 	}
 	
-	public void creerPartie(String nom)
+	public void creerPartie()
 	{
-		
+		this.partie.nouvellePartie();
 	}
 	
-	public void chargerPartie(String nom)
+	public void chargerPartie()
 	{
+		this.partie.chargerPartie();
 		
 	}
 	
@@ -100,8 +93,7 @@ public class Controleur
 			return 0;
 		else
 			return index-1;
-		
-	}
+ 	}
 	
 	private int augmenterDifficulte(String d) 
 	{
