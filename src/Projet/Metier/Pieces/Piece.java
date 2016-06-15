@@ -49,18 +49,20 @@ public abstract class Piece implements Cloneable
 	}
 	
 	public Piece clone() {
-		Piece o = null;
+		Piece p = null;
 		try {
 			// On récupère l'instance à renvoyer par l'appel de la 
 			// méthode super.clone()
-			o = (Piece) super.clone();
+			p = (Piece) super.clone();
+			p.setPosX(p.getPosX());
+			p.setPosY(p.getPosY());
 		} catch(CloneNotSupportedException cnse) {
 			// Ne devrait jamais arriver car nous implémentons 
 			// l'interface Cloneable
 			cnse.printStackTrace(System.err);
 		}
 		// on renvoie le clone
-		return o;
+		return p;
 	}
 
 	

@@ -25,7 +25,7 @@ public class Controleur
 		pl = new Plateau(this.niveau.getPiece());
 		
 		alEtatPrecedent = new ArrayList<>();
-		alEtatPrecedent.add(this.pl.clone());
+		alEtatPrecedent.add(new Plateau(this.copieTableau(this.pl.getPlateau())));
 		this.partie = new Partie();
 		this.fenetre = new Fenetre(this);
 		
@@ -44,8 +44,7 @@ public class Controleur
 		pl = new Plateau(this.niveau.getPiece());	
 		
 		this.alEtatPrecedent.clear();
-		alEtatPrecedent.add(this.pl.clone());
-		System.out.println(alEtatPrecedent.get(0).toString());
+		alEtatPrecedent.add(new Plateau(this.copieTableau(this.pl.getPlateau())));
 	}
 	
 	public void diminuerNiveau()
@@ -58,7 +57,7 @@ public class Controleur
 		pl = new Plateau(this.niveau.getPiece());
 		
 		this.alEtatPrecedent.clear();
-		alEtatPrecedent.add(this.pl.clone());
+		alEtatPrecedent.add(new Plateau(this.copieTableau(this.pl.getPlateau())));
 	}
 	
 	public void creerPartie()
@@ -78,7 +77,7 @@ public class Controleur
 		pl = new Plateau(this.niveau.getPiece());
 		
 		this.alEtatPrecedent.clear();
-		alEtatPrecedent.add(this.pl.clone());
+		alEtatPrecedent.add(new Plateau(this.copieTableau(this.pl.getPlateau())));
 	}
 	
 	private int diminuerDifficulte(String d) 
@@ -127,51 +126,40 @@ public class Controleur
 		{
 			this.alEtatPrecedent.remove(alEtatPrecedent.size()-1);
 			Piece[][] plateauPrecedent = this.alEtatPrecedent.get(alEtatPrecedent.size()-1).getPlateau();
-			this.pl = new Plateau(plateauPrecedent, this.pl.getPiecesCapturees());
+			this.pl = new Plateau(this.copieTableau(plateauPrecedent), this.pl.getPiecesCapturees()); //il faut recopier la valeur de plateuPrecedent
+			
+			for(int i = 0; i< alEtatPrecedent.size(); i++)
+				System.out.println(alEtatPrecedent.get(i).hashCode());
+			System.out.println("-------------------");
 		}
 	}
 	
 	public void sauvegardeCoup()
 	{
-		this.alEtatPrecedent.add(this.pl.clone());
-		
+		this.alEtatPrecedent.add(new Plateau(this.copieTableau(this.pl.getPlateau())));
+
 		for(int i = 0; i< alEtatPrecedent.size(); i++)
-		{
 			System.out.println(alEtatPrecedent.get(i).hashCode());
-			System.out.println(alEtatPrecedent.get(i).toString());
-		}
+		
+		System.out.println("-------------------");
+
 	}
 	
-	/*
-	  public Piece[][] remplissageTab()
-	 
+	public Piece[][] copieTableau(Piece[][] or)
 	{
 		Piece tabPiece[][] = new Piece[4][4];
 		
 		for(int i = 0; i<tabPiece.length;i++)
 			for(int j = 0; j<tabPiece.length; j++) {
-				if(this.pl.getPlateau()[i][j]!=null)
+				if(or[i][j]!=null)
 				{
-					Piece piece = (Piece) this.pl.getPlateau()[i][j].clone();
+					Piece piece = (Piece) or[i][j].clone();
 					tabPiece[i][j] = piece;
 				}
-				if ( tmp instanceof Cavalier)
-					tabPiece[i][j] = new Cavalier(tmp.getPosX(), tmp.getPosY());
-		        else if(tmp instanceof Fou)
-		        	tabPiece[i][j] = new Fou(tmp.getPosX(), tmp.getPosY());
-		        else if(tmp instanceof Pion)
-		        	tabPiece[i][j] = new Pion(tmp.getPosX(), tmp.getPosY());
-		        else if(tmp instanceof Reine)
-		        	tabPiece[i][j] = new Reine(tmp.getPosX(), tmp.getPosY());
-		        else if(tmp instanceof Roi)
-		        	tabPiece[i][j] = new Roi(tmp.getPosX(), tmp.getPosY());
-		        else if(tmp instanceof Tour)
-		        	tabPiece[i][j] = new Tour(tmp.getPosX(), tmp.getPosY());
 			}
 		
 		return tabPiece;
 	}
-	*/
 	
 	public Niveau  getNiveau (){return this.niveau;}
 	public Plateau getPlateau(){return this.pl    ;}
