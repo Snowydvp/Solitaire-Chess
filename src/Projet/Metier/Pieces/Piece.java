@@ -2,7 +2,7 @@ package Projet.Metier.Pieces;
 
 import Projet.Metier.Plateau;
 
-public abstract class Piece 
+public abstract class Piece implements Cloneable
 {
 	protected int posX;
 	protected int posY;
@@ -47,5 +47,21 @@ public abstract class Piece
 
 		return pieceEntreDeux;
 	}
+	
+	public Piece clone() {
+		Piece o = null;
+		try {
+			// On récupère l'instance à renvoyer par l'appel de la 
+			// méthode super.clone()
+			o = (Piece) super.clone();
+		} catch(CloneNotSupportedException cnse) {
+			// Ne devrait jamais arriver car nous implémentons 
+			// l'interface Cloneable
+			cnse.printStackTrace(System.err);
+		}
+		// on renvoie le clone
+		return o;
+	}
+
 	
 }

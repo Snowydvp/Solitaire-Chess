@@ -7,16 +7,24 @@ import java.util.ArrayList;
 import Projet.Metier.Pieces.Piece;
 import Projet.Metier.Pieces.Roi;
 
-public class Plateau
+public class Plateau implements Cloneable
 {
 	private Piece[][]        plateau;
 	private ArrayList<Piece> capturees;
 	
 	public Plateau(Piece[][] plateau)
 	{
-		this.plateau = new Piece[4][4];
 		this.capturees = new ArrayList<>();
 		this.plateau = plateau;
+	}
+	
+	public Plateau(Piece[][] plateau, ArrayList<Piece> capturees)
+	{
+		this(plateau);
+		if(capturees.size() != 0)
+			capturees.remove(capturees.size()-1);
+		this.capturees = capturees;
+		
 	}
 	
 	public boolean deplacer(Piece p, int cibleX, int cibleY)
@@ -51,6 +59,35 @@ public class Plateau
 			sRet += "\n";
 		}
 		return sRet;
+	}
+	
+	public Plateau clone()
+	{
+		Plateau p = null;
+		try {
+			// On récupère l'instance à renvoyer par l'appel de la 
+			// méthode super.clone()
+			for(int i = 0; i<this.plateau.length;i++)
+				for(int j = 0; j<this.plateau.length; j++) {
+					if(this.plateau[i][j]!=null)
+					{
+						Piece piece = (Piece) this.plateau[i][j];
+						int x = piece.getPosX();
+						int y = piece.getPosY();
+						this.plateau[i][j] = piece.clone();
+						piece.setPosX(x);
+						piece.setPosY(y);
+					}
+				}
+			p = (Plateau)super.clone();
+		} catch(CloneNotSupportedException cnse) {
+			// Ne devrait jamais arriver car nous implémentons 
+			// l'interface Cloneable
+			cnse.printStackTrace(System.err);
+		}
+		// on renvoie le clone
+		return p;
+
 	}
 	
 }

@@ -2,9 +2,17 @@ package Projet;
 
 import java.util.ArrayList;
 
+import javax.swing.ImageIcon;
+
 import Projet.IHM.Fenetre;
 import Projet.Metier.*;
+import Projet.Metier.Pieces.Cavalier;
+import Projet.Metier.Pieces.Fou;
 import Projet.Metier.Pieces.Piece;
+import Projet.Metier.Pieces.Pion;
+import Projet.Metier.Pieces.Reine;
+import Projet.Metier.Pieces.Roi;
+import Projet.Metier.Pieces.Tour;
 
 public class Controleur
 {
@@ -13,7 +21,7 @@ public class Controleur
 	private Fenetre fenetre;
 	private Niveau niveau;
 	private Partie partie;
-	private ArrayList<Piece[][]> alEtatPrecedent;
+	private ArrayList<Plateau> alEtatPrecedent;
 	
 	public Controleur()
 	{
@@ -23,8 +31,10 @@ public class Controleur
 		
 		this.niveau = new Niveau(0, tabDifficultee[0]);
 		pl = new Plateau(this.niveau.getPiece());
+		
 		alEtatPrecedent = new ArrayList<>();
-		alEtatPrecedent.add(pl.getPlateau());
+		alEtatPrecedent.add(this.pl.clone());
+		
 		this.fenetre = new Fenetre(this);
 		
 		//System.out.println(niveau.getNumNiveau() + "  " + niveau.getDifficultee());
@@ -40,7 +50,10 @@ public class Controleur
 			this.niveau = new Niveau(1, this.tabDifficultee[this.augmenterDifficulte(this.niveau.getDifficulte())]);
 			
 		pl = new Plateau(this.niveau.getPiece());	
+		
 		this.alEtatPrecedent.clear();
+		alEtatPrecedent.add(this.pl.clone());
+		System.out.println(alEtatPrecedent.get(0).toString());
 	}
 	
 	public void diminuerNiveau()
@@ -51,7 +64,9 @@ public class Controleur
 			this.niveau = new Niveau(15, this.tabDifficultee[this.diminuerDifficulte(this.niveau.getDifficulte())]);
 		
 		pl = new Plateau(this.niveau.getPiece());
+		
 		this.alEtatPrecedent.clear();
+		alEtatPrecedent.add(this.pl.clone());
 	}
 	
 	public void creerPartie(String nom)
@@ -68,7 +83,9 @@ public class Controleur
 	{
 		this.niveau = new Niveau(this.niveau.getNumNiveau(), this.niveau.getDifficulte());
 		pl = new Plateau(this.niveau.getPiece());
+		
 		this.alEtatPrecedent.clear();
+		alEtatPrecedent.add(this.pl.clone());
 	}
 	
 	private int diminuerDifficulte(String d) 
@@ -114,18 +131,55 @@ public class Controleur
 	
 	public void coupPrecedent()
 	{
-		if(this.alEtatPrecedent.size()>1)
+		if(this.alEtatPrecedent.size() > 1)
 		{
 			this.alEtatPrecedent.remove(alEtatPrecedent.size()-1);
-			Piece[][] plateauPrecedent = this.alEtatPrecedent.get(alEtatPrecedent.size()-1);
-			this.pl = new Plateau(plateauPrecedent);
+			Piece[][] plateauPrecedent = this.alEtatPrecedent.get(alEtatPrecedent.size()-1).getPlateau();
+			this.pl = new Plateau(plateauPrecedent, this.pl.getPiecesCapturees());
 		}
 	}
 	
 	public void sauvegardeCoup()
 	{
-		this.alEtatPrecedent.add(this.pl.getPlateau());
+		this.alEtatPrecedent.add(this.pl.clone());
+		
+		for(int i = 0; i< alEtatPrecedent.size(); i++)
+		{
+			System.out.println(alEtatPrecedent.get(i).hashCode());
+			System.out.println(alEtatPrecedent.get(i).toString());
+		}
 	}
+	
+	/*
+	  public Piece[][] remplissageTab()
+	 
+	{
+		Piece tabPiece[][] = new Piece[4][4];
+		
+		for(int i = 0; i<tabPiece.length;i++)
+			for(int j = 0; j<tabPiece.length; j++) {
+				if(this.pl.getPlateau()[i][j]!=null)
+				{
+					Piece piece = (Piece) this.pl.getPlateau()[i][j].clone();
+					tabPiece[i][j] = piece;
+				}
+				if ( tmp instanceof Cavalier)
+					tabPiece[i][j] = new Cavalier(tmp.getPosX(), tmp.getPosY());
+		        else if(tmp instanceof Fou)
+		        	tabPiece[i][j] = new Fou(tmp.getPosX(), tmp.getPosY());
+		        else if(tmp instanceof Pion)
+		        	tabPiece[i][j] = new Pion(tmp.getPosX(), tmp.getPosY());
+		        else if(tmp instanceof Reine)
+		        	tabPiece[i][j] = new Reine(tmp.getPosX(), tmp.getPosY());
+		        else if(tmp instanceof Roi)
+		        	tabPiece[i][j] = new Roi(tmp.getPosX(), tmp.getPosY());
+		        else if(tmp instanceof Tour)
+		        	tabPiece[i][j] = new Tour(tmp.getPosX(), tmp.getPosY());
+			}
+		
+		return tabPiece;
+	}
+	*/
 	
 	public Niveau  getNiveau (){return this.niveau;}
 	public Plateau getPlateau(){return this.pl    ;}

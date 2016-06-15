@@ -239,21 +239,15 @@ public class Jeu extends JPanel implements MouseListener, ActionListener
     public void actionPerformed(ActionEvent e) {
         if( e.getSource() == suivant) {
             this.ctrl.augmenterNiveau();
-            this.refreshFenetre();
-            this.refreshPiecesCapturees();
         }
         else if(e.getSource() == precedent) {
             this.ctrl.diminuerNiveau();
-            this.refreshFenetre();
-            this.refreshPiecesCapturees();
         }
         else if(e.getSource() == rejouer) {
             this.ctrl.rejouer();
             this.estSelectionne = false;
             this.pieceSelectionnee = null;
             this.pX = this.pY = -1;
-            this.refreshFenetre();
-            this.refreshPiecesCapturees();
         }
         else if(e.getSource() == menu) {
             this.setVisible(false);
@@ -263,14 +257,14 @@ public class Jeu extends JPanel implements MouseListener, ActionListener
             this.fenetre.pack();
         }
         else if(e.getSource() == annuler) {
-        	System.out.println("test");
             this.ctrl.coupPrecedent();
             this.estSelectionne = false;
             this.pieceSelectionnee = null;
             this.pX = this.pY = -1;
-            this.refreshFenetre();
-            this.refreshPiecesCapturees();
         }
+        
+        this.refreshFenetre();
+        this.refreshPiecesCapturees();
     }
 }
 
