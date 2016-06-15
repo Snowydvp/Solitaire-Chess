@@ -1,12 +1,8 @@
 package Projet;
 
-import java.applet.Applet;
-import java.applet.AudioClip;
-import java.net.URL;
 import java.util.ArrayList;
 
 import Projet.IHM.Fenetre;
-import Projet.IHM.Son;
 import Projet.Metier.*;
 import Projet.Metier.Pieces.Piece;
 
@@ -123,8 +119,6 @@ public class Controleur
 		
 		if ( nbPiece == 1) {
 			this.augmenterNiveau();
-			Son son = new Son("Sons/applaudissement.wav");
-			son.start();
 		}
 	}
 	
