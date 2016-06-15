@@ -9,10 +9,11 @@ public class Fenetre extends JFrame
 	private Controleur ctrl;
 	private Menu menu;
 	private Jeu jeu;
+	private Editeur editeur;
 	
 	public Fenetre(Controleur ctrl) 
 	{	
-		this.setTitle("Fenetre de jeu");
+		this.setTitle("Solitaire Chess - Menu");
 		this.setResizable(false);
 		this.setLocationRelativeTo(null);
 		
@@ -21,6 +22,7 @@ public class Fenetre extends JFrame
 		this.ctrl = ctrl;
 		
 		this.jeu = null;
+		this.editeur = null;
 		this.menu = new Menu(this.ctrl,this);
 		this.add(this.menu);
 		
@@ -37,8 +39,16 @@ public class Fenetre extends JFrame
 		return this.jeu;
 	}
 	
+	public Editeur getEditeur() {
+		return this.editeur;
+	}
+	
 	public void setJeu(Jeu j) {
 		this.jeu = j;
+	}
+	
+	public void setEditeur(Editeur e) {
+		this.editeur = e;
 	}
 	
 
