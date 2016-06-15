@@ -146,6 +146,7 @@ public class Jeu extends JPanel implements MouseListener, ActionListener
             {
                 this.estSelectionne = false;
                 this.pieceSelectionnee = null;
+                this.ctrl.sauvegardeCoup();
             }
             else
             {
