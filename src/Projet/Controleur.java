@@ -1,7 +1,10 @@
 package Projet;
 
+import java.util.ArrayList;
+
 import Projet.IHM.Fenetre;
 import Projet.Metier.*;
+import Projet.Metier.Pieces.Piece;
 
 public class Controleur
 {
@@ -10,6 +13,7 @@ public class Controleur
 	private Fenetre fenetre;
 	private Niveau niveau;
 	private Partie partie;
+	private ArrayList<Piece[][]> alEtatPrecedent;
 	
 	public Controleur()
 	{
@@ -19,19 +23,13 @@ public class Controleur
 		
 		this.niveau = new Niveau(0, tabDifficultee[0]);
 		pl = new Plateau(this.niveau.getPiece());
-		
+		alEtatPrecedent = new ArrayList<>();
 		this.fenetre = new Fenetre(this);
 		
 		//System.out.println(niveau.getNumNiveau() + "  " + niveau.getDifficultee());
 		//System.out.println(pl.toString());
 	}
 	
-	public Plateau getPlateau(){return this.pl;}
-	
-	public static void main(String[] a)
-	{
-		new Controleur();
-	}
 	
 	public void augmenterNiveau()
 	{
@@ -73,10 +71,9 @@ public class Controleur
 	{
 		int index = -1;
 		for ( int i = 0; i < tabDifficultee.length; i++)
-		{
 			if(tabDifficultee[i].equalsIgnoreCase(d))
 				index = i;
-		}
+
 		
 		if ( index - 1 < 0)
 			return 0;
@@ -88,10 +85,9 @@ public class Controleur
 	{
 		int index = -1;
 		for ( int i = 0; i < tabDifficultee.length; i++)
-		{
 			if(tabDifficultee[i].equalsIgnoreCase(d))
 				index = i;
-		}
+
 		
 		if ( index + 1 > 3)
 			return index;
@@ -103,17 +99,35 @@ public class Controleur
 		int nbPiece = 0;
 		
 		for ( int i = 0; i < 4; i++)
-		{
 			for ( int j = 0; j < 4; j++ )
-			{
 				if ( this.pl.getPlateau()[i][j] != null )
 					nbPiece++;
-			}
-		}
 		
 		if ( nbPiece == 1)
 			this.augmenterNiveau();
 	}
 	
-	public Niveau getNiveau() { return this.niveau; }
+	public void coupPrecedent()
+	{
+		if(this.alEtatPrecedent.size()>1)
+		{
+			this.alEtatPrecedent.remove(alEtatPrecedent.size()-1);
+			Piece[][] plateauPrecedent = this.alEtatPrecedent.get(alEtatPrecedent.size()-1);
+			this.pl = new Plateau(plateauPrecedent);
+		}
+		
+	}
+	
+	public void sauvegardeCoup()
+	{
+		this.alEtatPrecedent.add(this.pl.getPlateau());
+	}
+	
+	public Niveau  getNiveau (){return this.niveau;}
+	public Plateau getPlateau(){return this.pl    ;}
+	
+	public static void main(String[] a)
+	{
+		new Controleur();
+	}
 }
