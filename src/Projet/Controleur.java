@@ -123,7 +123,7 @@ public class Controleur
 		
 		if ( nbPiece == 1) {
 			this.augmenterNiveau();
-			Son son = new Son();
+			Son son = new Son("Sons/applaudissement.wav");
 			son.start();
 		}
 	}

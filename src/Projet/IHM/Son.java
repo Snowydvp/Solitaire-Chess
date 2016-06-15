@@ -17,9 +17,14 @@ public class Son extends Thread{
     
     AudioInputStream audioInputStream = null;
     SourceDataLine line;
+    String file;
+    
+    public Son(String file) {
+    	this.file = file;
+    }
      
     public void run(){
-        File fichier = new File("Sons/applaudissement.wav");
+        File fichier = new File(this.file);
         try {
         AudioFileFormat format = AudioSystem.getAudioFileFormat(fichier);
         } catch (UnsupportedAudioFileException e1) {
