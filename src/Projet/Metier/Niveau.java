@@ -9,15 +9,15 @@ public class Niveau
 {
 	private Piece[][] tabPiece = new Piece[4][4];
 	private int numNiveau;
-	private String difficultee;
+	private String difficulte;
 	
-	public Niveau(int numNiveau, String difficultee)
+	public Niveau(int numNiveau, String difficulte)
 	{
 		this.numNiveau = numNiveau;
-		this.difficultee = difficultee;
+		this.difficulte = difficulte;
 		try
 		{
-			  FileReader fr = new FileReader("Niveaux/NiveauxPredefini/Niveaux"+ difficultee + ".txt");
+			  FileReader fr = new FileReader("Niveaux/NiveauxPredefini/Niveaux"+ difficulte + ".txt");
 			  Scanner sc = new Scanner ( fr );
 			  boolean niveauTrouve = false;
 			  
@@ -58,5 +58,5 @@ public class Niveau
 	}
 	
 	public int getNumNiveau() { return this.numNiveau; }
-	public String getDifficultee() { return this.difficultee; }
+	public String getDifficulte() { return this.difficulte; }
 }

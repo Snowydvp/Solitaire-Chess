@@ -36,9 +36,9 @@ public class Controleur
 	public void augmenterNiveau()
 	{
 		if ( this.niveau.getNumNiveau() < 15)
-			this.niveau = new Niveau(this.niveau.getNumNiveau()+1, this.niveau.getDifficultee());
-		else if ( !this.niveau.getDifficultee().equals("Expert"))
-			this.niveau = new Niveau(1, this.tabDifficultee[this.augmenterDifficulte(this.niveau.getDifficultee())]);
+			this.niveau = new Niveau(this.niveau.getNumNiveau()+1, this.niveau.getDifficulte());
+		else if ( !this.niveau.getDifficulte().equals("Expert"))
+			this.niveau = new Niveau(1, this.tabDifficultee[this.augmenterDifficulte(this.niveau.getDifficulte())]);
 			
 		pl = new Plateau(this.niveau.getPiece());	
 	}
@@ -46,9 +46,9 @@ public class Controleur
 	public void diminuerNiveau()
 	{
 		if ( this.niveau.getNumNiveau() > 1)
-			this.niveau = new Niveau(this.niveau.getNumNiveau()-1, this.niveau.getDifficultee());
-		else if ( !this.niveau.getDifficultee().equals("Debutant"))
-			this.niveau = new Niveau(15, this.tabDifficultee[this.diminuerDifficulte(this.niveau.getDifficultee())]);
+			this.niveau = new Niveau(this.niveau.getNumNiveau()-1, this.niveau.getDifficulte());
+		else if ( !this.niveau.getDifficulte().equals("Debutant"))
+			this.niveau = new Niveau(15, this.tabDifficultee[this.diminuerDifficulte(this.niveau.getDifficulte())]);
 		
 		pl = new Plateau(this.niveau.getPiece());
 	}
@@ -65,7 +65,7 @@ public class Controleur
 	
 	public void rejouer()
 	{
-		this.niveau = new Niveau(this.niveau.getNumNiveau(), this.niveau.getDifficultee());
+		this.niveau = new Niveau(this.niveau.getNumNiveau(), this.niveau.getDifficulte());
 		pl = new Plateau(this.niveau.getPiece());
 	}
 	

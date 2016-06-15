@@ -172,7 +172,7 @@ public class Editeur extends JPanel implements MouseListener, ActionListener
 				else this.imgPiece = new ImageIcon("images/vide52.gif").getImage();
 				
 				if ( (y + x) % 2 == 0) {
-					String difficultee = this.ctrl.getNiveau().getDifficultee();
+					String difficultee = this.ctrl.getNiveau().getDifficulte();
 					panelTmp = new ImagePanel2("images/pair4.png", this.imgPiece, b);
 					if ( difficultee.equals("Debutant")) panelTmp = new ImagePanel2("images/pair1.png", this.imgPiece, b);
 					if ( difficultee.equals("Intermediaire")) panelTmp = new ImagePanel2("images/pair2.png", this.imgPiece, b);

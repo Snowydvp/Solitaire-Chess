@@ -1,65 +1,101 @@
 package Projet.IHM;
 
-import java.awt.BorderLayout;
-import java.awt.GridLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import javax.swing.*;
 import Projet.Controleur;
 
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.ArrayList;
+
+import javax.swing.*;
+
+/**
+ * Créé par BELLANGER Jessy, LINTOT Maxime, PICOT Maxence et SINAEVE Antoine le 14/06/2016.
+ */
 public class Menu extends JPanel implements ActionListener
 {
-	private Controleur ctrl;
-	private JButton continuer, nouvellePartie, choisirNiveau, creerNiveau,
-	                aide, scores, quitter;
-	private Fenetre fenetre;
-	
-	public Menu(Controleur ctrl, Fenetre fenetre)
-	{
-		this.ctrl = ctrl;
-		this.fenetre = fenetre;
-		
-		this.setLayout(new GridLayout(8, 1));
-		
-		continuer = new JButton("Continuer");
-		this.continuer.addActionListener(this);
-		this.add(continuer);
-		
-		nouvellePartie = new JButton("Nouvelle partie");
-		this.nouvellePartie.addActionListener(this);
-		this.add(nouvellePartie);
+    private Fenetre fenetre;
+    private Controleur ctrl;
 
-		choisirNiveau = new JButton("Choisir un niveau");
-		this.choisirNiveau.addActionListener(this);
-		this.add(choisirNiveau);
-		
-		aide = new JButton("Aide");
-		this.aide.addActionListener(this);
-		this.add(aide);
-		
-		scores = new JButton("Scores");
-		this.scores.addActionListener(this);
-		this.add(scores);
-		
+    private JButton continuer, nouvellePartie, choisirNiveau, creerDefi, defisPersonnalises, aide, scores, quitter;
 
-		creerNiveau = new JButton("Cr�er un niveau");
-		this.creerNiveau.addActionListener(this);
-		this.add(creerNiveau);
-		
-		quitter = new JButton("Quitter");
-		this.quitter.addActionListener(this);
-		this.add(quitter);
-	}
+    private boolean peutContinuer;
 
-	public void actionPerformed(ActionEvent e) {
-		if (e.getSource() == continuer)
-		{
-			this.setVisible(false);
-			Jeu j = new Jeu(this.ctrl, this.fenetre);
-			this.fenetre.setJeu(j);
-			this.fenetre.add(j,BorderLayout.CENTER);
-			this.fenetre.pack();
-		}
-		
-	}
+    public Menu(Controleur ctrl, Fenetre fenetre)
+    {
+        this.ctrl = ctrl;
+        this.fenetre = fenetre;
+        this.fenetre.setTitle("Solitaire Chess - Menu");
+
+        this.setBorder(BorderFactory.createEmptyBorder(25, 75, 25, 75));
+        ArrayList<JButton> alButton = new ArrayList<JButton>();
+
+        this.continuer = new JButton("Continuer");
+        this.continuer.addActionListener(this);
+        if(!peutContinuer) {
+            alButton.add(continuer);
+        }
+
+        this.nouvellePartie = new JButton("Nouvelle partie");
+        this.nouvellePartie.addActionListener(this);
+        alButton.add(nouvellePartie);
+
+        this.choisirNiveau = new JButton("Choisir un défi");
+        this.choisirNiveau.addActionListener(this);
+        if(peutContinuer) {
+            alButton.add(choisirNiveau);
+        }
+
+
+        this.creerDefi = new JButton("Créer un défi");
+        this.creerDefi.addActionListener(this);
+        alButton.add(creerDefi);
+
+        this.defisPersonnalises = new JButton("Défis personnalisés");
+        this.defisPersonnalises.addActionListener(this);
+        alButton.add(defisPersonnalises);
+
+        this.aide = new JButton("Aide");
+        this.aide.addActionListener(this);
+        alButton.add(aide);
+
+        this.scores = new JButton("Scores");
+        this.scores.addActionListener(this);
+        alButton.add(scores);
+
+        this.quitter = new JButton("Quitter");
+        this.quitter.addActionListener(this);
+        alButton.add(quitter);
+
+        this.setLayout(new GridLayout(alButton.size() + 2, 1, 5, 5));
+
+        JLabel icone = new JLabel();
+        icone.setHorizontalAlignment(JLabel.CENTER);
+        icone.setVerticalAlignment(JLabel.BOTTOM);
+        icone.setIcon(new ImageIcon("Images/crown.png"));
+        this.add(icone);
+
+        JLabel question = new JLabel("Que voulez-vous faire ?");
+        question.setHorizontalAlignment(JLabel.CENTER);
+        this.add(question);
+
+        for(JButton bouton : alButton)
+            this.add(bouton);
+    }
+
+    public void actionPerformed(ActionEvent e) {
+        if(e.getSource() == this.quitter)
+            System.exit(0);
+
+        if (e.getSource() == this.continuer)
+        {
+            this.setVisible(false);
+            Jeu j = new Jeu(this.ctrl, this.fenetre);
+            this.fenetre.setJeu(j);
+            this.fenetre.add(j,BorderLayout.CENTER);
+            this.fenetre.setTitle("Solitaire Chess - Jeu");
+            this.fenetre.pack();
+        }
+
+    }
 }
