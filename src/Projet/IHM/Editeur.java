@@ -21,6 +21,8 @@ import javax.swing.JPanel;
 import javax.swing.JToolBar;
 
 import Projet.Controleur;
+import Projet.Metier.Niveau;
+import Projet.Metier.Plateau;
 import Projet.Metier.Pieces.Cavalier;
 import Projet.Metier.Pieces.Fou;
 import Projet.Metier.Pieces.Piece;
@@ -38,10 +40,30 @@ public class Editeur extends BaseFenetre implements ActionListener
     private JButton aide;
     
     private JToolBar barreActions;
+    
+    private ArrayList<Piece> piecesDisponibles;
+    
 
     public Editeur(Controleur ctrl, Fenetre fenetre)
     {
     	super(ctrl,fenetre);
+    	
+    	this.ctrl.setNiveau(new Niveau(16,"Expert"));
+    	Piece[][] plateau = new Piece[4][4];
+    	this.ctrl.setPlateau(new Plateau(plateau));
+    	
+    	this.piecesDisponibles = new ArrayList<Piece>();
+    	
+    	this.piecesDisponibles.add(new Roi(0, 0));
+    	this.piecesDisponibles.add(new Reine(0, 0));
+    	this.piecesDisponibles.add(new Fou(0, 0));
+    	this.piecesDisponibles.add(new Fou(0, 0));
+    	this.piecesDisponibles.add(new Tour(0, 0));
+    	this.piecesDisponibles.add(new Tour(0, 0));
+    	this.piecesDisponibles.add(new Cavalier(0, 0));
+    	this.piecesDisponibles.add(new Cavalier(0, 0));
+    	this.piecesDisponibles.add(new Pion(0, 0));
+    	this.piecesDisponibles.add(new Pion(0, 0));
 
         this.barreActions = new JToolBar(JToolBar.HORIZONTAL);
         this.barreActions.setFloatable(false);
@@ -83,6 +105,9 @@ public class Editeur extends BaseFenetre implements ActionListener
         this.barreActions.add(aide);
         
         this.add(this.barreActions, BorderLayout.NORTH);
+        
+        super.refreshFenetre();
+        this.refreshPiecesRestantes();
 
     }
 
@@ -111,13 +136,12 @@ public class Editeur extends BaseFenetre implements ActionListener
         this.refreshFenetre();
     }
     
-    protected void refreshPiecesCapturees() {
+    protected void refreshPiecesRestantes() {
         this.piecesCapturees.removeAll();
         this.piecesCapturees.updateUI();
-        ArrayList<Piece> listeCapturee = this.ctrl.getPlateau().getPiecesCapturees();
-        for ( int i = 0; i < listeCapturee.size(); i++)
+        for ( int i = 0; i < this.piecesDisponibles.size(); i++)
         {
-            Piece pieceTmp = listeCapturee.get(i);
+            Piece pieceTmp = this.piecesDisponibles.get(i);
             this.imgPiece = this.getImage(pieceTmp);
 
             JLabel labelTmp = new JLabel();
@@ -165,6 +189,6 @@ public class Editeur extends BaseFenetre implements ActionListener
         }
         this.ctrl.victoireNiveauCourant();
         this.refreshFenetre();
-        this.refreshPiecesCapturees();
+        this.refreshPiecesRestantes();
     }
 }
