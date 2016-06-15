@@ -5,6 +5,7 @@ package Projet.Metier;
 import java.util.ArrayList;
 
 import Projet.Metier.Pieces.Piece;
+import Projet.Metier.Pieces.Roi;
 
 public class Plateau
 {
@@ -20,14 +21,14 @@ public class Plateau
 	
 	public boolean deplacer(Piece p, int cibleX, int cibleY)
 	{
-		if(p.deplacementValide(cibleX, cibleY, this.plateau) && this.plateau[cibleY][cibleX] != null)
+		if(p.deplacementValide(cibleX, cibleY, this.plateau) && this.plateau[cibleY][cibleX] != null && !(plateau[cibleY][cibleX] instanceof Roi))
 		{
 			plateau[p.getPosY()][p.getPosX()] = null;
-			
 			this.capturees.add(plateau[cibleY][cibleX]);
 			plateau[cibleY][cibleX] = p;
 			p.setPosX(cibleX);
 			p.setPosY(cibleY);
+			
 			return true;
 		}
 		return false;
