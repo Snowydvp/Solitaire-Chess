@@ -14,9 +14,17 @@ public class Plateau
 	
 	public Plateau(Piece[][] plateau)
 	{
-		this.plateau = new Piece[4][4];
 		this.capturees = new ArrayList<>();
 		this.plateau = plateau;
+	}
+	
+	public Plateau(Piece[][] plateau, ArrayList<Piece> capturees)
+	{
+		this(plateau);
+		if(capturees.size() != 0)
+			capturees.remove(capturees.size()-1);
+		this.capturees = capturees;
+		
 	}
 	
 	public boolean deplacer(Piece p, int cibleX, int cibleY)
