@@ -263,6 +263,15 @@ public class Jeu extends JPanel implements MouseListener, ActionListener
             this.fenetre.setTitle("Solitaire Chess - Menu");
             this.fenetre.pack();
         }
+        else if(e.getSource() == annuler) {
+        	System.out.println("test");
+            this.ctrl.coupPrecedent();
+            this.estSelectionne = false;
+            this.pieceSelectionnee = null;
+            this.pX = this.pY = -1;
+            this.refreshFenetre();
+            this.refreshPiecesCapturees();
+        }
     }
 }
 

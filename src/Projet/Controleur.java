@@ -115,7 +115,6 @@ public class Controleur
 			Piece[][] plateauPrecedent = this.alEtatPrecedent.get(alEtatPrecedent.size()-1);
 			this.pl = new Plateau(plateauPrecedent);
 		}
-		
 	}
 	
 	public void sauvegardeCoup()
