@@ -24,6 +24,7 @@ public class Controleur
 		this.niveau = new Niveau(0, tabDifficultee[0]);
 		pl = new Plateau(this.niveau.getPiece());
 		alEtatPrecedent = new ArrayList<>();
+		alEtatPrecedent.add(pl.getPlateau());
 		this.fenetre = new Fenetre(this);
 		
 		//System.out.println(niveau.getNumNiveau() + "  " + niveau.getDifficultee());
