@@ -25,8 +25,8 @@ public class Controleur
 		pl = new Plateau(this.niveau.getPiece());
 		
 		alEtatPrecedent = new ArrayList<>();
-		alEtatPrecedent.add(this.pl.clone());
-		
+		alEtatPrecedent.add(new Plateau(this.copieTableau(this.pl.getPlateau())));
+		this.partie = new Partie();
 		this.fenetre = new Fenetre(this);
 		
 		//System.out.println(niveau.getNumNiveau() + "  " + niveau.getDifficultee());
@@ -36,7 +36,7 @@ public class Controleur
 	
 	public void augmenterNiveau()
 	{
-		if ( this.niveau.getNumNiveau() < 15)
+		if (this.niveau.getNumNiveau() < 15)
 			this.niveau = new Niveau(this.niveau.getNumNiveau()+1, this.niveau.getDifficulte());
 		else if ( !this.niveau.getDifficulte().equals("Expert"))
 			this.niveau = new Niveau(1, this.tabDifficultee[this.augmenterDifficulte(this.niveau.getDifficulte())]);
@@ -44,8 +44,7 @@ public class Controleur
 		pl = new Plateau(this.niveau.getPiece());	
 		
 		this.alEtatPrecedent.clear();
-		alEtatPrecedent.add(this.pl.clone());
-		System.out.println(alEtatPrecedent.get(0).toString());
+		alEtatPrecedent.add(new Plateau(this.copieTableau(this.pl.getPlateau())));
 	}
 	
 	public void diminuerNiveau()
@@ -58,16 +57,17 @@ public class Controleur
 		pl = new Plateau(this.niveau.getPiece());
 		
 		this.alEtatPrecedent.clear();
-		alEtatPrecedent.add(this.pl.clone());
+		alEtatPrecedent.add(new Plateau(this.copieTableau(this.pl.getPlateau())));
 	}
 	
-	public void creerPartie(String nom)
+	public void creerPartie()
 	{
-		
+		this.partie.nouvellePartie();
 	}
 	
-	public void chargerPartie(String nom)
+	public void chargerPartie()
 	{
+		this.partie.chargerPartie();
 		
 	}
 	
@@ -77,7 +77,7 @@ public class Controleur
 		pl = new Plateau(this.niveau.getPiece());
 		
 		this.alEtatPrecedent.clear();
-		alEtatPrecedent.add(this.pl.clone());
+		alEtatPrecedent.add(new Plateau(this.copieTableau(this.pl.getPlateau())));
 	}
 	
 	private int diminuerDifficulte(String d) 
@@ -92,8 +92,7 @@ public class Controleur
 			return 0;
 		else
 			return index-1;
-		
-	}
+ 	}
 	
 	private int augmenterDifficulte(String d) 
 	{
@@ -117,9 +116,8 @@ public class Controleur
 				if ( this.pl.getPlateau()[i][j] != null )
 					nbPiece++;
 		
-		if ( nbPiece == 1) {
+		if ( nbPiece == 1)
 			this.augmenterNiveau();
-		}
 	}
 	
 	public void coupPrecedent()
@@ -128,31 +126,34 @@ public class Controleur
 		{
 			this.alEtatPrecedent.remove(alEtatPrecedent.size()-1);
 			Piece[][] plateauPrecedent = this.alEtatPrecedent.get(alEtatPrecedent.size()-1).getPlateau();
-			this.pl = new Plateau(plateauPrecedent, this.pl.getPiecesCapturees());
+			this.pl = new Plateau(this.copieTableau(plateauPrecedent), this.pl.getPiecesCapturees()); //il faut recopier la valeur de plateuPrecedent
+			
+			for(int i = 0; i< alEtatPrecedent.size(); i++)
+				System.out.println(alEtatPrecedent.get(i).hashCode());
+			System.out.println("-------------------");
 		}
 	}
 	
 	public void sauvegardeCoup()
 	{
-		this.alEtatPrecedent.add(this.pl.clone());
-		
+		this.alEtatPrecedent.add(new Plateau(this.copieTableau(this.pl.getPlateau())));
+
 		for(int i = 0; i< alEtatPrecedent.size(); i++)
-		{
 			System.out.println(alEtatPrecedent.get(i).hashCode());
-			System.out.println(alEtatPrecedent.get(i).toString());
-		}
+		
+		System.out.println("-------------------");
+
 	}
 	
-	
-	public Piece[][] remplissageTab()
+	public Piece[][] copieTableau(Piece[][] or)
 	{
 		Piece tabPiece[][] = new Piece[4][4];
 		
 		for(int i = 0; i<tabPiece.length;i++)
 			for(int j = 0; j<tabPiece.length; j++) {
-				if(this.pl.getPlateau()[i][j]!=null)
+				if(or[i][j]!=null)
 				{
-					Piece piece = (Piece) this.pl.getPlateau()[i][j].clone();
+					Piece piece = (Piece) or[i][j].clone();
 					tabPiece[i][j] = piece;
 				}
 			}
@@ -162,9 +163,6 @@ public class Controleur
 	
 	public Niveau  getNiveau (){return this.niveau;}
 	public Plateau getPlateau(){return this.pl    ;}
-	
-	public void setNiveau(Niveau niveau) { this.niveau = niveau; }
-	public void setPlateau(Plateau plateau) { this.pl = plateau; }
 	
 	public static void main(String[] a)
 	{
