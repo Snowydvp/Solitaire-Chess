@@ -40,6 +40,7 @@ public class Controleur
 			this.niveau = new Niveau(1, this.tabDifficultee[this.augmenterDifficulte(this.niveau.getDifficulte())]);
 			
 		pl = new Plateau(this.niveau.getPiece());	
+		this.alEtatPrecedent.clear();
 	}
 	
 	public void diminuerNiveau()
@@ -50,6 +51,7 @@ public class Controleur
 			this.niveau = new Niveau(15, this.tabDifficultee[this.diminuerDifficulte(this.niveau.getDifficulte())]);
 		
 		pl = new Plateau(this.niveau.getPiece());
+		this.alEtatPrecedent.clear();
 	}
 	
 	public void creerPartie(String nom)
@@ -66,6 +68,7 @@ public class Controleur
 	{
 		this.niveau = new Niveau(this.niveau.getNumNiveau(), this.niveau.getDifficulte());
 		pl = new Plateau(this.niveau.getPiece());
+		this.alEtatPrecedent.clear();
 	}
 	
 	private int diminuerDifficulte(String d) 
@@ -80,6 +83,7 @@ public class Controleur
 			return 0;
 		else
 			return index-1;
+		
 	}
 	
 	private int augmenterDifficulte(String d) 
