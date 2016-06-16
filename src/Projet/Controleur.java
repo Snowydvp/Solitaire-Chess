@@ -3,6 +3,7 @@ package Projet;
 import java.util.ArrayList;
 
 import Projet.IHM.Fenetre;
+import Projet.IHM.Jeu;
 import Projet.Metier.*;
 import Projet.Metier.Pieces.Piece;
 
@@ -14,12 +15,38 @@ public class Controleur
 	private Niveau niveau;
 	private Partie partie;
 	private ArrayList<Plateau> alEtatPrecedent;
+	private ArrayList<Niveau> alNiveauDebutant, alNiveauIntermediaire, alNiveauAvance, alNiveauExpert, alNiveauEdite;
 	
 	public Controleur()
 	{
 		//niveau aleatoire
 		//int niveau = (int)(Math.random()*15+1);
 		//int difficultee = (int)(Math.random()*4);
+		
+		alNiveauDebutant = new ArrayList<>();
+		alNiveauIntermediaire = new ArrayList<>();
+		alNiveauAvance = new ArrayList<>();
+		alNiveauExpert = new ArrayList<>();
+		
+			for(int i = 1; i < 50; i++)
+			{
+				Niveau tmp = new Niveau(i, tabDifficultee[0]);
+				if (tmp.getInstancier())
+					alNiveauDebutant.add(tmp);
+				Niveau tmp1 = new Niveau(i, tabDifficultee[1]);
+				if (tmp.getInstancier())
+					alNiveauIntermediaire.add(tmp1);
+				Niveau tmp2 = new Niveau(i, tabDifficultee[2]);
+				if (tmp.getInstancier())
+					alNiveauAvance.add(tmp2);
+				Niveau tmp3 = new Niveau(i, tabDifficultee[3]);
+				if (tmp.getInstancier())
+					alNiveauExpert.add(tmp3);
+				Niveau tmp4 = new Niveau(i-1);
+				if(tmp4.getInstancier())
+					alNiveauEdite.add(tmp4);
+			}
+			
 		
 		this.niveau = new Niveau(0, tabDifficultee[0]);
 		pl = new Plateau(this.niveau.getPiece());
@@ -62,13 +89,13 @@ public class Controleur
 	
 	public void creerPartie()
 	{
+		Jeu.score = 0;
 		this.partie.nouvellePartie();
 	}
 	
 	public void chargerPartie()
 	{
 		this.partie.chargerPartie();
-		
 	}
 	
 	public void rejouer()
@@ -133,20 +160,12 @@ public class Controleur
 			Piece[][] plateauPrecedent = this.alEtatPrecedent.get(alEtatPrecedent.size()-1).getPlateau();
 			this.pl = new Plateau(this.copieTableau(plateauPrecedent), this.pl.getPiecesCapturees()); //il faut recopier la valeur de plateuPrecedent
 			
-			for(int i = 0; i< alEtatPrecedent.size(); i++)
-				System.out.println(alEtatPrecedent.get(i).hashCode());
-			System.out.println("-------------------");
 		}
 	}
 	
 	public void sauvegardeCoup()
 	{
 		this.alEtatPrecedent.add(new Plateau(this.copieTableau(this.pl.getPlateau())));
-
-		for(int i = 0; i< alEtatPrecedent.size(); i++)
-			System.out.println(alEtatPrecedent.get(i).hashCode());
-		
-		System.out.println("-------------------");
 
 	}
 	

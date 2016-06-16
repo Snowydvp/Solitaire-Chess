@@ -29,7 +29,8 @@ public class Plateau
 	
 	public boolean deplacer(Piece p, int cibleX, int cibleY)
 	{
-		if(p.deplacementValide(cibleX, cibleY, this.plateau) && this.plateau[cibleY][cibleX] != null && !(plateau[cibleY][cibleX] instanceof Roi))
+		if(p.deplacementValide(cibleX, cibleY, this.plateau) && this.plateau[cibleY][cibleX] != null && 
+				!(plateau[cibleY][cibleX] instanceof Roi))
 		{
 			plateau[p.getPosY()][p.getPosX()] = null;
 			this.capturees.add(plateau[cibleY][cibleX]);

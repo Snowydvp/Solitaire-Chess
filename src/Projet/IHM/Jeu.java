@@ -40,7 +40,7 @@ public class Jeu extends BaseFenetre implements ActionListener
     private JLabel numNiveau;
     
     private int nombreCoups;
-    private static int score = 0;
+    public static int score = 0;
 
     public Jeu(Controleur ctrl, Fenetre fenetre)
     {
@@ -210,6 +210,7 @@ public class Jeu extends BaseFenetre implements ActionListener
                 this.pieceSelectionnee = null;
                 this.ctrl.sauvegardeCoup();
                 this.nombreCoups++;
+                Jeu.score++;
             }
             else
             {
@@ -217,7 +218,6 @@ public class Jeu extends BaseFenetre implements ActionListener
                 this.pieceSelectionnee = null;
             }
         }
-        
         
         
         if(this.ctrl.victoireNiveauCourant())

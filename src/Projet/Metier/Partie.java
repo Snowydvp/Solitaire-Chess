@@ -15,7 +15,7 @@ public class Partie {
 	public Partie()
 	{
 		tabDifficultee = new int[4];
-		fichier = new File("partie.txt");
+		this.fichier = new File("Sauvegarde/progression.chess");
 	}
 	
 	public void nouvellePartie()
@@ -25,16 +25,16 @@ public class Partie {
 		try {
 			this.fichier.createNewFile();
 			fw = new FileWriter(this.fichier);
-			fw.write("Debutant 0");       //niveau Courant
-			fw.write("Debutant 0");       //niveau max
-			fw.write("Intermediaire 0");  //pour chaque
-			fw.write("Avance 0");         //difficulte
-			fw.write("Expert 0");
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+			fw.write("Debutant 0\n");       //niveau Courant
+			fw.write("Debutant 0\n");       //niveau max
+			fw.write("Intermediaire 0\n");  //pour chaque
+			fw.write("Avance 0\n");         //difficulte
+			fw.write("Expert 0\n");
+			fw.close();
+		}catch (IOException e){e.printStackTrace();}
 		this.niveauCourant = new Niveau(0, "Debutant");
 	}
+
 	
 	public void chargerPartie()
 	{
