@@ -11,6 +11,7 @@ public class Controleur
 {
 	private final String[] tabDifficultee = {"Debutant", "Intermediaire", "Avance", "Expert"};
 	private Plateau pl;
+	private Partie partie;
 	private Fenetre fenetre;
 	//private Partie partie;
 	private Niveau niveauCourant;
@@ -27,6 +28,7 @@ public class Controleur
 		alNiveauIntermediaire = new ArrayList<>();
 		alNiveauAvance = new ArrayList<>();
 		alNiveauExpert = new ArrayList<>();
+		alNiveauEdite  = new ArrayList<>();
 		
 			for(int i = 1; i < 50; i++)
 			{
@@ -42,10 +44,13 @@ public class Controleur
 				Niveau tmp3 = new Niveau(i, tabDifficultee[3]);
 				if (!tmp3.getInstancier())
 					alNiveauExpert.add(tmp3);
-
+				Niveau tmp4 = new Niveau(i-1);
+				if (!tmp4.getInstancier())
+					alNiveauEdite.add(tmp4);
 			}
 			
 		this.niveauCourant = this.alNiveauDebutant.get(0);
+		this.partie = new Partie(this);
 		this.fenetre = new Fenetre(this);
 		pl = new Plateau(this.getNiveau().getPiece());
 		alEtatPrecedent = new ArrayList<>();
@@ -65,7 +70,7 @@ public class Controleur
 			
 		pl = new Plateau(this.niveauCourant.getPiece());	
 		System.out.println(this.niveauCourant.getNumNiveau());
-		//this.partie.enregistrerPartie();
+		this.partie.enregistrerPartie();
 		
 		this.alEtatPrecedent.clear();
 		alEtatPrecedent.add(new Plateau(this.copieTableau(this.pl.getPlateau())));
@@ -195,7 +200,7 @@ public class Controleur
 	
 	public Niveau  getNiveau (){return this.niveauCourant;}
 	public Plateau getPlateau(){return this.pl    ;}
-	//public Partie getPartie  (){return this.partie;}
+	public Partie getPartie  (){return this.partie;}
 	
 	public void setNiveau (Niveau niv){this.niveauCourant = niv;}
 	public void setPlateau(Plateau pl){this.pl = pl;}
