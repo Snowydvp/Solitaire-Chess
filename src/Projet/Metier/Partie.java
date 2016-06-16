@@ -40,7 +40,7 @@ public class Partie {
 			String difficultee = sc.next();
 			int niveau = sc.nextInt();
 			this.niveauCourant = new Niveau(niveau, difficultee);
-			
+			System.out.println("charge niveau");
 			for(int cpt  = 0;cpt < 4;cpt++)
 			{
 				sc.next();
@@ -70,6 +70,9 @@ public class Partie {
 	
 	public boolean peutJouerNiveau(int difficulte, int niveau)
 	{
-		return niveau<=this.niveauxMaximum[difficulte];
+		return niveau<=this.niveauxMaximum[difficulte]; //ergarderles autres dfficultes
 	}
+	
+	public Niveau getNiveauCourant(){return this.niveauCourant;}
+	public void setNiveau(Niveau n){this.niveauCourant=n;}
 }
