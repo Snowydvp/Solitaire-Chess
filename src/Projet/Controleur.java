@@ -108,7 +108,7 @@ public class Controleur
 			return index+1;
 	}
 	
-	public void victoireNiveauCourant() {
+	public boolean victoireNiveauCourant() {
 		int nbPiece = 0;
 		
 		for ( int i = 0; i < 4; i++)
@@ -117,7 +117,12 @@ public class Controleur
 					nbPiece++;
 		
 		if ( nbPiece == 1)
+		{
 			this.augmenterNiveau();
+			return true;
+		}
+		
+		return false;
 	}
 	
 	public void coupPrecedent()

@@ -222,7 +222,10 @@ public class Jeu extends BaseFenetre implements ActionListener
                 this.pieceSelectionnee = null;
             }
         }
-        this.ctrl.victoireNiveauCourant();
+        
+        if(this.ctrl.victoireNiveauCourant())
+        	this.nombreCoups = 0;
+        
         this.refreshFenetre();
         this.refreshPiecesCapturees();
     }
