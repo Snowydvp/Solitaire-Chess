@@ -20,7 +20,8 @@ public class MenuDefi extends JPanel implements ActionListener {
 	{
 		this.ctrl = ctrl;
 		
-		this.listeDefisDebutant = new GridLayout();
+		
+		this.listeDefisDebutant = new GridLayout(this.ctrl.);
 		this.listeDefisIntermediaire = new GridLayout();
 		this.listeDefisAvance = new GridLayout();
 		this.listeDefisExpert = new GridLayout();
