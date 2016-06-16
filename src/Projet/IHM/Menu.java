@@ -5,24 +5,23 @@ import Projet.Controleur;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
 
 import javax.swing.*;
-import javax.tools.Tool;
 
 /**
  * Créé par BELLANGER Jessy, LINTOT Maxime, PICOT Maxence et SINAEVE Antoine le 14/06/2016.
  */
 public class Menu extends JPanel implements ActionListener
 {
-    private Fenetre fenetre;
+	private static final long serialVersionUID = 1L;
+	private Fenetre fenetre;
     private Controleur ctrl;
 
     private JButton continuer, nouvellePartie, choisirNiveau, creerDefi, defisPersonnalises, aide, scores, quitter;
 
     public Menu(Controleur ctrl, Fenetre fenetre)
     {
-        this.ctrl = ctrl;
+        this.ctrl    = ctrl;
         this.fenetre = fenetre;
         this.fenetre.setTitle("Solitaire Chess - Menu");
 
@@ -92,7 +91,8 @@ public class Menu extends JPanel implements ActionListener
 
     }
 
-    public void actionPerformed(ActionEvent e) {
+    public void actionPerformed(ActionEvent e)
+    {
         if(e.getSource() == this.quitter)
             System.exit(0);
 
@@ -106,38 +106,40 @@ public class Menu extends JPanel implements ActionListener
             this.fenetre.pack();
             this.fenetre.setLocation((int)(Toolkit.getDefaultToolkit().getScreenSize().getWidth() / 2 - this.fenetre.getWidth() / 2), (int)(Toolkit.getDefaultToolkit().getScreenSize().getHeight() / 2 - this.fenetre.getHeight() / 2));
         }
-        else if (e.getSource() == this.creerDefi) 
-        {
-            this.setVisible(false);
-            Editeur ed = new Editeur(this.ctrl, this.fenetre);
-            this.fenetre.setEditeur(ed);
-            this.fenetre.add(ed, BorderLayout.CENTER);
-            this.fenetre.setTitle("Solitaire Chess - Editeur");
-            this.fenetre.pack();
-            this.fenetre.setLocation((int)(Toolkit.getDefaultToolkit().getScreenSize().getWidth() / 2 - this.fenetre.getWidth() / 2), (int)(Toolkit.getDefaultToolkit().getScreenSize().getHeight() / 2 - this.fenetre.getHeight() / 2));
-        }
-        else if (e.getSource() == this.nouvellePartie)
-        {
-        	this.setVisible(false);
-        	this.ctrl.creerPartie();
-        	Jeu j = new Jeu(this.ctrl, this.fenetre);
-        	this.fenetre.setJeu(j);
-            this.fenetre.add(j, BorderLayout.CENTER);
-            this.fenetre.setTitle("Solitaire Chess - Jeu");
-            this.fenetre.pack();
-            this.fenetre.setLocation((int)(Toolkit.getDefaultToolkit().getScreenSize().getWidth() / 2 - this.fenetre.getWidth() / 2), (int)(Toolkit.getDefaultToolkit().getScreenSize().getHeight() / 2 - this.fenetre.getHeight() / 2));
-       
-        }
-        else if (e.getSource() == this.choisirNiveau)
-        {
-        	this.setVisible(false);
-        	MenuDefi mD = new MenuDefi(this.ctrl, this.fenetre);
-        	this.fenetre.setMenuDefi(mD);
-            this.fenetre.add(mD, BorderLayout.CENTER);
-            this.fenetre.setTitle("Solitaire Chess - Liste Défis");
-            this.fenetre.pack();
-            this.fenetre.setLocation((int)(Toolkit.getDefaultToolkit().getScreenSize().getWidth() / 2 - this.fenetre.getWidth() / 2), (int)(Toolkit.getDefaultToolkit().getScreenSize().getHeight() / 2 - this.fenetre.getHeight() / 2));
-       
-        }
+        else
+        	if (e.getSource() == this.creerDefi) 
+        	{
+	            this.setVisible(false);
+	            Editeur ed = new Editeur(this.ctrl, this.fenetre);
+	            this.fenetre.setEditeur(ed);
+	            this.fenetre.add(ed, BorderLayout.CENTER);
+	            this.fenetre.setTitle("Solitaire Chess - Editeur");
+	            this.fenetre.pack();
+	            this.fenetre.setLocation((int)(Toolkit.getDefaultToolkit().getScreenSize().getWidth() / 2 - this.fenetre.getWidth() / 2), (int)(Toolkit.getDefaultToolkit().getScreenSize().getHeight() / 2 - this.fenetre.getHeight() / 2));
+        	}
+        	else 
+        		if (e.getSource() == this.nouvellePartie)
+        		{
+		        	this.setVisible(false);
+		        	this.ctrl.creerPartie();
+		        	Jeu j = new Jeu(this.ctrl, this.fenetre);
+		        	this.fenetre.setJeu(j);
+		            this.fenetre.add(j, BorderLayout.CENTER);
+		            this.fenetre.setTitle("Solitaire Chess - Jeu");
+		            this.fenetre.pack();
+		            this.fenetre.setLocation((int)(Toolkit.getDefaultToolkit().getScreenSize().getWidth() / 2 - this.fenetre.getWidth() / 2), (int)(Toolkit.getDefaultToolkit().getScreenSize().getHeight() / 2 - this.fenetre.getHeight() / 2));	       
+        		}
+        		else 
+        			if (e.getSource() == this.choisirNiveau)
+        			{
+			        	this.setVisible(false);
+			        	MenuDefi mD = new MenuDefi(this.ctrl, this.fenetre);
+			        	this.fenetre.setMenuDefi(mD);
+			            this.fenetre.add(mD, BorderLayout.CENTER);
+			            this.fenetre.setTitle("Solitaire Chess - Liste Défis");
+			            this.fenetre.pack();
+			            this.fenetre.setLocation((int)(Toolkit.getDefaultToolkit().getScreenSize().getWidth() / 2 - this.fenetre.getWidth() / 2), (int)(Toolkit.getDefaultToolkit().getScreenSize().getHeight() / 2 - this.fenetre.getHeight() / 2));
+			       
+        			}
     }
 }

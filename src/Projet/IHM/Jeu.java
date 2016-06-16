@@ -2,7 +2,6 @@ package Projet.IHM;
 
 import Projet.Controleur;
 import Projet.IHM.Fenetre;
-import Projet.Metier.Niveau;
 import Projet.Metier.Plateau;
 import Projet.Metier.Pieces.*;
 
@@ -26,14 +25,13 @@ import javax.swing.border.BevelBorder;
  */
 public class Jeu extends BaseFenetre implements ActionListener
 {
-    private JButton suivant;
+	private static final long serialVersionUID = 1L;
+	private JButton suivant;
     private JButton precedent;
     private JButton rejouer;
     private JButton menu;
     private JButton aide;
     private JButton annuler;
-    
-    private JToolBar barreActions;
     
     private JLabel compteur;
     private JLabel difficulte;
@@ -46,16 +44,15 @@ public class Jeu extends BaseFenetre implements ActionListener
     {
     	super(ctrl,fenetre);
 
-    	this.estEditeur = false;
+    	this.estEditeur  = false;
     	this.nombreCoups = 0;
-    	
-    	this.ctrl.setNiveau(new Niveau(1,"Debutant"));
+
     	this.ctrl.setPlateau(new Plateau(this.ctrl.getNiveau().getPiece()));
     	
         JPanel centre = new JPanel(new BorderLayout());
 
         JPanel outils = new JPanel();
-        this.menu = new JButton(new ImageIcon("Images/menu.png"));
+        this.menu     = new JButton(new ImageIcon("Images/menu.png"));
         this.menu.addActionListener(this);
         this.menu.setToolTipText("Retour au menu");
         outils.add(this.menu);
@@ -125,45 +122,56 @@ public class Jeu extends BaseFenetre implements ActionListener
 
     }
 
-    @Override
-    public void actionPerformed(ActionEvent e) {
-        if( e.getSource() == suivant) {
+    public void actionPerformed(ActionEvent e)
+    {
+        if( e.getSource() == suivant) 
+        {
             this.ctrl.augmenterNiveau();
             this.nombreCoups = 0;
         }
-        else if(e.getSource() == precedent) {
-            this.ctrl.diminuerNiveau();
-            this.nombreCoups = 0;
-        }
-        else if(e.getSource() == rejouer) {
-            this.ctrl.rejouer();
-            this.estSelectionne = false;
-            this.pieceSelectionnee = null;
-            this.pX = this.pY = -1;
-            this.nombreCoups = 0;
-        }
-        else if(e.getSource() == menu) {
-            this.setVisible(false);
-            this.fenetre.add(this.fenetre.getMenu(), BorderLayout.CENTER);
-            this.fenetre.getMenu().setVisible(true);
-            this.fenetre.setTitle("Solitaire Chess - Menu");
-            this.fenetre.pack();
-        }
-        else if(e.getSource() == annuler) {
-            this.ctrl.coupPrecedent();
-            this.estSelectionne = false;
-            this.pieceSelectionnee = null;
-            this.pX = this.pY = -1;
-        }
+        else 
+        	if(e.getSource() == precedent) 
+        	{
+	            this.ctrl.diminuerNiveau();
+	            this.nombreCoups = 0;
+        	}
+        	else 
+        		if(e.getSource() == rejouer)
+        		{
+		            this.ctrl.rejouer();
+		            this.estSelectionne = false;
+		            this.pieceSelectionnee = null;
+		            this.pX = this.pY = -1;
+		            this.nombreCoups = 0;
+        		}
+        		else
+        			if(e.getSource() == menu) 
+        			{
+				        this.setVisible(false);
+				        this.fenetre.add(this.fenetre.getMenu(), BorderLayout.CENTER);
+				        this.fenetre.getMenu().setVisible(true);
+				        this.fenetre.setTitle("Solitaire Chess - Menu");
+				        this.fenetre.pack();
+        			}
+        			else 
+        				if(e.getSource() == annuler) 
+        				{
+				            this.ctrl.coupPrecedent();
+				            this.estSelectionne = false;
+				            this.pieceSelectionnee = null;
+				            this.pX = this.pY = -1;
+        				}
         
         this.refreshFenetre();
         this.refreshPiecesCapturees();
     }
     
-    protected void refreshPiecesCapturees() {
+    protected void refreshPiecesCapturees() 
+    {
         this.piecesCapturees.removeAll();
         this.piecesCapturees.updateUI();
         ArrayList<Piece> listeCapturee = this.ctrl.getPlateau().getPiecesCapturees();
+        
         for ( int i = 0; i < listeCapturee.size(); i++)
         {
             Piece pieceTmp = listeCapturee.get(i);
@@ -178,17 +186,15 @@ public class Jeu extends BaseFenetre implements ActionListener
         this.numNiveau.setText("Niveau : "+this.ctrl.getNiveau().getNumNiveau());
         this.difficulte.setText("Difficulte : "+this.ctrl.getNiveau().getDifficulte());
         this.compteur.setText("Score : "+this.nombreCoups);
-        
-        
-        
     }
     
-    public void mouseClicked(MouseEvent e){}
-    public void mouseEntered(MouseEvent e) {}
-    public void mouseExited(MouseEvent e) {}
-    public void mousePressed(MouseEvent e) {}
-    public void mouseReleased(MouseEvent e) {
-
+    public void mouseClicked (MouseEvent e){}
+    public void mouseEntered (MouseEvent e){}
+    public void mouseExited  (MouseEvent e){}
+    public void mousePressed (MouseEvent e){}
+    
+    public void mouseReleased(MouseEvent e) 
+    {
         int y = e.getY() / this.TAILLE_CASE;
         int x = e.getX() / this.TAILLE_CASE;
 
@@ -206,7 +212,7 @@ public class Jeu extends BaseFenetre implements ActionListener
         {
             if(this.ctrl.getPlateau().getPlateau()[y][x] != this.pieceSelectionnee && this.ctrl.getPlateau().deplacer(pieceSelectionnee, x, y) )
             {
-                this.estSelectionne = false;
+                this.estSelectionne    = false;
                 this.pieceSelectionnee = null;
                 this.ctrl.sauvegardeCoup();
                 this.nombreCoups++;
@@ -214,7 +220,7 @@ public class Jeu extends BaseFenetre implements ActionListener
             }
             else
             {
-                this.estSelectionne = false;
+                this.estSelectionne    = false;
                 this.pieceSelectionnee = null;
             }
         }

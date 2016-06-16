@@ -5,15 +5,13 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
-import java.awt.Graphics;
 import java.awt.GridLayout;
 import java.awt.Image;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 import java.io.BufferedWriter;
-import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -24,7 +22,6 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JToolBar;
 import javax.swing.border.BevelBorder;
 
 import Projet.Controleur;
@@ -40,7 +37,8 @@ import Projet.Metier.Pieces.Tour;
 
 public class Editeur extends BaseFenetre implements ActionListener
 {
-    private JButton valider;
+	private static final long serialVersionUID = 1L;
+	private JButton valider;
     private JButton reinitialiserPlateau;
     private JButton test;
     private JButton menu;
@@ -48,8 +46,6 @@ public class Editeur extends BaseFenetre implements ActionListener
     private JButton suivant;
     private JButton precedent;
     private JButton supprimer;
-    
-    private JToolBar barreActions;
     
     private ArrayList<Piece> piecesDisponibles;
     
@@ -87,7 +83,7 @@ public class Editeur extends BaseFenetre implements ActionListener
         JPanel centre = new JPanel(new BorderLayout());
 
         JPanel outils = new JPanel();
-        this.menu = new JButton(new ImageIcon("Images/menu.png"));
+        this.menu     = new JButton(new ImageIcon("Images/menu.png"));
         this.menu.addActionListener(this);
         this.menu.setToolTipText("Retour au menu");
         outils.add(this.menu);
@@ -118,7 +114,7 @@ public class Editeur extends BaseFenetre implements ActionListener
         outils.add(this.aide);
         
         this.difficulte = new JLabel("Difficulté : ", JLabel.LEFT);
-        this.numNiveau = new JLabel("Niveau : ", JLabel.RIGHT);
+        this.numNiveau  = new JLabel("Niveau : ", JLabel.RIGHT);
         
         JPanel labelCentre = new JPanel(new BorderLayout());
         labelCentre.add(this.difficulte, BorderLayout.WEST);
@@ -167,7 +163,8 @@ public class Editeur extends BaseFenetre implements ActionListener
     }
 
     @Override
-    public void actionPerformed(ActionEvent e) {
+    public void actionPerformed(ActionEvent e)
+    {
         if( e.getSource() == valider) {
         	this.sauvegarderNiveau();
             this.setVisible(false);
@@ -176,61 +173,80 @@ public class Editeur extends BaseFenetre implements ActionListener
             this.fenetre.setTitle("Solitaire Chess - Menu");
             this.fenetre.pack();
         }
-        else if( e.getSource() == supprimer) {
-        	if ( this.pieceSelectionnee != null && this.pieceDisponibleSelectionne == null )
+        else 
+        	if( e.getSource() == supprimer) 
         	{
-        		this.ctrl.getPlateau().getPlateau()[this.pieceSelectionnee.getPosY()][this.pieceSelectionnee.getPosX()] = null;
-        		this.piecesDisponibles.add(this.pieceSelectionnee);
-        		this.pieceSelectionnee = null;
-        		this.estSelectionne = false;
+	        	if ( this.pieceSelectionnee != null && this.pieceDisponibleSelectionne == null )
+	        	{
+	        		this.ctrl.getPlateau().getPlateau()[this.pieceSelectionnee.getPosY()][this.pieceSelectionnee.getPosX()] = null;
+	        		this.piecesDisponibles.add(this.pieceSelectionnee);
+	        		this.pieceSelectionnee = null;
+	        		this.estSelectionne = false;
+	        	}
+        }
+        else 
+        	if(e.getSource() == aide) 
+        	{
+            	this.setVisible(false);
+            	this.ctrl.setNiveau(new Niveau(this.ctrl.getPlateau().getPlateau()));
+            	Jeu j = new Jeu(this.ctrl, this.fenetre);
+            	this.fenetre.setJeu(j);
+                this.fenetre.add(j, BorderLayout.CENTER);
+                this.fenetre.setTitle("Solitaire Chess - Jeu");
+                this.fenetre.pack();
+                this.fenetre.setLocation((int)(Toolkit.getDefaultToolkit().getScreenSize().getWidth() / 2 - this.fenetre.getWidth() / 2), (int)(Toolkit.getDefaultToolkit().getScreenSize().getHeight() / 2 - this.fenetre.getHeight() / 2));
         	}
-        }
-        else if(e.getSource() == aide) {
+        	else 
+        		if(e.getSource() == reinitialiserPlateau) 
+        		{
+		        	this.ctrl.setNiveau(new Niveau(0,"Debutant"));
+		        	this.ctrl.setPlateau(new Plateau(this.ctrl.getNiveau().getPiece()));
+		        	
+		        	this.pieceDisponibleSelectionne = null;
+		        	this.piecesDisponibles = new ArrayList<Piece>();
+		        	
+		        	this.piecesDisponibles.add(new Roi(0, 0));
+		        	this.piecesDisponibles.add(new Reine(0, 0));
+		        	this.piecesDisponibles.add(new Fou(0, 0));
+		        	this.piecesDisponibles.add(new Fou(0, 0));
+		        	this.piecesDisponibles.add(new Tour(0, 0));
+		        	this.piecesDisponibles.add(new Tour(0, 0));
+		        	this.piecesDisponibles.add(new Cavalier(0, 0));
+		        	this.piecesDisponibles.add(new Cavalier(0, 0));
+		        	this.piecesDisponibles.add(new Pion(0, 0));
+		        	this.piecesDisponibles.add(new Pion(0, 0));
+        		}
+        		else 
+        			if(e.getSource() == menu) 
+        			{
+			            this.setVisible(false);
+			            this.fenetre.add(this.fenetre.getMenu(), BorderLayout.CENTER);
+			            this.fenetre.getMenu().setVisible(true);
+			            this.fenetre.setTitle("Solitaire Chess - Menu");
+			            this.fenetre.pack();
+        			}
+        			else
+        				if(e.getSource() == test)
+        				{
         	
-        }
-        else if(e.getSource() == reinitialiserPlateau) {
-        	this.ctrl.setNiveau(new Niveau(0,"Debutant"));
-        	this.ctrl.setPlateau(new Plateau(this.ctrl.getNiveau().getPiece()));
-        	
-        	this.pieceDisponibleSelectionne = null;
-        	this.piecesDisponibles = new ArrayList<Piece>();
-        	
-        	this.piecesDisponibles.add(new Roi(0, 0));
-        	this.piecesDisponibles.add(new Reine(0, 0));
-        	this.piecesDisponibles.add(new Fou(0, 0));
-        	this.piecesDisponibles.add(new Fou(0, 0));
-        	this.piecesDisponibles.add(new Tour(0, 0));
-        	this.piecesDisponibles.add(new Tour(0, 0));
-        	this.piecesDisponibles.add(new Cavalier(0, 0));
-        	this.piecesDisponibles.add(new Cavalier(0, 0));
-        	this.piecesDisponibles.add(new Pion(0, 0));
-        	this.piecesDisponibles.add(new Pion(0, 0));
-        }
-        else if(e.getSource() == menu) {
-            this.setVisible(false);
-            this.fenetre.add(this.fenetre.getMenu(), BorderLayout.CENTER);
-            this.fenetre.getMenu().setVisible(true);
-            this.fenetre.setTitle("Solitaire Chess - Menu");
-            this.fenetre.pack();
-        }
-        else if(e.getSource() == test) {
-        	
-        }
+        				}
         
         this.refreshFenetre();
         this.refreshPiecesRestantes();
     }
     
-    protected void refreshPiecesRestantes() {
+    protected void refreshPiecesRestantes() 
+    {
         this.piecesCapturees.removeAll();
         this.piecesCapturees.updateUI();
+        
         for ( int i = 0; i < this.piecesDisponibles.size(); i++)
         {
             Piece pieceTmp = this.piecesDisponibles.get(i);
             this.imgPiece = this.getImage(pieceTmp);
 
             JLabel labelTmp = new JLabel();
-            labelTmp.setName(pieceTmp.getType()+"");
+            labelTmp.setName(pieceTmp.getType() + "");
             ImageIcon imageIcon = new ImageIcon(this.imgPiece.getScaledInstance(64, 64, Image.SCALE_DEFAULT));
             labelTmp.setIcon(imageIcon);
             labelTmp.addMouseListener(this);
@@ -238,28 +254,35 @@ public class Editeur extends BaseFenetre implements ActionListener
         }
     }
     
-    public void mouseClicked(MouseEvent e){}
-    public void mouseEntered(MouseEvent e) {}
-    public void mouseExited(MouseEvent e) {}
-    public void mousePressed(MouseEvent e) {}
-    public void mouseReleased(MouseEvent e) {
-
+    public void mouseClicked (MouseEvent e){}
+    public void mouseEntered (MouseEvent e){}
+    public void mouseExited  (MouseEvent e){}
+    public void mousePressed (MouseEvent e){}
+    public void mouseReleased(MouseEvent e) 
+    {
     	if ( e.getSource() instanceof JLabel )
     	{
-    		if ( this.pieceDisponibleSelectionne == null && !this.estSelectionne ) {
+    		if ( this.pieceDisponibleSelectionne == null && !this.estSelectionne ) 
+    		{
 	    		JLabel tmp = (JLabel) e.getSource();
 	    		if ( tmp.getName().equals("r"))
 	    			this.pieceDisponibleSelectionne = new Roi(0,0);
-	    		else if ( tmp.getName().equals("R"))
-	    			this.pieceDisponibleSelectionne = new Reine(0,0);
-	    		else if ( tmp.getName().equals("T"))
-	    			this.pieceDisponibleSelectionne = new Tour(0,0);
-	    		else if ( tmp.getName().equals("F"))
-	    			this.pieceDisponibleSelectionne = new Fou(0,0);
-	    		else if ( tmp.getName().equals("P"))
-	    			this.pieceDisponibleSelectionne = new Pion(0,0);
-	    		else if ( tmp.getName().equals("C"))
-	    			this.pieceDisponibleSelectionne = new Cavalier(0,0);
+	    		else 
+	    			if ( tmp.getName().equals("R"))
+	    				this.pieceDisponibleSelectionne = new Reine(0,0);
+	    			else 
+	    				if ( tmp.getName().equals("T"))
+	    					this.pieceDisponibleSelectionne = new Tour(0,0);
+	    				else 
+	    					if ( tmp.getName().equals("F"))
+	    						this.pieceDisponibleSelectionne = new Fou(0,0);
+	    					else 
+	    						if ( tmp.getName().equals("P"))
+	    							this.pieceDisponibleSelectionne = new Pion(0,0);
+	    						else 
+	    							if ( tmp.getName().equals("C"))
+	    								this.pieceDisponibleSelectionne = new Cavalier(0,0);
+	    		
 	    		tmp.setBorder(BorderFactory.createLineBorder(Color.black));
     		}
     	}
@@ -267,13 +290,16 @@ public class Editeur extends BaseFenetre implements ActionListener
     	{
 	        int y = e.getY() / this.TAILLE_CASE;
 	        int x = e.getX() / this.TAILLE_CASE;
-	        if ( this.pieceDisponibleSelectionne != null ) {
+	        
+	        if ( this.pieceDisponibleSelectionne != null ) 
+	        {
 	            if(this.ctrl.getPlateau().getPlateau()[y][x] == null)
 	            {
 	            	this.ctrl.getPlateau().getPlateau()[y][x] = this.pieceDisponibleSelectionne;
 	            	this.pieceDisponibleSelectionne.setPosX(x);
 	            	this.pieceDisponibleSelectionne.setPosY(y);
-	            	for (int i = 0; i < this.piecesDisponibles.size(); i++) {
+	            	for (int i = 0; i < this.piecesDisponibles.size(); i++)
+	            	{
 	            		if ( this.pieceDisponibleSelectionne.getType() == this.piecesDisponibles.get(i).getType())
 	            		{
 	            			this.piecesDisponibles.remove(i);
@@ -285,7 +311,8 @@ public class Editeur extends BaseFenetre implements ActionListener
 	                this.refreshPiecesRestantes();
 	            }
 	        }	
-	        else {
+	        else 
+	        {
 		        if(!this.estSelectionne)
 		        {
 		            if(this.ctrl.getPlateau().getPlateau()[y][x] != null)
@@ -316,29 +343,34 @@ public class Editeur extends BaseFenetre implements ActionListener
         this.refreshFenetre();
     }
     
-    public void sauvegarderNiveau() {
+    public void sauvegarderNiveau()
+    {
     	
     	PrintWriter fich = null;
 
-    	try {
+    	try 
+    	{
 			fich = new PrintWriter(new BufferedWriter(new FileWriter("Niveaux/NiveauEditeur/NiveauEdites.txt", true)));
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		}catch(IOException e) {e.printStackTrace();}
 
     	Piece[][] piece = this.ctrl.getPlateau().getPlateau();
-    	for ( int i = 0; i < 4; i++) {
+    	for ( int i = 0; i < 4; i++) 
+    	{
     		String line = "";
-    		for ( int j = 0; j < 4; j++) {
+    		for ( int j = 0; j < 4; j++) 
+    		{
     			char tmp;
+    			
     			if ( piece[i][j] == null)
     				tmp = '.';
     			else
     				tmp = piece[i][j].getType();
+    			
     			line += tmp+" ";
     		}
     		fich.println(line);
     	}
+    	
     	fich.println();
     	fich.close();
     }

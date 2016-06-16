@@ -13,8 +13,8 @@ public class Niveau
 	
 	public Niveau(int niveau)
 	{
-		numNiveau = niveau;
-		difficulte = "Edite";
+		this.numNiveau = niveau;
+		this.difficulte = "Edite";
 		try
 		{
 			  FileReader fr = new FileReader("Niveaux/NiveauEditeur/NiveauEdites.txt");
@@ -30,26 +30,29 @@ public class Niveau
 				  this.tabPiece = new Piece[4][4];
 				  if (sc.nextLine().equals(""))
 				  {
-						  for(int i = 0; i < 4; i++)
-							  for(int j = 0; j < 4; j++)
-								  switch(sc.next().charAt(0))
-								  {
-								  	case 'F' : this.tabPiece[i][j] = new Fou     (j,i); break;
+					  for(int i = 0; i < 4; i++)
+						  for(int j = 0; j < 4; j++)
+							  switch(sc.next().charAt(0))
+							  {
+							  		case 'F' : this.tabPiece[i][j] = new Fou     (j,i); break;
 								  	case 'C' : this.tabPiece[i][j] = new Cavalier(j,i); break;
 								  	case 'P' : this.tabPiece[i][j] = new Pion    (j,i); break;
 								  	case 'R' : this.tabPiece[i][j] = new Reine   (j,i); break;
 								  	case 'r' : this.tabPiece[i][j] = new Roi     (j,i); break;
 								  	case 'T' : this.tabPiece[i][j] = new Tour    (j,i); break;
-								  }
+							  }
 						  
-						  niveauTrouve = true;
+					  niveauTrouve = true;
 				  }
 			  }
 			  
-			  sc.close();
-			  
+			  sc.close();	  
 		}catch (Exception e){}
-
+	}
+	
+	public Niveau(Piece[][] tabPiece)
+	{
+		this.tabPiece = tabPiece;
 	}
 	
 	public Niveau(int numNiveau, String difficulte)
@@ -86,8 +89,7 @@ public class Niveau
 				}
 				else
 					sc.nextLine();
-			  sc.close();
-			  
+			  sc.close(); 
 		}catch (Exception e){}
 	}
 	
@@ -101,8 +103,6 @@ public class Niveau
 	}
 	
 	public boolean getInstancier(){return tabPiece == null;}
-	
-	public int getNumNiveau() { return this.numNiveau; }
-	public String getDifficulte() { return this.difficulte; }
-	
+	public int     getNumNiveau (){ return this.numNiveau ;}
+	public String  getDifficulte(){ return this.difficulte;}
 }
