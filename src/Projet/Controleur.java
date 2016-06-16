@@ -26,6 +26,7 @@ public class Controleur
 		alNiveauIntermediaire = new ArrayList<>();
 		alNiveauAvance = new ArrayList<>();
 		alNiveauExpert = new ArrayList<>();
+		alNiveauEdite  = new ArrayList<>();
 		
 			for(int i = 1; i < 50; i++)
 			{
@@ -41,8 +42,12 @@ public class Controleur
 				Niveau tmp3 = new Niveau(i, tabDifficultee[3]);
 				if (!tmp3.getInstancier())
 					alNiveauExpert.add(tmp3);
-
+				Niveau tmp4 = new Niveau(i-1);
+				if (!tmp4.getInstancier())
+					alNiveauEdite.add(tmp4);
 			}
+			
+			System.out.println(alNiveauEdite.size());
 		
 		this.partie = new Partie();
 		this.fenetre = new Fenetre(this);
