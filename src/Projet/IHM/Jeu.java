@@ -13,19 +13,13 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
-import java.awt.Graphics;
 import java.awt.GridLayout;
 import java.awt.Image;
-import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-
 import javax.swing.*;
 import javax.swing.border.BevelBorder;
-import javax.swing.border.Border;
-import javax.swing.plaf.IconUIResource;
 
 /**
  * Créé par BELLANGER Jessy, LINTOT Maxime, PICOT Maxence et SINAEVE Antoine le 14/06/2016.
@@ -46,6 +40,7 @@ public class Jeu extends BaseFenetre implements ActionListener
     private JLabel numNiveau;
     
     private int nombreCoups;
+    private static int score = 0;
 
     public Jeu(Controleur ctrl, Fenetre fenetre)
     {
@@ -222,6 +217,8 @@ public class Jeu extends BaseFenetre implements ActionListener
                 this.pieceSelectionnee = null;
             }
         }
+        
+        
         
         if(this.ctrl.victoireNiveauCourant())
         	this.nombreCoups = 0;
