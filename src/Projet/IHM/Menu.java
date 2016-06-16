@@ -99,7 +99,6 @@ public class Menu extends JPanel implements ActionListener
         if (e.getSource() == this.continuer) 
         {
             this.setVisible(false);
-            this.ctrl.chargerPartie();
             Jeu j = new Jeu(this.ctrl, this.fenetre);
             this.fenetre.setJeu(j);
             this.fenetre.add(j, BorderLayout.CENTER);

@@ -10,12 +10,13 @@ public class Partie {
 	
 	private Niveau niveauCourant;
 	private File fichier;
-	private int[] tabDifficultee;
+	private int[] niveauxMaximum;
 	
 	public Partie()
 	{
-		tabDifficultee = new int[4];
+		this.niveauxMaximum = new int[4];
 		this.fichier = new File("Sauvegarde/progression.chess");
+		this.chargerPartie();
 	}
 	
 	public void nouvellePartie()
@@ -24,22 +25,17 @@ public class Partie {
 		this.fichier.delete();
 		try {
 			this.fichier.createNewFile();
-			fw = new FileWriter(this.fichier);
-			fw.write("Debutant 0\n");       //niveau Courant
-			fw.write("Debutant 0\n");       //niveau max
-			fw.write("Intermediaire 0\n");  //pour chaque
-			fw.write("Avance 0\n");         //difficulte
-			fw.write("Expert 0\n");
-			fw.close();
-		}catch (IOException e){e.printStackTrace();}
+		} catch (IOException e) {e.printStackTrace();}
+		
 		this.niveauCourant = new Niveau(0, "Debutant");
+		this.enregistrerPartie();
 	}
-
 	
 	public void chargerPartie()
 	{
+		FileReader fr;
 		try {
-			FileReader fr = new FileReader(this.fichier);
+			fr = new FileReader(this.fichier);
 			Scanner sc = new Scanner(fr);
 			String difficultee = sc.next();
 			int niveau = sc.nextInt();
@@ -48,16 +44,32 @@ public class Partie {
 			for(int cpt  = 0;cpt < 4;cpt++)
 			{
 				sc.next();
-				this.tabDifficultee[cpt] = sc.nextInt();
+				this.niveauxMaximum[cpt] = sc.nextInt();
 			}
-			
+			fr.close();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
 	
+	public void enregistrerPartie()
+	{
+		FileWriter fw;
+		try {
+			fw = new FileWriter(this.fichier);
+			
+			fw.write(this.niveauCourant.getDifficulte()+" "  +this.niveauCourant.getNumNiveau()); //niveau courant
+			fw.write("Debutant "                             +this.niveauxMaximum[0]+"\n");       //niveau max
+			fw.write("Intermediaire "                        +this.niveauxMaximum[1]+"\n");       //pour chaque
+			fw.write("Avance "                               +this.niveauxMaximum[2]+"\n");       //difficulte
+			fw.write("Expert "                               +this.niveauxMaximum[3]+"\n");	
+			fw.close();
+		}catch (IOException e){e.printStackTrace();}
+		this.niveauCourant = new Niveau(0, "Debutant");
+	}
+	
 	public boolean peutJouerNiveau(int difficulte, int niveau)
 	{
-		return niveau<=tabDifficultee[difficulte];
+		return niveau<=this.niveauxMaximum[difficulte];
 	}
 }

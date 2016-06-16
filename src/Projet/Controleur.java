@@ -90,11 +90,6 @@ public class Controleur
 		this.partie.nouvellePartie();
 	}
 	
-	public void chargerPartie()
-	{
-		this.partie.chargerPartie();
-	}
-	
 	public void rejouer()
 	{
 		this.niveau = new Niveau(this.niveau.getNumNiveau(), this.niveau.getDifficulte());
@@ -184,6 +179,7 @@ public class Controleur
 	
 	public Niveau  getNiveau (){return this.niveau;}
 	public Plateau getPlateau(){return this.pl    ;}
+	public Partie getPartie  (){return this.partie;}
 	
 	public void setNiveau (Niveau niv){this.niveau = niv;}
 	public void setPlateau(Plateau pl){this.pl = pl   ;}
