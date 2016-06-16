@@ -40,7 +40,7 @@ public class Partie {
 			String difficultee = sc.next();
 			int niveau = sc.nextInt();
 			this.niveauCourant = new Niveau(niveau, difficultee);
-			System.out.println("charge niveau");
+			System.out.println(niveau+"/"+difficultee);
 			for(int cpt  = 0;cpt < 4;cpt++)
 			{
 				sc.next();
@@ -58,7 +58,7 @@ public class Partie {
 		try {
 			fw = new FileWriter(this.fichier);
 			
-			fw.write(this.niveauCourant.getDifficulte()+" "  +this.niveauCourant.getNumNiveau()); //niveau courant
+			fw.write(this.niveauCourant.getDifficulte()+" "  +this.niveauCourant.getNumNiveau()+"\n"); //niveau courant
 			fw.write("Debutant "                             +this.niveauxMaximum[0]+"\n");       //niveau max
 			fw.write("Intermediaire "                        +this.niveauxMaximum[1]+"\n");       //pour chaque
 			fw.write("Avance "                               +this.niveauxMaximum[2]+"\n");       //difficulte
@@ -74,5 +74,5 @@ public class Partie {
 	}
 	
 	public Niveau getNiveauCourant(){return this.niveauCourant;}
-	public void setNiveau(Niveau n){this.niveauCourant=n;}
+	public void setNiveau(Niveau n){this.niveauCourant = n;}
 }
