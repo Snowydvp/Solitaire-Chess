@@ -35,7 +35,7 @@ public abstract class Piece implements Cloneable
 		
 		int caseX = this.posX + dirX;
 		int caseY = this.posY + dirY;
-		while(!pieceEntreDeux && (caseX != cibleX || caseY != cibleY) && caseX > 0 && caseY > 0 && caseX < 4 && caseY < 4)
+		while(!pieceEntreDeux && (caseX != cibleX || caseY != cibleY) && caseX >= 0 && caseY >= 0 && caseX < 4 && caseY < 4)
 		{
 			if(plateau[caseY][caseX] != null)
 				pieceEntreDeux = true;
