@@ -1,13 +1,5 @@
-# Ce fichier concerne l'avancement de votre partie.
-# Vous pouvez modifier le second  numéro pour indiquer le défi auquel vous êtes arrivé pour un niveau de difficulté.
-#
-# Attention, manipuler ce fichier est semblable à de la triche.
-# Modifiez-le au risque de ne plus vous amuser à tout débloquer.
-#
-# Des valeurs incorrectes réinitialiseront votre partie.
-#
-# Niveau # Défi
-  1        0
-  2        0
-  3        0
-  4        0
+Debutant 0
+Debutant 0
+Intermediaire 0
+Avance 0
+Expert 0

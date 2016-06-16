@@ -96,7 +96,6 @@ public class Controleur
 	public void chargerPartie()
 	{
 		this.partie.chargerPartie();
-		
 	}
 	
 	public void rejouer()
@@ -161,20 +160,12 @@ public class Controleur
 			Piece[][] plateauPrecedent = this.alEtatPrecedent.get(alEtatPrecedent.size()-1).getPlateau();
 			this.pl = new Plateau(this.copieTableau(plateauPrecedent), this.pl.getPiecesCapturees()); //il faut recopier la valeur de plateuPrecedent
 			
-			for(int i = 0; i< alEtatPrecedent.size(); i++)
-				System.out.println(alEtatPrecedent.get(i).hashCode());
-			System.out.println("-------------------");
 		}
 	}
 	
 	public void sauvegardeCoup()
 	{
 		this.alEtatPrecedent.add(new Plateau(this.copieTableau(this.pl.getPlateau())));
-
-		for(int i = 0; i< alEtatPrecedent.size(); i++)
-			System.out.println(alEtatPrecedent.get(i).hashCode());
-		
-		System.out.println("-------------------");
 
 	}
 	
