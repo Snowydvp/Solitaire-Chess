@@ -13,11 +13,12 @@ public class Niveau
 	
 	public Niveau(int numNiveau, String difficulte)
 	{
-		this.tabPiece = new Piece[4][4];
+		
 		this.numNiveau = numNiveau;
 		this.difficulte = difficulte;
 		try
 		{
+		      this.tabPiece = new Piece[4][4];
 			  FileReader fr = new FileReader("Niveaux/NiveauxPredefini/Niveaux"+ difficulte + ".txt");
 			  Scanner sc = new Scanner ( fr );
 			  boolean niveauTrouve = false;
@@ -57,6 +58,8 @@ public class Niveau
 				pieceOrigine[i][j]=this.tabPiece[i][j];
 		return pieceOrigine;
 	}
+	
+	public boolean getInstancier(){return tabPiece == null;}
 	
 	public int getNumNiveau() { return this.numNiveau; }
 	public String getDifficulte() { return this.difficulte; }
