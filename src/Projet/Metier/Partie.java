@@ -40,7 +40,6 @@ public class Partie {
 			String difficultee = sc.next();
 			int niveau = sc.nextInt();
 			this.niveauCourant = new Niveau(niveau, difficultee);
-			System.out.println(niveau+"/"+difficultee);
 			for(int cpt  = 0;cpt < 4;cpt++)
 			{
 				sc.next();
