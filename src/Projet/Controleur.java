@@ -15,7 +15,7 @@ public class Controleur
 	private Niveau niveau;
 	private Partie partie;
 	private ArrayList<Plateau> alEtatPrecedent;
-	private ArrayList<Niveau> alNiveauDebutant, alNiveauIntermediaire, alNiveauAvance, alNiveauExpert;
+	private ArrayList<Niveau> alNiveauDebutant, alNiveauIntermediaire, alNiveauAvance, alNiveauExpert, alNiveauEdite;
 	
 	public Controleur()
 	{
@@ -35,14 +35,18 @@ public class Controleur
 					alNiveauDebutant.add(tmp);
 				Niveau tmp1 = new Niveau(i, tabDifficultee[1]);
 				if (tmp.getInstancier())
-					alNiveauDebutant.add(tmp1);
+					alNiveauIntermediaire.add(tmp1);
 				Niveau tmp2 = new Niveau(i, tabDifficultee[2]);
 				if (tmp.getInstancier())
-					alNiveauDebutant.add(tmp2);
+					alNiveauAvance.add(tmp2);
 				Niveau tmp3 = new Niveau(i, tabDifficultee[3]);
 				if (tmp.getInstancier())
-					alNiveauDebutant.add(tmp3);
+					alNiveauExpert.add(tmp3);
+				Niveau tmp4 = new Niveau(i-1);
+				if(tmp4.getInstancier())
+					alNiveauEdite.add(tmp4);
 			}
+			
 		
 		this.niveau = new Niveau(0, tabDifficultee[0]);
 		pl = new Plateau(this.niveau.getPiece());
