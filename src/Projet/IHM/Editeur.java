@@ -177,7 +177,13 @@ public class Editeur extends BaseFenetre implements ActionListener
             this.fenetre.pack();
         }
         else if( e.getSource() == supprimer) {
-        	
+        	if ( this.pieceSelectionnee != null && this.pieceDisponibleSelectionne == null )
+        	{
+        		this.ctrl.getPlateau().getPlateau()[this.pieceSelectionnee.getPosY()][this.pieceSelectionnee.getPosX()] = null;
+        		this.piecesDisponibles.add(this.pieceSelectionnee);
+        		this.pieceSelectionnee = null;
+        		this.estSelectionne = false;
+        	}
         }
         else if(e.getSource() == aide) {
         	
