@@ -96,8 +96,10 @@ public class Menu extends JPanel implements ActionListener
         if(e.getSource() == this.quitter)
             System.exit(0);
 
-        if (e.getSource() == this.continuer) {
+        if (e.getSource() == this.continuer) 
+        {
             this.setVisible(false);
+            this.ctrl.chargerPartie();
             Jeu j = new Jeu(this.ctrl, this.fenetre);
             this.fenetre.setJeu(j);
             this.fenetre.add(j, BorderLayout.CENTER);
@@ -105,7 +107,8 @@ public class Menu extends JPanel implements ActionListener
             this.fenetre.pack();
             this.fenetre.setLocation((int)(Toolkit.getDefaultToolkit().getScreenSize().getWidth() / 2 - this.fenetre.getWidth() / 2), (int)(Toolkit.getDefaultToolkit().getScreenSize().getHeight() / 2 - this.fenetre.getHeight() / 2));
         }
-        else if (e.getSource() == this.creerDefi) {
+        else if (e.getSource() == this.creerDefi) 
+        {
             this.setVisible(false);
             Editeur ed = new Editeur(this.ctrl, this.fenetre);
             this.fenetre.setEditeur(ed);
@@ -113,6 +116,18 @@ public class Menu extends JPanel implements ActionListener
             this.fenetre.setTitle("Solitaire Chess - Editeur");
             this.fenetre.pack();
             this.fenetre.setLocation((int)(Toolkit.getDefaultToolkit().getScreenSize().getWidth() / 2 - this.fenetre.getWidth() / 2), (int)(Toolkit.getDefaultToolkit().getScreenSize().getHeight() / 2 - this.fenetre.getHeight() / 2));
+        }
+        else if (e.getSource() == this.nouvellePartie)
+        {
+        	this.setVisible(false);
+        	this.ctrl.creerPartie();
+        	Jeu j = new Jeu(this.ctrl, this.fenetre);
+        	this.fenetre.setJeu(j);
+            this.fenetre.add(j, BorderLayout.CENTER);
+            this.fenetre.setTitle("Solitaire Chess - Jeu");
+            this.fenetre.pack();
+            this.fenetre.setLocation((int)(Toolkit.getDefaultToolkit().getScreenSize().getWidth() / 2 - this.fenetre.getWidth() / 2), (int)(Toolkit.getDefaultToolkit().getScreenSize().getHeight() / 2 - this.fenetre.getHeight() / 2));
+       
         }
     }
 }
