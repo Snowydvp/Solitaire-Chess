@@ -6,6 +6,7 @@ import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
@@ -13,13 +14,14 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import Projet.Controleur;
+import Projet.Metier.Niveau;
 
 public class MenuDefi extends JPanel implements ActionListener {
 	
-	private JPanel listeDefisDebutant;
-	private JPanel listeDefisIntermediaire;
-	private JPanel listeDefisAvance;
-	private JPanel listeDefisExpert;
+	private JPanel debutant;
+	private JPanel intermediaire;
+	private JPanel avance;
+	private JPanel expert;
 	private Controleur ctrl;
 	private Fenetre fenetre;
 	
@@ -29,54 +31,35 @@ public class MenuDefi extends JPanel implements ActionListener {
 		this.ctrl = ctrl;
 		this.setLayout(new GridLayout(4,1));
 		
-		JPanel tmp = new JPanel(new BorderLayout());
-		int i = this.ctrl.getNiveauDebutant().size()/5;
-		this.listeDefisDebutant = new JPanel(new GridLayout(0,i,10,10));
-		listeDefisDebutant.setBorder(BorderFactory.createTitledBorder(
-				BorderFactory.createEtchedBorder(),
-				"Défis débutant",0,0,new Font("Dialog", 1, 12),Color.BLACK));
-		for ( int j = 0; j < this.ctrl.getNiveauDebutant().size(); j++) {
-			this.listeDefisDebutant.add(new JButton(this.ctrl.getNiveauDebutant().get(j).getNumNiveau()+""));
-		}
-		tmp.add(this.listeDefisDebutant);
-		this.add(tmp);
+		debutant = this.initialisePanel(this.ctrl.getNiveauDebutant(), "Défis débutant");
+		this.add(debutant);
 		
-		tmp = new JPanel(new BorderLayout());
-		i = this.ctrl.getNiveauIntermediaire().size()/5;
-		this.listeDefisIntermediaire = new JPanel(new GridLayout(0,i,10,10));
-		listeDefisIntermediaire.setBorder(BorderFactory.createTitledBorder(
-				BorderFactory.createEtchedBorder(),
-				"Défis intermediaires",0,0,new Font("Dialog", 1, 12),Color.BLACK));
-		for ( int j = 0; j < this.ctrl.getNiveauIntermediaire().size(); j++) {
-			this.listeDefisIntermediaire.add(new JButton(this.ctrl.getNiveauDebutant().get(j).getNumNiveau()+""));
-		}
-		tmp.add(this.listeDefisIntermediaire);
-		this.add(tmp);
+		intermediaire = this.initialisePanel(this.ctrl.getNiveauIntermediaire(), "Défis intermediaire");
+		this.add(intermediaire);
 		
-		tmp = new JPanel(new BorderLayout());
-		i = this.ctrl.getNiveauAvance().size()/5;
-		System.out.println(i+"");
-		this.listeDefisAvance = new JPanel(new GridLayout(0,i,10,10));
-		listeDefisAvance.setBorder(BorderFactory.createTitledBorder(
-				BorderFactory.createEtchedBorder(),
-				"Défis avancés",0,0,new Font("Dialog", 1, 12),Color.BLACK));
-		for ( int j = 0; j < this.ctrl.getNiveauAvance().size(); j++) {
-			this.listeDefisAvance.add(new JButton(this.ctrl.getNiveauDebutant().get(j).getNumNiveau()+""));
-		}
-		tmp.add(this.listeDefisAvance);
-		this.add(tmp);
+		avance = this.initialisePanel(this.ctrl.getNiveauAvance(), "Défis avancé");
+		this.add(avance);
 		
-		tmp = new JPanel(new BorderLayout());
-		i = this.ctrl.getNiveauExpert().size()/5;
-		this.listeDefisExpert = new JPanel(new GridLayout(0,i,10,10));
-		listeDefisExpert.setBorder(BorderFactory.createTitledBorder(
+		expert = this.initialisePanel(this.ctrl.getNiveauExpert(), "Défis expert");
+		this.add(expert);
+	}
+	
+	public JPanel initialisePanel(ArrayList<Niveau> alNiveau, String s) {
+		int i = alNiveau.size()/5;
+		JPanel tmp = new JPanel(new GridLayout(i,0,10,10));
+		tmp.setBorder(BorderFactory.createTitledBorder(
 				BorderFactory.createEtchedBorder(),
-				"Défis expert",0,0,new Font("Dialog", 1, 12),Color.BLACK));
-		for ( int j = 0; j < this.ctrl.getNiveauExpert().size(); j++) {
-			this.listeDefisExpert.add(new JButton(this.ctrl.getNiveauDebutant().get(j).getNumNiveau()+""));
+				s,0,0,new Font("Dialog", 1, 12),Color.BLACK));
+		for ( int j = 0; j < alNiveau.size(); j++) {
+			JButton buttonTmp = new JButton(alNiveau.get(j).getNumNiveau()+"");
+			if ( this.ctrl.getPartie().peutJouerNiveau(0,alNiveau.get(j).getNumNiveau()-1))
+				buttonTmp.setBackground(Color.GREEN);
+			else
+				buttonTmp.setBackground(Color.RED);
+			tmp.add(buttonTmp);
 		}
-		tmp.add(this.listeDefisExpert);
-		this.add(tmp);
+		
+		return tmp;
 	}
 
 	public void actionPerformed(ActionEvent e) {
