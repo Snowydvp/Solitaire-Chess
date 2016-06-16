@@ -57,21 +57,44 @@ public class Controleur
 	
 	public void augmenterNiveau()
 	{
+		/*
 		if (this.partie.getNiveauCourant().getNumNiveau() < 15)
-			this.partie.setNiveau(new Niveau(this.partie.getNiveauCourant().getNumNiveau()+1, this.partie.getNiveauCourant().getDifficulte()));
+			this.partie.setNiveau(this.alNiveauAvance.get(this.partie.getNiveauCourant().getNumNiveau()+1));//new Niveau(this.partie.getNiveauCourant().getNumNiveau()+1, this.partie.getNiveauCourant().getDifficulte()));
 		else if ( !this.partie.getNiveauCourant().getDifficulte().equals("Expert"))
 			this.partie.setNiveau(new Niveau(1, this.tabDifficultee[this.augmenterDifficulte(this.partie.getNiveauCourant().getDifficulte())]));
 			
 		pl = new Plateau(this.partie.getNiveauCourant().getPiece());	
+		System.out.println(this.partie.getNiveauCourant().getNumNiveau());
+		this.partie.enregistrerPartie();
 		
 		this.alEtatPrecedent.clear();
 		alEtatPrecedent.add(new Plateau(this.copieTableau(this.pl.getPlateau())));
+		*/
+		String difficulte = this.partie.getNiveauCourant().getDifficulte();
+		ArrayList<Niveau> difficulteCourant = this.alNiveauDebutant;  
+		if(difficulte.equals("Intermediaire"))              //determine la difficulte
+			difficulteCourant = this.alNiveauIntermediaire;
+		else if(difficulte.equals("Avance"))
+			difficulteCourant = this.alNiveauAvance;
+		else if(difficulte.equals("Expert"))
+			difficulteCourant = this.alNiveauExpert;
+		if(this.partie.getNiveauCourant().getNumNiveau() < difficulteCourant.size())
+		{
+			this.partie.setNiveau(difficulteCourant.get(this.partie.getNiveauCourant().getNumNiveau()));
+			System.out.println(this.getNiveau().getNumNiveau());
+		}
+		this.pl = new Plateau(this.partie.getNiveauCourant().getPiece());
+		this.partie.enregistrerPartie();
+		this.alEtatPrecedent.clear();
+		alEtatPrecedent.add(new Plateau(this.copieTableau(this.pl.getPlateau())));
+		
+		
 	}
 	
 	public void diminuerNiveau()
 	{
 		if ( this.partie.getNiveauCourant().getNumNiveau() > 1)
-			this.partie.setNiveau(new Niveau(this.partie.getNiveauCourant().getNumNiveau()-1, this.partie.getNiveauCourant().getDifficulte()));
+			this.partie.setNiveau(this.alNiveauAvance.get(this.partie.getNiveauCourant().getNumNiveau()-1));
 		else if ( !this.partie.getNiveauCourant().getDifficulte().equals("Debutant"))
 			this.partie.setNiveau(new Niveau(15, this.tabDifficultee[this.diminuerDifficulte(this.partie.getNiveauCourant().getDifficulte())]));
 		
