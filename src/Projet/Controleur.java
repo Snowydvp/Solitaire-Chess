@@ -34,25 +34,16 @@ public class Controleur
 				if (!tmp.getInstancier())
 					alNiveauDebutant.add(tmp);
 				Niveau tmp1 = new Niveau(i, tabDifficultee[1]);
-				if (!tmp.getInstancier())
+				if (!tmp1.getInstancier())
 					alNiveauIntermediaire.add(tmp1);
 				Niveau tmp2 = new Niveau(i, tabDifficultee[2]);
-				if (!tmp.getInstancier())
+				if (!tmp2.getInstancier())
 					alNiveauAvance.add(tmp2);
 				Niveau tmp3 = new Niveau(i, tabDifficultee[3]);
-				if (!tmp.getInstancier())
+				if (!tmp3.getInstancier())
 					alNiveauExpert.add(tmp3);
 
 			}
-			Niveau tmp4 = new Niveau(0);
-			if(tmp4.getInstancier())
-				alNiveauEdite.add(tmp4);	
-			
-			System.out.println(alNiveauEdite);
-			System.out.println(alNiveauDebutant);
-			System.out.println(alNiveauIntermediaire);
-			System.out.println(alNiveauAvance);
-			System.out.println(alNiveauExpert);
 		
 		this.niveau = new Niveau(0, tabDifficultee[0]);
 		pl = new Plateau(this.niveau.getPiece());

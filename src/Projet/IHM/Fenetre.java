@@ -10,6 +10,7 @@ public class Fenetre extends JFrame
 	private Menu menu;
 	private Jeu jeu;
 	private Editeur editeur;
+	private MenuDefi menuDefi;
 	
 	public Fenetre(Controleur ctrl) 
 	{	
@@ -23,6 +24,7 @@ public class Fenetre extends JFrame
 		
 		this.jeu = null;
 		this.editeur = null;
+		this.menuDefi = null;
 		this.menu = new Menu(this.ctrl,this);
 		this.add(this.menu);
 		
@@ -43,12 +45,20 @@ public class Fenetre extends JFrame
 		return this.editeur;
 	}
 	
+	public MenuDefi getMenuDefi() {
+		return this.menuDefi;
+	}
+	
 	public void setJeu(Jeu j) {
 		this.jeu = j;
 	}
 	
 	public void setEditeur(Editeur e) {
 		this.editeur = e;
+	}
+	
+	public void setMenuDefi(MenuDefi mD) {
+		this.menuDefi = mD;
 	}
 	
 

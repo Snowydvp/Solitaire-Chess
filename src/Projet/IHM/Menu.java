@@ -129,5 +129,16 @@ public class Menu extends JPanel implements ActionListener
             this.fenetre.setLocation((int)(Toolkit.getDefaultToolkit().getScreenSize().getWidth() / 2 - this.fenetre.getWidth() / 2), (int)(Toolkit.getDefaultToolkit().getScreenSize().getHeight() / 2 - this.fenetre.getHeight() / 2));
        
         }
+        else if (e.getSource() == this.choisirNiveau)
+        {
+        	this.setVisible(false);
+        	MenuDefi mD = new MenuDefi(this.ctrl, this.fenetre);
+        	this.fenetre.setMenuDefi(mD);
+            this.fenetre.add(mD, BorderLayout.CENTER);
+            this.fenetre.setTitle("Solitaire Chess - Liste Défis");
+            this.fenetre.pack();
+            this.fenetre.setLocation((int)(Toolkit.getDefaultToolkit().getScreenSize().getWidth() / 2 - this.fenetre.getWidth() / 2), (int)(Toolkit.getDefaultToolkit().getScreenSize().getHeight() / 2 - this.fenetre.getHeight() / 2));
+       
+        }
     }
 }

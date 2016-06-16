@@ -58,7 +58,6 @@ public class Niveau
 		this.difficulte = difficulte;
 		try
 		{
-		      this.tabPiece = new Piece[4][4];
 			  FileReader fr = new FileReader("Niveaux/NiveauxPredefini/Niveaux"+ difficulte + ".txt");
 			  Scanner sc = new Scanner ( fr );
 			  boolean niveauTrouve = false;
@@ -68,6 +67,7 @@ public class Niveau
 				 {
 					 if (sc.nextInt() == numNiveau )
 					 {
+						 this.tabPiece = new Piece[4][4];
 						  sc.nextLine();
 						  for(int i = 0; i < 4; i++)
 							  for(int j = 0; j < 4; j++)
