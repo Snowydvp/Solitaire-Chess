@@ -164,6 +164,9 @@ public class Controleur
 	public Niveau  getNiveau (){return this.niveau;}
 	public Plateau getPlateau(){return this.pl    ;}
 	
+	public void setNiveau (Niveau niv){this.niveau = niv;}
+	public void setPlateau(Plateau pl){this.pl = pl   ;}
+	
 	public static void main(String[] a)
 	{
 		new Controleur();

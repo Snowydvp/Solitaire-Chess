@@ -2,6 +2,8 @@ package Projet.IHM;
 
 import Projet.Controleur;
 import Projet.IHM.Fenetre;
+import Projet.Metier.Niveau;
+import Projet.Metier.Plateau;
 import Projet.Metier.Pieces.*;
 
 import java.util.ArrayList;
@@ -21,6 +23,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
 import javax.swing.*;
+import javax.swing.border.BevelBorder;
 import javax.swing.border.Border;
 import javax.swing.plaf.IconUIResource;
 
@@ -37,59 +40,93 @@ public class Jeu extends BaseFenetre implements ActionListener
     private JButton annuler;
     
     private JToolBar barreActions;
+    
+    private JLabel compteur;
+    private JLabel difficulte;
+    private JLabel numNiveau;
+    
+    private int nombreCoups;
 
     public Jeu(Controleur ctrl, Fenetre fenetre)
     {
     	super(ctrl,fenetre);
 
-        this.barreActions = new JToolBar(JToolBar.HORIZONTAL);
-        this.barreActions.setFloatable(false);
+    	this.estEditeur = false;
+    	this.nombreCoups = 0;
+    	
+    	this.ctrl.setNiveau(new Niveau(1,"Debutant"));
+    	this.ctrl.setPlateau(new Plateau(this.ctrl.getNiveau().getPiece()));
+    	
+        JPanel centre = new JPanel(new BorderLayout());
 
-        this.menu = new JButton();
-        this.menu.setIcon(new ImageIcon("Images/iconMenu.gif"));
+        JPanel outils = new JPanel();
+        this.menu = new JButton(new ImageIcon("Images/menu.png"));
         this.menu.addActionListener(this);
         this.menu.setToolTipText("Retour au menu");
-        this.barreActions.add(menu);
+        outils.add(this.menu);
 
-        this.barreActions.addSeparator();
-
-        rejouer = new JButton();
-        this.rejouer.setIcon(new ImageIcon("Images/rejouer.gif"));
-        this.rejouer.addActionListener(this);
-        this.rejouer.setToolTipText("Recommencer le dÃ©fi");
-        this.barreActions.add(rejouer);
-
-        this.barreActions.addSeparator();
-
-        this.annuler = new JButton();
-        this.annuler.setIcon(new ImageIcon("Images/annuler.gif"));
+        this.annuler = new JButton(new ImageIcon("Images/eraser.png"));
         this.annuler.addActionListener(this);
         this.annuler.setToolTipText("Annuler le dernier coup");
-        this.barreActions.add(annuler);
+        outils.add(this.annuler);
 
-        this.barreActions.addSeparator();
+        this.rejouer = new JButton(new ImageIcon("Images/fire.png"));
+        this.rejouer.addActionListener(this);
+        this.rejouer.setToolTipText("Rejouer ce défi");
+        outils.add(this.rejouer);
 
-        precedent = new JButton();
-        this.precedent.setIcon(new ImageIcon("Images/precedent.gif"));
-        this.precedent.addActionListener(this);
-        this.precedent.setToolTipText("DÃ©fi prÃ©cÃ©dent");
-        this.barreActions.add(precedent);
-
-        suivant = new JButton();
-        this.suivant.setIcon(new ImageIcon("Images/suivant.gif"));
-        this.suivant.addActionListener(this);
-        this.suivant.setToolTipText("DÃ©fi suivant");
-        this.barreActions.add(suivant);
-
-        this.barreActions.addSeparator();
-
-        this.aide = new JButton();
-        this.aide.setIcon(new ImageIcon("Images/aide.gif"));
+        this.aide = new JButton(new ImageIcon("Images/question-circular-button.png"));
         this.aide.addActionListener(this);
-        this.aide.setToolTipText("Aide");
-        this.barreActions.add(aide);
+        this.aide.setToolTipText("À l'aiiiiiiiiide je suis coincé en 720 !!!!!");
+        outils.add(this.aide);
+
+
+        this.difficulte = new JLabel("Difficulté : ", JLabel.LEFT);
+        this.numNiveau = new JLabel("Niveau : ", JLabel.RIGHT);
         
-        this.add(this.barreActions, BorderLayout.NORTH);
+        JPanel labelCentre = new JPanel(new BorderLayout());
+        labelCentre.add(this.difficulte, BorderLayout.WEST);
+        labelCentre.add(this.numNiveau, BorderLayout.EAST);
+        labelCentre.setBorder(BorderFactory.createEmptyBorder(0, 0, 5, 0));
+        centre.add(labelCentre, BorderLayout.NORTH);
+
+        this.compteur = new JLabel("Score : "+this.nombreCoups);
+        compteur.setBorder(BorderFactory.createEmptyBorder(5, 0, 0, 0));
+        centre.add(compteur, BorderLayout.SOUTH);
+        centre.setBorder(BorderFactory.createEmptyBorder(0, 10, 0, 10));
+
+        this.grille = new JPanel(new GridLayout(4, 4));
+        this.grille.addMouseListener(this);
+        this.refreshFenetre();
+        centre.add(this.grille);
+
+        Font font = new Font("Helvetica", Font.PLAIN, 75);
+        this.precedent = new JButton("<");
+        this.precedent.setToolTipText("Niveau précédent");
+        this.precedent.setFont(font);
+        this.precedent.addActionListener(this);
+        this.suivant = new JButton(">");
+        this.suivant.setToolTipText("Niveau suivant");
+        this.suivant.setFont(font);
+        this.suivant.addActionListener(this);
+
+
+        JPanel panelCaptures = new JPanel(new BorderLayout());
+        panelCaptures.setBorder(BorderFactory.createEmptyBorder(10, 0, 0, 0));
+        this.piecesCapturees = new JPanel(new FlowLayout(FlowLayout.CENTER, -10, 10));
+        this.piecesCapturees.setBackground(new Color(200, 200, 200));
+        this.piecesCapturees.setPreferredSize(new Dimension(0, 80));
+        this.piecesCapturees.setBorder(BorderFactory.createBevelBorder(BevelBorder.LOWERED));
+        panelCaptures.add(piecesCapturees, BorderLayout.CENTER);
+
+        this.add(outils, BorderLayout.NORTH);
+        this.add(this.precedent, BorderLayout.WEST);
+        this.add(this.suivant, BorderLayout.EAST);
+        this.add(panelCaptures, BorderLayout.SOUTH);
+        this.add(centre);
+        
+        this.refreshFenetre();
+        this.refreshPiecesCapturees();
 
     }
 
@@ -97,15 +134,18 @@ public class Jeu extends BaseFenetre implements ActionListener
     public void actionPerformed(ActionEvent e) {
         if( e.getSource() == suivant) {
             this.ctrl.augmenterNiveau();
+            this.nombreCoups = 0;
         }
         else if(e.getSource() == precedent) {
             this.ctrl.diminuerNiveau();
+            this.nombreCoups = 0;
         }
         else if(e.getSource() == rejouer) {
             this.ctrl.rejouer();
             this.estSelectionne = false;
             this.pieceSelectionnee = null;
             this.pX = this.pY = -1;
+            this.nombreCoups = 0;
         }
         else if(e.getSource() == menu) {
             this.setVisible(false);
@@ -139,6 +179,13 @@ public class Jeu extends BaseFenetre implements ActionListener
             labelTmp.setIcon(imageIcon);
             this.piecesCapturees.add(labelTmp);
         }
+        
+        this.numNiveau.setText("Niveau : "+this.ctrl.getNiveau().getNumNiveau());
+        this.difficulte.setText("Difficulte : "+this.ctrl.getNiveau().getDifficulte());
+        this.compteur.setText("Score : "+this.nombreCoups);
+        
+        
+        
     }
     
     public void mouseClicked(MouseEvent e){}
@@ -167,14 +214,12 @@ public class Jeu extends BaseFenetre implements ActionListener
                 this.estSelectionne = false;
                 this.pieceSelectionnee = null;
                 this.ctrl.sauvegardeCoup();
+                this.nombreCoups++;
             }
             else
             {
-                if(this.ctrl.getPlateau().getPlateau()[y][x] == this.pieceSelectionnee)
-                {
-                    this.estSelectionne = false;
-                    this.pieceSelectionnee = null;
-                }
+                this.estSelectionne = false;
+                this.pieceSelectionnee = null;
             }
         }
         this.ctrl.victoireNiveauCourant();

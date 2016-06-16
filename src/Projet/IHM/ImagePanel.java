@@ -13,9 +13,12 @@ public class ImagePanel extends JPanel
     private Image img;
     private Image imgPiece;
     private boolean estSelectionne;
+    
+    private boolean deplacementPossible;
 
-    public ImagePanel(String img, Image imgPiece, boolean estSelectionnee)
+    public ImagePanel(String img, Image imgPiece, boolean estSelectionnee, boolean deplacementPossible)
     {
+    	this.deplacementPossible = deplacementPossible;
         this.estSelectionne = estSelectionnee;
         this.img = new ImageIcon(img).getImage();
         this.imgPiece = imgPiece;
@@ -32,6 +35,11 @@ public class ImagePanel extends JPanel
             g.fillRect( 0,  0, this.getWidth(), this.getHeight());
 
         }
+        else if ( this.deplacementPossible ) {
+        	g.setColor(new Color(255, 0, 0, 50));
+        	g.fillRect( 0,  0, this.getWidth(), this.getHeight());
+        }
+        
         g.drawImage(imgPiece, 0, 0, null);
     }
 }

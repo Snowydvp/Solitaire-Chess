@@ -7,12 +7,13 @@ import Projet.Metier.Pieces.*;
 
 public class Niveau
 {
-	private Piece[][] tabPiece = new Piece[4][4];
+	private Piece[][] tabPiece;
 	private int numNiveau;
 	private String difficulte;
 	
 	public Niveau(int numNiveau, String difficulte)
 	{
+		this.tabPiece = new Piece[4][4];
 		this.numNiveau = numNiveau;
 		this.difficulte = difficulte;
 		try

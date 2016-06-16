@@ -35,6 +35,7 @@ public abstract class BaseFenetre extends JPanel implements MouseListener
     protected boolean estSelectionne;
     protected Piece pieceSelectionnee;
     protected int pX,pY;
+    protected boolean estEditeur;
 
     protected final int TAILLE_CASE;
     
@@ -50,17 +51,6 @@ public abstract class BaseFenetre extends JPanel implements MouseListener
         this.pX = this.pY = -1;
         
         this.TAILLE_CASE = new ImageIcon("Images/pion.gif").getIconWidth();
-
-        this.piecesCapturees = new JPanel(new FlowLayout(FlowLayout.CENTER));
-        this.piecesCapturees.setPreferredSize(new Dimension(0, 64));
-        
-        this.grille = new JPanel(new GridLayout(4, 4));
-        this.grille.addMouseListener(this);
-        this.grille.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
-
-        this.refreshFenetre();
-        this.add(this.piecesCapturees, BorderLayout.SOUTH);
-        this.add(this.grille);
 	}
 	
     public void refreshFenetre()
@@ -73,10 +63,15 @@ public abstract class BaseFenetre extends JPanel implements MouseListener
             {
                 ImagePanel panelTmp;
                 Piece pieceTmp = this.ctrl.getPlateau().getPlateau()[y][x];
-
                 boolean b = false;
-                if ( pieceTmp != null && pieceTmp == this.pieceSelectionnee )
+                boolean deplacementPossible = false;
+                if ( this.pieceSelectionnee != null && !this.estEditeur )
+                	deplacementPossible = this.ctrl.getPlateau().simuleDeplacement(this.pieceSelectionnee, x, y);
+                
+                if ( pieceTmp != null && pieceTmp == this.pieceSelectionnee ) {
                     b = true;
+                    deplacementPossible = false;
+                }
 
                 if ( pieceTmp != null ) this.imgPiece = this.getImage(pieceTmp);
                 else this.imgPiece = new ImageIcon("Images/vide52.gif").getImage();
@@ -84,16 +79,16 @@ public abstract class BaseFenetre extends JPanel implements MouseListener
                 if ( (y + x) % 2 == 0) {
                     String difficulte = this.ctrl.getNiveau().getDifficulte();
                     if (difficulte.equals("Debutant"))
-                        panelTmp = new ImagePanel("Images/pair1.gif", this.imgPiece, b);
+                        panelTmp = new ImagePanel("Images/pair1.gif", this.imgPiece, b,deplacementPossible);
                     else if (difficulte.equals("Intermediaire"))
-                        panelTmp = new ImagePanel("Images/pair2.gif", this.imgPiece, b);
+                        panelTmp = new ImagePanel("Images/pair2.gif", this.imgPiece, b,deplacementPossible);
                     else if (difficulte.equals("Avance"))
-                        panelTmp = new ImagePanel("Images/pair3.gif", this.imgPiece, b);
+                        panelTmp = new ImagePanel("Images/pair3.gif", this.imgPiece, b,deplacementPossible);
                     else
-                        panelTmp = new ImagePanel("Images/pair4.gif", this.imgPiece, b);
+                        panelTmp = new ImagePanel("Images/pair4.gif", this.imgPiece, b,deplacementPossible);
                 }
                 else
-                    panelTmp = new ImagePanel("Images/impair.gif", this.imgPiece, b);
+                    panelTmp = new ImagePanel("Images/impair.gif", this.imgPiece, b,deplacementPossible);
                 
                 this.grille.add(panelTmp);
 

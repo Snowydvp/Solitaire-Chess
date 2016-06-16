@@ -42,6 +42,27 @@ public class Plateau
 		return false;
 	}
 	
+	public boolean simuleDeplacement(Piece p, int cibleX, int cibleY)
+	{
+		if(p.deplacementValide(cibleX, cibleY, this.plateau) && !(plateau[cibleY][cibleX] instanceof Roi))
+			return true;
+		return false;
+	}
+	
+	public boolean deplacerEditeur(Piece p, int cibleX, int cibleY)
+	{
+		if(this.plateau[cibleY][cibleX] == null)
+		{
+			plateau[p.getPosY()][p.getPosX()] = null;
+			plateau[cibleY][cibleX] = p;
+			p.setPosX(cibleX);
+			p.setPosY(cibleY);
+			
+			return true;
+		}
+		return false;
+	}
+	
 	public Piece[][] getPlateau(){return this.plateau;}
 	public ArrayList<Piece> getPiecesCapturees(){return this.capturees;}
 	
