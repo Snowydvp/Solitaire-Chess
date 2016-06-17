@@ -14,6 +14,7 @@ import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.Image;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
@@ -158,6 +159,7 @@ public class Jeu extends BaseFenetre implements ActionListener
 				        this.fenetre.getMenu().setVisible(true);
 				        this.fenetre.setTitle("Solitaire Chess - Menu");
 				        this.fenetre.pack();
+				        this.fenetre.setLocation((int)(Toolkit.getDefaultToolkit().getScreenSize().getWidth() / 2 - this.fenetre.getWidth() / 2), (int)(Toolkit.getDefaultToolkit().getScreenSize().getHeight() / 2 - this.fenetre.getHeight() / 2));
         			}
         			else 
         				if(e.getSource() == annuler) 

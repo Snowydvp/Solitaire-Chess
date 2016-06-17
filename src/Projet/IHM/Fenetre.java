@@ -1,5 +1,7 @@
 package Projet.IHM;
 
+import java.awt.Toolkit;
+
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 
@@ -19,7 +21,6 @@ public class Fenetre extends JFrame
 	{	
 		this.setTitle("Solitaire Chess - Menu");
 		this.setResizable(false);
-		this.setLocationRelativeTo(null);
 		this.setIconImage(new ImageIcon("Images/Interface/crown.png").getImage());
 		
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -34,6 +35,7 @@ public class Fenetre extends JFrame
 		
 		this.pack();
 		
+        this.setLocation((int)(Toolkit.getDefaultToolkit().getScreenSize().getWidth() / 2 - this.getWidth() / 2), (int)(Toolkit.getDefaultToolkit().getScreenSize().getHeight() / 2 - this.getHeight() / 2));
 		this.setVisible(true);
 	}
 	

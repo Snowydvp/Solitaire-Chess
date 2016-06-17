@@ -41,11 +41,16 @@ public class Plateau
 		return false;
 	}
 	
-	public boolean simuleDeplacement(Piece p, int cibleX, int cibleY)
+	public int simuleDeplacement(Piece p, int cibleX, int cibleY)
 	{
-		if(p.deplacementValide(cibleX, cibleY, this.plateau) && !(this.plateau[cibleY][cibleX] instanceof Roi) && this.plateau[cibleY][cibleX] != null)
-			return true;
-		return false;
+		if(p.deplacementValide(cibleX, cibleY, this.plateau))
+		{
+			if (this.plateau[cibleY][cibleX] != null && !(this.plateau[cibleY][cibleX] instanceof Roi))
+				return 1;
+			return 0;
+		}
+			
+		return -1;
 	}
 	
 	public boolean deplacerEditeur(Piece p, int cibleX, int cibleY)
