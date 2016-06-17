@@ -83,32 +83,32 @@ public class Editeur extends BaseFenetre implements ActionListener
         JPanel centre = new JPanel(new BorderLayout());
 
         JPanel outils = new JPanel();
-        this.menu     = new JButton(new ImageIcon("Images/menu.png"));
+        this.menu     = new JButton(new ImageIcon("Themes/"+this.ctrl.getTheme()+"/menu.png"));
         this.menu.addActionListener(this);
         this.menu.setToolTipText("Retour au menu");
         outils.add(this.menu);
 
-        this.test = new JButton(new ImageIcon("Images/eraser.png"));
+        this.test = new JButton(new ImageIcon("Themes/"+this.ctrl.getTheme()+"/eraser.png"));
         this.test.addActionListener(this);
         this.test.setToolTipText("Tester le défi");
         outils.add(this.test);
         
-        this.supprimer = new JButton(new ImageIcon("Images/annuler.gif"));
+        this.supprimer = new JButton(new ImageIcon("Themes/"+this.ctrl.getTheme()+"/annuler.gif"));
         this.supprimer.addActionListener(this);
         this.supprimer.setToolTipText("Supprimer une pièce");
         outils.add(this.supprimer);
         
-        this.valider = new JButton(new ImageIcon("Images/valider.gif"));
+        this.valider = new JButton(new ImageIcon("Themes/"+this.ctrl.getTheme()+"/valider.gif"));
         this.valider.addActionListener(this);
         this.valider.setToolTipText("Valider le défi");
         outils.add(this.valider);
 
-        this.reinitialiserPlateau = new JButton(new ImageIcon("Images/fire.png"));
+        this.reinitialiserPlateau = new JButton(new ImageIcon("Themes/"+this.ctrl.getTheme()+"/fire.png"));
         this.reinitialiserPlateau.addActionListener(this);
         this.reinitialiserPlateau.setToolTipText("Reinitialiser le plateau");
         outils.add(this.reinitialiserPlateau);
 
-        this.aide = new JButton(new ImageIcon("Images/question-circular-button.png"));
+        this.aide = new JButton(new ImageIcon("Themes/"+this.ctrl.getTheme()+"/question-circular-button.png"));
         this.aide.addActionListener(this);
         this.aide.setToolTipText("À l'aiiiiiiiiide je suis coincé en 720 !!!!!");
         outils.add(this.aide);
@@ -159,7 +159,6 @@ public class Editeur extends BaseFenetre implements ActionListener
         
         this.refreshFenetre();
         this.refreshPiecesRestantes();
-
     }
 
     @Override
@@ -187,14 +186,7 @@ public class Editeur extends BaseFenetre implements ActionListener
         else 
         	if(e.getSource() == aide) 
         	{
-            	this.setVisible(false);
-            	this.ctrl.setNiveau(new Niveau(this.ctrl.getPlateau().getPlateau()));
-            	Jeu j = new Jeu(this.ctrl, this.fenetre);
-            	this.fenetre.setJeu(j);
-                this.fenetre.add(j, BorderLayout.CENTER);
-                this.fenetre.setTitle("Solitaire Chess - Jeu");
-                this.fenetre.pack();
-                this.fenetre.setLocation((int)(Toolkit.getDefaultToolkit().getScreenSize().getWidth() / 2 - this.fenetre.getWidth() / 2), (int)(Toolkit.getDefaultToolkit().getScreenSize().getHeight() / 2 - this.fenetre.getHeight() / 2));
+
         	}
         	else 
         		if(e.getSource() == reinitialiserPlateau) 

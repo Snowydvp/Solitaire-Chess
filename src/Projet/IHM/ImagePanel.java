@@ -30,7 +30,7 @@ public class ImagePanel extends JPanel
     public void paint(Graphics g)
     {
         super.paintComponent(g);
-        g.drawImage(img, 0, 0, null);
+        //g.drawImage(img, 0, 0, null);
         
         if ( this.estSelectionne )
         {
@@ -40,9 +40,11 @@ public class ImagePanel extends JPanel
         else
         	if ( this.deplacementPossible )
         	{
-	        	g.setColor(new Color(255, 0, 0, 50));
+	        	g.setColor(new Color(0, 255, 0, 100));
 	        	g.fillRect( 0,  0, this.getWidth(), this.getHeight());
         	}
+        	else
+        		g.drawImage(img, 0, 0, null);
         
         g.drawImage(imgPiece, 0, 0, null);
     }

@@ -43,7 +43,7 @@ public abstract class BaseFenetre extends JPanel implements MouseListener
         this.pieceSelectionnee = null;
         this.pX = this.pY      = -1;
         
-        this.TAILLE_CASE       = new ImageIcon("Images/pion.gif").getIconWidth();
+        this.TAILLE_CASE       = new ImageIcon("Themes/"+this.ctrl.getTheme()+"/pion.gif").getIconWidth();
 	}
 	
     public void refreshFenetre()
@@ -72,24 +72,24 @@ public abstract class BaseFenetre extends JPanel implements MouseListener
                 if ( pieceTmp != null ) 
                 	this.imgPiece = this.getImage(pieceTmp);
                 else 
-                	this.imgPiece = new ImageIcon("Images/vide52.gif").getImage();
+                	this.imgPiece = new ImageIcon("Themes/"+this.ctrl.getTheme()+"/vide52.gif").getImage();
 
                 if ( (y + x) % 2 == 0) 
                 {
                     String difficulte = this.ctrl.getNiveau().getDifficulte();
-                    if (difficulte.equals("Debutant"))
-                        panelTmp = new ImagePanel("Images/pair1.gif", this.imgPiece, b,deplacementPossible);
+                    if (difficulte.equals("Debutant") || difficulte.equals("Edite"))
+                        panelTmp = new ImagePanel("Themes/"+this.ctrl.getTheme()+"/pair1.gif", this.imgPiece, b,deplacementPossible);
                     else 
                     	if (difficulte.equals("Intermediaire"))
-                    		panelTmp = new ImagePanel("Images/pair2.gif", this.imgPiece, b,deplacementPossible);
+                    		panelTmp = new ImagePanel("Themes/"+this.ctrl.getTheme()+"/pair2.gif", this.imgPiece, b,deplacementPossible);
                     	else 
                     		if (difficulte.equals("Avance"))
-                    			panelTmp = new ImagePanel("Images/pair3.gif", this.imgPiece, b,deplacementPossible);
+                    			panelTmp = new ImagePanel("Themes/"+this.ctrl.getTheme()+"/pair3.gif", this.imgPiece, b,deplacementPossible);
                     		else
-                    			panelTmp = new ImagePanel("Images/pair4.gif", this.imgPiece, b,deplacementPossible);
+                    			panelTmp = new ImagePanel("Themes/"+this.ctrl.getTheme()+"/pair4.gif", this.imgPiece, b,deplacementPossible);
                 }
                 else
-                    panelTmp = new ImagePanel("Images/impair.gif", this.imgPiece, b,deplacementPossible);
+                    panelTmp = new ImagePanel("Themes/"+this.ctrl.getTheme()+"/impair.gif", this.imgPiece, b,deplacementPossible);
                 
                 this.grille.add(panelTmp);
 
@@ -100,22 +100,22 @@ public abstract class BaseFenetre extends JPanel implements MouseListener
     protected Image getImage(Piece p ) 
     {
         if ( p instanceof Cavalier )
-            return new ImageIcon("Images/cavalier.gif").getImage();
+            return new ImageIcon("Themes/Default/cavalier.gif").getImage();
         else
         	if ( p instanceof Fou )
-        		return new ImageIcon("Images/fou.gif").getImage();
+        		return new ImageIcon("Themes/Default/fou.gif").getImage();
         	else 
         		if ( p instanceof Pion )
-        			return new ImageIcon("Images/pion.gif").getImage();
+        			return new ImageIcon("Themes/Default/pion.gif").getImage();
         		else
         			if ( p instanceof Reine)
-        				return new ImageIcon("Images/reine.gif").getImage();
+        				return new ImageIcon("Themes/Default/reine.gif").getImage();
         			else 
         				if ( p instanceof Roi )
-        					return new ImageIcon("Images/roi.gif").getImage();
+        					return new ImageIcon("Themes/Default/roi.gif").getImage();
         				else
         					if ( p instanceof Tour)
-        						return new ImageIcon("Images/tour.gif").getImage();
+        						return new ImageIcon("Themes/Default/tour.gif").getImage();
         return null;
     }
 }

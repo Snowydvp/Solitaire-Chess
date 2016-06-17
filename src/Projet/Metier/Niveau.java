@@ -53,6 +53,8 @@ public class Niveau
 	public Niveau(Piece[][] tabPiece)
 	{
 		this.tabPiece = tabPiece;
+		this.difficulte = "Edite";
+		this.numNiveau = 0;
 	}
 	
 	public Niveau(int numNiveau, String difficulte)
@@ -100,6 +102,15 @@ public class Niveau
 			for(int j = 0;j < 4;j++)
 				pieceOrigine[i][j]=this.tabPiece[i][j];
 		return pieceOrigine;
+	}
+	
+	public int getNumDifficulte()
+	{
+		int d = 1;
+		if(this.difficulte.equals("Intermediaire")) d = 2;
+		else if(this.difficulte.equals("Avance"))   d = 3;
+		else if(this.difficulte.equals("Expert"))   d = 4;
+		return d;
 	}
 	
 	public boolean getInstancier(){return tabPiece == null;}

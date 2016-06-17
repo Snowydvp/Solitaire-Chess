@@ -28,7 +28,7 @@ public class Menu extends JPanel implements ActionListener
         this.setLayout(new BorderLayout());
 
         JPanel espaceLogo = new JPanel(new BorderLayout());
-        espaceLogo.add(new JLabel(new ImageIcon("Images/logo.png")));
+        espaceLogo.add(new JLabel(new ImageIcon("Themes/"+this.ctrl.getTheme()+"/logo.png")));
         espaceLogo.add(new JLabel("Que voulez-vous faire ?", JLabel.CENTER), BorderLayout.SOUTH);
         this.add(espaceLogo);
 
@@ -141,5 +141,16 @@ public class Menu extends JPanel implements ActionListener
 			            this.fenetre.setLocation((int)(Toolkit.getDefaultToolkit().getScreenSize().getWidth() / 2 - this.fenetre.getWidth() / 2), (int)(Toolkit.getDefaultToolkit().getScreenSize().getHeight() / 2 - this.fenetre.getHeight() / 2));
 			       
         			}
+        			else
+        				if(e.getSource() == this.defisPersonnalises)
+        				{
+    			        	this.setVisible(false);
+    			        	MenuDefiEdit mDE = new MenuDefiEdit(this.ctrl, this.fenetre);
+    			        	this.fenetre.setMenuDefiEdit(mDE);
+    			            this.fenetre.add(mDE, BorderLayout.CENTER);
+    			            this.fenetre.setTitle("Solitaire Chess - Liste Défis");
+    			            this.fenetre.pack();
+    			            this.fenetre.setLocation((int)(Toolkit.getDefaultToolkit().getScreenSize().getWidth() / 2 - this.fenetre.getWidth() / 2), (int)(Toolkit.getDefaultToolkit().getScreenSize().getHeight() / 2 - this.fenetre.getHeight() / 2));
+        				}
     }
 }

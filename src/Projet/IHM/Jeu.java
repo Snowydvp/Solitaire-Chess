@@ -34,6 +34,7 @@ public class Jeu extends BaseFenetre implements ActionListener
     private JButton annuler;
     
     private JLabel compteur;
+    private JLabel compteurTotal;
     private JLabel difficulte;
     private JLabel numNiveau;
     
@@ -52,22 +53,22 @@ public class Jeu extends BaseFenetre implements ActionListener
         JPanel centre = new JPanel(new BorderLayout());
 
         JPanel outils = new JPanel();
-        this.menu     = new JButton(new ImageIcon("Images/menu.png"));
+        this.menu     = new JButton(new ImageIcon("Themes/"+this.ctrl.getTheme()+"/menu.png"));
         this.menu.addActionListener(this);
         this.menu.setToolTipText("Retour au menu");
         outils.add(this.menu);
 
-        this.annuler = new JButton(new ImageIcon("Images/eraser.png"));
+        this.annuler = new JButton(new ImageIcon("Themes/"+this.ctrl.getTheme()+"/eraser.png"));
         this.annuler.addActionListener(this);
         this.annuler.setToolTipText("Annuler le dernier coup");
         outils.add(this.annuler);
 
-        this.rejouer = new JButton(new ImageIcon("Images/fire.png"));
+        this.rejouer = new JButton(new ImageIcon("Themes/"+this.ctrl.getTheme()+"/fire.png"));
         this.rejouer.addActionListener(this);
         this.rejouer.setToolTipText("Rejouer ce défi");
         outils.add(this.rejouer);
 
-        this.aide = new JButton(new ImageIcon("Images/question-circular-button.png"));
+        this.aide = new JButton(new ImageIcon("Themes/"+this.ctrl.getTheme()+"/question-circular-button.png"));
         this.aide.addActionListener(this);
         this.aide.setToolTipText("À l'aiiiiiiiiide je suis coincé en 720 !!!!!");
         outils.add(this.aide);
@@ -75,6 +76,8 @@ public class Jeu extends BaseFenetre implements ActionListener
 
         this.difficulte = new JLabel("Difficulté : ", JLabel.LEFT);
         this.numNiveau = new JLabel("Niveau : ", JLabel.RIGHT);
+        this.compteurTotal = new JLabel("Score total : " + score, JLabel.RIGHT);
+        this.compteur = new JLabel("Score défi : "+this.nombreCoups, JLabel.LEFT);
         
         JPanel labelCentre = new JPanel(new BorderLayout());
         labelCentre.add(this.difficulte, BorderLayout.WEST);
@@ -82,10 +85,12 @@ public class Jeu extends BaseFenetre implements ActionListener
         labelCentre.setBorder(BorderFactory.createEmptyBorder(0, 0, 5, 0));
         centre.add(labelCentre, BorderLayout.NORTH);
 
-        this.compteur = new JLabel("Score : "+this.nombreCoups);
-        compteur.setBorder(BorderFactory.createEmptyBorder(5, 0, 0, 0));
-        centre.add(compteur, BorderLayout.SOUTH);
+        labelCentre = new JPanel(new BorderLayout());
+        labelCentre.add(this.compteur, BorderLayout.WEST);
+        labelCentre.add(this.compteurTotal, BorderLayout.EAST);
+        centre.add(labelCentre, BorderLayout.SOUTH);
         centre.setBorder(BorderFactory.createEmptyBorder(0, 10, 0, 10));
+        
 
         this.grille = new JPanel(new GridLayout(4, 4));
         this.grille.addMouseListener(this);
@@ -185,7 +190,19 @@ public class Jeu extends BaseFenetre implements ActionListener
         
         this.numNiveau.setText("Niveau : "+this.ctrl.getNiveau().getNumNiveau());
         this.difficulte.setText("Difficulte : "+this.ctrl.getNiveau().getDifficulte());
-        this.compteur.setText("Score : "+this.nombreCoups);
+        this.compteur.setText("Score défi : "+this.nombreCoups);
+        this.compteurTotal.setText("Score total : "+score);
+        
+        if ( (!this.ctrl.getPartie().peutJouerNiveau(this.ctrl.getNiveau().getDifficulte(), this.ctrl.getNiveau().getNumNiveau()+1)) ||
+        		(this.ctrl.getNiveau().getDifficulte().equals("Expert") && (!this.ctrl.getPartie().peutJouerNiveau(this.ctrl.getNiveau().getDifficulte(), this.ctrl.getNiveau().getNumNiveau()+1))))
+        	this.suivant.setEnabled(false);
+        else
+        	this.suivant.setEnabled(true);
+        
+        if ( this.ctrl.getNiveau().getDifficulte().equals("Debutant") && this.ctrl.getNiveau().getNumNiveau() == 1)
+        	this.precedent.setEnabled(false);
+        else
+        	this.precedent.setEnabled(true);
     }
     
     public void mouseClicked (MouseEvent e){}
@@ -224,7 +241,6 @@ public class Jeu extends BaseFenetre implements ActionListener
                 this.pieceSelectionnee = null;
             }
         }
-        
         
         if(this.ctrl.victoireNiveauCourant())
         	this.nombreCoups = 0;

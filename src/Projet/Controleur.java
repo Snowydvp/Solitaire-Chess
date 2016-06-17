@@ -30,22 +30,18 @@ public class Controleur
 	
 	public void augmenterNiveau()
 	{
-		int nombreNiveaux = 0;
-		if(this.niveauCourant.getDifficulte().equals("Debutant"))
-			nombreNiveaux = this.alNiveauDebutant.size();
-		else if(this.niveauCourant.getDifficulte().equals("Intermediaire"))
-			nombreNiveaux = this.alNiveauIntermediaire.size();
-		else if(this.niveauCourant.getDifficulte().equals("Avance"))
-			nombreNiveaux = this.alNiveauIntermediaire.size();
-		else if(this.niveauCourant.getDifficulte().equals("Expert"))
-			nombreNiveaux = this.alNiveauExpert.size();
 		
-		
-		if (this.niveauCourant.getNumNiveau() < nombreNiveaux)
-			this.setNiveau(new Niveau(this.niveauCourant.getNumNiveau() + 1, this.niveauCourant.getDifficulte()));
-		else if (!this.niveauCourant.getDifficulte().equals("Expert"))
-			this.setNiveau(new Niveau(1, this.tabDifficultee[this.augmenterDifficulte(this.niveauCourant.getDifficulte())]));
-			
+		if ( !this.niveauCourant.getDifficulte().equals("Edite"))
+		{
+			if (this.niveauCourant.getNumNiveau() < this.getDifficulteCourante().size())
+				this.setNiveau(new Niveau(this.niveauCourant.getNumNiveau() + 1, this.niveauCourant.getDifficulte()));
+			else if (!this.niveauCourant.getDifficulte().equals("Expert"))
+				this.setNiveau(new Niveau(1, this.tabDifficultee[this.augmenterDifficulte(this.niveauCourant.getDifficulte())]));
+		}
+		else
+		{
+			this.setNiveau(new Niveau(this.niveauCourant.getNumNiveau() + 1));
+		}
 		this.pl = new Plateau(this.niveauCourant.getPiece());	
 		this.partie.enregistrerPartie();
 		this.alEtatPrecedent.clear();
@@ -57,7 +53,7 @@ public class Controleur
 		if ( this.niveauCourant.getNumNiveau() > 1)
 			this.setNiveau(new Niveau(this.niveauCourant.getNumNiveau() - 1, this.niveauCourant.getDifficulte()));
 		else if (!this.niveauCourant.getDifficulte().equals("Debutant"))
-			this.setNiveau(new Niveau(15, this.tabDifficultee[this.diminuerDifficulte(this.niveauCourant.getDifficulte())]));
+			this.setNiveau(new Niveau(this.getDifficulteCourante().size(), this.tabDifficultee[this.diminuerDifficulte(this.niveauCourant.getDifficulte())]));
 		
 		this.pl = new Plateau(this.niveauCourant.getPiece());
 		
@@ -186,10 +182,23 @@ public class Controleur
 		return tabPiece;
 	}
 	
+	public ArrayList<Niveau> getDifficulteCourante()
+	{
+		ArrayList difficulteCourante = this.alNiveauDebutant;
+		if(this.niveauCourant.getDifficulte().equals("Intermediaire"))
+			difficulteCourante = this.alNiveauDebutant;
+		else if(this.niveauCourant.getDifficulte().equals("Avance"))
+			difficulteCourante = this.alNiveauIntermediaire;
+		else if(this.niveauCourant.getDifficulte().equals("Expert"))
+			difficulteCourante = this.alNiveauAvance;
+		return difficulteCourante;
+	}
+	
 	public Niveau   getNiveau     (){return this.niveauCourant ;}
 	public Plateau  getPlateau    (){return this.pl            ;}
 	public Partie   getPartie     (){return this.partie        ;}
 	public String[] getDifficultes(){return this.tabDifficultee;}
+	public String   getTheme      (){return "Default"          ;}        
 	
 	public void setNiveau (Niveau niv){this.niveauCourant = niv;}
 	public void setPlateau(Plateau pl){this.pl = pl            ;}
@@ -198,9 +207,11 @@ public class Controleur
 	public ArrayList<Niveau> getNiveauIntermediaire(){return this.alNiveauIntermediaire;}
 	public ArrayList<Niveau> getNiveauAvance       (){return this.alNiveauAvance       ;}
 	public ArrayList<Niveau> getNiveauExpert       (){return this.alNiveauExpert       ;}
+	public ArrayList<Niveau> getNiveauEdite        (){return this.alNiveauEdite        ;}
 	
 	public static void main(String[] a)
 	{
 		new Controleur();
 	}
+	
 }

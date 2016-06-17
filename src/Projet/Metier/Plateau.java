@@ -43,7 +43,7 @@ public class Plateau
 	
 	public boolean simuleDeplacement(Piece p, int cibleX, int cibleY)
 	{
-		if(p.deplacementValide(cibleX, cibleY, this.plateau) && !(this.plateau[cibleY][cibleX] instanceof Roi))
+		if(p.deplacementValide(cibleX, cibleY, this.plateau) && !(this.plateau[cibleY][cibleX] instanceof Roi) && this.plateau[cibleY][cibleX] != null)
 			return true;
 		return false;
 	}
