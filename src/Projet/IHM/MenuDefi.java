@@ -109,6 +109,7 @@ public class MenuDefi extends JPanel implements ActionListener {
 			JButton buttonTmp = new JButton(alNiveau.get(j).getNumNiveau()+"");
             buttonTmp.setSize(55, 26);
             buttonTmp.setName(s);
+            buttonTmp.addActionListener(this);
 			if ( this.ctrl.getPartie().peutJouerNiveau(s,alNiveau.get(j).getNumNiveau()))
 				buttonTmp.setBackground(Color.WHITE);
 			else {
