@@ -58,7 +58,7 @@ public abstract class BaseFenetre extends JPanel implements MouseListener
                 ImagePanel panelTmp;
                 Piece pieceTmp = this.ctrl.getPlateau().getPlateau()[y][x];
                 boolean b = false;
-                boolean deplacementPossible = false;
+                int deplacementPossible = -1;
                 
                 if ( this.pieceSelectionnee != null && !this.estEditeur )
                 	deplacementPossible = this.ctrl.getPlateau().simuleDeplacement(this.pieceSelectionnee, x, y);
@@ -66,7 +66,7 @@ public abstract class BaseFenetre extends JPanel implements MouseListener
                 if ( pieceTmp != null && pieceTmp == this.pieceSelectionnee ) 
                 {
                     b = true;
-                    deplacementPossible = false;
+                    deplacementPossible = -1;
                 }
 
                 if ( pieceTmp != null ) 

@@ -15,9 +15,9 @@ public class ImagePanel extends JPanel
     private Image   imgPiece;
     private boolean estSelectionne;
     
-    private boolean deplacementPossible;
+    private int deplacementPossible;
 
-    public ImagePanel(String img, Image imgPiece, boolean estSelectionnee, boolean deplacementPossible)
+    public ImagePanel(String img, Image imgPiece, boolean estSelectionnee, int deplacementPossible)
     {
     	this.deplacementPossible = deplacementPossible;
         this.estSelectionne      = estSelectionnee;
@@ -30,21 +30,33 @@ public class ImagePanel extends JPanel
     public void paint(Graphics g)
     {
         super.paintComponent(g);
-        //g.drawImage(img, 0, 0, null);
+        g.drawImage(img, 0, 0, null);
         
         if ( this.estSelectionne )
         {
-            g.setColor(new Color(127, 127, 127, 50));
-            g.fillRect( 0,  0, this.getWidth(), this.getHeight());
+            g.setColor(Color.BLACK);
+        	g.drawRect( 1,  1, this.getWidth() - 2, this.getHeight() - 2);
+        	g.drawRect( 2,  2, this.getWidth() - 4, this.getHeight() - 4);
+        	g.setColor(new Color(0, 0, 0, 25));
+        	g.fillRect(1,  1,  this.getWidth() - 1, this.getHeight() - 1);
         }
         else
-        	if ( this.deplacementPossible )
+        	if ( this.deplacementPossible == 1 )
         	{
-	        	g.setColor(new Color(0, 255, 0, 100));
-	        	g.fillRect( 0,  0, this.getWidth(), this.getHeight());
+	        	g.setColor(new Color(0, 0, 255));
+	        	g.drawRect( 1,  1, this.getWidth() - 2, this.getHeight() - 2);
+	        	g.drawRect( 2,  2, this.getWidth() - 4, this.getHeight() - 4);
+	        	g.setColor(new Color(0, 0, 255, 25));
+	        	g.fillRect(1,  1,  this.getWidth() - 1, this.getHeight() - 1);
         	}
-        	else
-        		g.drawImage(img, 0, 0, null);
+        	else if ( this.deplacementPossible == 0 )
+        	{
+	        	g.setColor(new Color(255, 0, 0));
+	        	g.drawRect( 1,  1, this.getWidth() - 2, this.getHeight() - 2);
+	        	g.drawRect( 2,  2, this.getWidth() - 4, this.getHeight() - 4);
+	        	g.setColor(new Color(255, 0, 0, 25));
+	        	g.fillRect(1,  1,  this.getWidth() - 1, this.getHeight() - 1);
+        	}
         
         g.drawImage(imgPiece, 0, 0, null);
     }
