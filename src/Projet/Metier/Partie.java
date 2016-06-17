@@ -45,7 +45,8 @@ public class Partie
 		FileReader fr;
 		try 
 		{
-			if(!this.fichier.exists()) this.initFichier();
+			if(!this.fichier.exists()) 
+				this.nouvellePartie();
 			fr = new FileReader(this.fichier);
 			Scanner sc = new Scanner(fr);
 			
@@ -82,7 +83,7 @@ public class Partie
 				fw.write(this.ctrl.getNiveau().getDifficulte()+ " " +this.ctrl.getNiveau().getNumNiveau() + "\n"); //niveau courant
 				for(String s : this.niveauxMaximum.keySet())                                                       //niveaux maximum
 					fw.write(s + "\t"+this.niveauxMaximum.get(s) + "\n");
-				fw.write("Score total\t"+this.nbCoups);
+				fw.write("Score\t"+this.nbCoups);
 				fw.close();
 			}catch (IOException e){e.printStackTrace();}
 	}
