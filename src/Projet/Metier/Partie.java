@@ -45,6 +45,7 @@ public class Partie
 		FileReader fr;
 		try 
 		{
+			if(!this.fichier.exists()) this.initFichier();
 			fr = new FileReader(this.fichier);
 			Scanner sc = new Scanner(fr);
 			
@@ -84,8 +85,16 @@ public class Partie
 				fw.write("Score total\t"+this.nbCoups);
 				fw.close();
 			}catch (IOException e){e.printStackTrace();}
-		
 	}
+	
+	public void initFichier()
+	{
+		FileWriter fw;
+		try {
+			this.fichier.createNewFile();
+		} catch (IOException e) {System.out.print("Erreur d'accès au fichier "+this.fichier.getName());}
+	}
+	
 	/**
 	 * Cette méthode détermine si le joueur accèder au défi dont la difficulté et le niveau est passé en paramètre.
 	 **/
