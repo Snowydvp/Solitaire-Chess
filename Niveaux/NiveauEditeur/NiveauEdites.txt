@@ -8,3 +8,14 @@ F . . P
 P P . . 
 F F T C 
 R r T C 
+
+. C r . 
+F R . . 
+. . T . 
+. F C . 
+
+. . . . 
+. . . . 
+. C T . 
+. F T . 
+
