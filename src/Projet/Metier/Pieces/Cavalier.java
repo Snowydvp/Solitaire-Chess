@@ -19,11 +19,9 @@ public class Cavalier extends Piece
 		if(deltaY == -2 || deltaY == 2)
 			if (deltaX == -1 || deltaX == 1)
 				return true;
+		
 		return false;
 	}
 		
 	public char getType() {return 'C';}
-
-
-
 }

@@ -2,7 +2,6 @@ package Projet.Metier.Pieces;
 
 public class Fou extends Piece
 {
-
 	public Fou(int posX, int posY)
 	{
 		super(posX, posY);
@@ -18,7 +17,4 @@ public class Fou extends Piece
 	}
 		
 	public char getType() {return 'F';}
-
-
-
 }

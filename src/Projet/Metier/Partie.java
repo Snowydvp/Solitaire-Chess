@@ -4,75 +4,92 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.Scanner;
 
-public class Partie {
-	
-	private Niveau niveauCourant;
+import Projet.Controleur;
+
+public class Partie
+{
+	private Controleur ctrl;
 	private File fichier;
-	private int[] niveauxMaximum;
+	private HashMap<String, Integer> niveauxMaximum;
 	
-	public Partie()
+	public Partie(Controleur ctrl)
 	{
-		this.niveauxMaximum = new int[4];
+		this.ctrl = ctrl;
+		this.niveauxMaximum = new HashMap<>(4);
 		this.fichier = new File("Sauvegarde/progression.chess");
 		this.chargerPartie();
 	}
 	
 	public void nouvellePartie()
 	{
-		FileWriter fw;
 		this.fichier.delete();
-		try {
+		try 
+		{
 			this.fichier.createNewFile();
-		} catch (IOException e) {e.printStackTrace();}
+		}catch (IOException e){e.printStackTrace();}
+		this.niveauxMaximum.put("Debutant", 1);
+		this.niveauxMaximum.put("Intermediaire", 0);
+		this.niveauxMaximum.put("Avance", 0);
+		this.niveauxMaximum.put("Expert", 0);
 		
-		this.niveauCourant = new Niveau(0, "Debutant");
+		this.ctrl.setNiveau(new Niveau(1, "Debutant"));
 		this.enregistrerPartie();
 	}
 	
 	public void chargerPartie()
 	{
 		FileReader fr;
-		try {
+		try 
+		{
 			fr = new FileReader(this.fichier);
 			Scanner sc = new Scanner(fr);
-			String difficultee = sc.next();
+			
+			String difficultee = sc.next();	
 			int niveau = sc.nextInt();
-			this.niveauCourant = new Niveau(niveau, difficultee);
-			System.out.println(niveau+"/"+difficultee);
+			
+			this.ctrl.setNiveau(new Niveau(niveau, difficultee));
+			
 			for(int cpt  = 0;cpt < 4;cpt++)
-			{
-				sc.next();
-				this.niveauxMaximum[cpt] = sc.nextInt();
-			}
-			fr.close();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+				this.niveauxMaximum.put(sc.next(), sc.nextInt());
+
+			sc.close();
+		}catch(IOException e){e.printStackTrace();}
 	}
 	
 	public void enregistrerPartie()
 	{
-		FileWriter fw;
-		try {
-			fw = new FileWriter(this.fichier);
+		if ( !this.ctrl.getNiveau().getDifficulte().equals("Edite"))
+		{
+			FileWriter fw;
+			if(this.niveauxMaximum.get(this.ctrl.getNiveau().getDifficulte()) <= this.ctrl.getNiveau().getNumNiveau())
+			{
+				this.niveauxMaximum.put(this.ctrl.getNiveau().getDifficulte(), this.ctrl.getNiveau().getNumNiveau());
+				//Teste si le joueur a resolu plus de 50% des defis de sa difficultée, pour debloquer la difficultée suivante
+				if(this.ctrl.getNiveau().getNumDifficulte() != 4 && this.niveauxMaximum.get(this.ctrl.getDifficultes()[this.ctrl.getNiveau().getNumDifficulte()]) == 0
+				   && this.niveauxMaximum.get(this.ctrl.getNiveau().getDifficulte())-1 >= (int)Math.ceil((double)this.ctrl.getDifficulteCourante().size()/2) ) 
+					this.niveauxMaximum.put(this.ctrl.getDifficultes()[this.ctrl.getNiveau().getNumDifficulte()], 1);
+			}
 			
-			fw.write(this.niveauCourant.getDifficulte()+" "  +this.niveauCourant.getNumNiveau()+"\n"); //niveau courant
-			fw.write("Debutant "                             +this.niveauxMaximum[0]+"\n");       //niveau max
-			fw.write("Intermediaire "                        +this.niveauxMaximum[1]+"\n");       //pour chaque
-			fw.write("Avance "                               +this.niveauxMaximum[2]+"\n");       //difficulte
-			fw.write("Expert "                               +this.niveauxMaximum[3]+"\n");	
-			fw.close();
-		}catch (IOException e){e.printStackTrace();}
-		this.niveauCourant = new Niveau(0, "Debutant");
+			try {
+				fw = new FileWriter(this.fichier);
+				
+				fw.write(this.ctrl.getNiveau().getDifficulte()+ " " +this.ctrl.getNiveau().getNumNiveau() + "\n"); //niveau courant
+				for(String s : this.niveauxMaximum.keySet())
+					fw.write(s + "\t"+this.niveauxMaximum.get(s) + "\n");
+				fw.close();
+			}catch (IOException e){e.printStackTrace();}
+		}
 	}
 	
-	public boolean peutJouerNiveau(int difficulte, int niveau)
+	public boolean peutJouerNiveau(String difficulte, int niveau) 
 	{
-		return niveau<=this.niveauxMaximum[difficulte]; //ergarderles autres dfficultes
+		if ( !difficulte.equals("Edite"))
+			return niveau <= this.niveauxMaximum.get(difficulte);
+		return true;
+		
 	}
 	
-	public Niveau getNiveauCourant(){return this.niveauCourant;}
-	public void setNiveau(Niveau n){this.niveauCourant = n;}
 }

@@ -1,7 +1,5 @@
 package Projet.Metier;
 
-
-
 import java.util.ArrayList;
 
 import Projet.Metier.Pieces.Piece;
@@ -15,7 +13,7 @@ public class Plateau
 	public Plateau(Piece[][] plateau)
 	{
 		this.capturees = new ArrayList<>();
-		this.plateau = plateau;
+		this.plateau   = plateau;
 	}
 	
 	public Plateau(Piece[][] plateau, ArrayList<Piece> capturees)
@@ -30,11 +28,11 @@ public class Plateau
 	public boolean deplacer(Piece p, int cibleX, int cibleY)
 	{
 		if(p.deplacementValide(cibleX, cibleY, this.plateau) && this.plateau[cibleY][cibleX] != null && 
-				!(plateau[cibleY][cibleX] instanceof Roi))
+				!(this.plateau[cibleY][cibleX] instanceof Roi))
 		{
-			plateau[p.getPosY()][p.getPosX()] = null;
-			this.capturees.add(plateau[cibleY][cibleX]);
-			plateau[cibleY][cibleX] = p;
+			this.plateau[p.getPosY()][p.getPosX()] = null;
+			this.capturees.add(this.plateau[cibleY][cibleX]);
+			this.plateau[cibleY][cibleX] = p;
 			p.setPosX(cibleX);
 			p.setPosY(cibleY);
 			
@@ -45,7 +43,7 @@ public class Plateau
 	
 	public boolean simuleDeplacement(Piece p, int cibleX, int cibleY)
 	{
-		if(p.deplacementValide(cibleX, cibleY, this.plateau) && !(plateau[cibleY][cibleX] instanceof Roi))
+		if(p.deplacementValide(cibleX, cibleY, this.plateau) && !(this.plateau[cibleY][cibleX] instanceof Roi) && this.plateau[cibleY][cibleX] != null)
 			return true;
 		return false;
 	}
@@ -54,17 +52,18 @@ public class Plateau
 	{
 		if(this.plateau[cibleY][cibleX] == null)
 		{
-			plateau[p.getPosY()][p.getPosX()] = null;
-			plateau[cibleY][cibleX] = p;
+			this.plateau[p.getPosY()][p.getPosX()] = null;
+			this.plateau[cibleY][cibleX] = p;
 			p.setPosX(cibleX);
 			p.setPosY(cibleY);
 			
 			return true;
 		}
+		
 		return false;
 	}
 	
-	public Piece[][] getPlateau(){return this.plateau;}
+	public Piece[][]        getPlateau        (){return this.plateau  ;}
 	public ArrayList<Piece> getPiecesCapturees(){return this.capturees;}
 	
 	public String toString()
