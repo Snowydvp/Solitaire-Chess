@@ -63,7 +63,6 @@ public class Controleur
 	
 	public void creerPartie()
 	{
-		Jeu.score = 0;
 		this.partie.nouvellePartie();
 	}
 	

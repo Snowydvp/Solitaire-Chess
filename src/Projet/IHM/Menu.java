@@ -145,9 +145,6 @@ public class Menu extends JPanel implements ActionListener
         				if(e.getSource() == this.defisPersonnalises)
         				{
     			        	this.setVisible(false);
-    			        	MenuDefiEdit mDE = new MenuDefiEdit(this.ctrl, this.fenetre);
-    			        	this.fenetre.setMenuDefiEdit(mDE);
-    			            this.fenetre.add(mDE, BorderLayout.CENTER);
     			            this.fenetre.setTitle("Solitaire Chess - Liste Défis");
     			            this.fenetre.pack();
     			            this.fenetre.setLocation((int)(Toolkit.getDefaultToolkit().getScreenSize().getWidth() / 2 - this.fenetre.getWidth() / 2), (int)(Toolkit.getDefaultToolkit().getScreenSize().getHeight() / 2 - this.fenetre.getHeight() / 2));

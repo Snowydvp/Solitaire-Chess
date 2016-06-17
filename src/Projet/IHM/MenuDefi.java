@@ -41,7 +41,7 @@ public class MenuDefi extends JPanel implements ActionListener {
 		this.listeIntermediaire = initialisePanel(this.ctrl.getNiveauIntermediaire(), "Intermediaire");
 		this.listeAvance = initialisePanel(this.ctrl.getNiveauAvance(), "Avance");
 		this.listeExpert = initialisePanel(this.ctrl.getNiveauExpert(), "Expert");
-        this.listeEdite = initialisePanel(this.ctrl.getNiveauEdite(), "Personnalisés");
+        this.listeEdite = initialisePanel(this.ctrl.getNiveauEdite(), "Edite");
 
 
 
