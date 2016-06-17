@@ -24,3 +24,8 @@ F R . .
 . C T . 
 . F T . 
 
+. . . . 
+. T r C 
+. F F P 
+C R P T 
+

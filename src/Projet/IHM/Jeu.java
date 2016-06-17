@@ -53,22 +53,22 @@ public class Jeu extends BaseFenetre implements ActionListener
         JPanel centre = new JPanel(new BorderLayout());
 
         JPanel outils = new JPanel();
-        this.menu     = new JButton(new ImageIcon("Themes/"+this.ctrl.getTheme()+"/menu.png"));
+        this.menu     = new JButton(new ImageIcon("Images/Interface/menu.png"));
         this.menu.addActionListener(this);
         this.menu.setToolTipText("Retour au menu");
         outils.add(this.menu);
 
-        this.annuler = new JButton(new ImageIcon("Themes/"+this.ctrl.getTheme()+"/eraser.png"));
+        this.annuler = new JButton(new ImageIcon("Images/Interface/eraser.png"));
         this.annuler.addActionListener(this);
         this.annuler.setToolTipText("Annuler le dernier coup");
         outils.add(this.annuler);
 
-        this.rejouer = new JButton(new ImageIcon("Themes/"+this.ctrl.getTheme()+"/fire.png"));
+        this.rejouer = new JButton(new ImageIcon("Images/Interface/fire.png"));
         this.rejouer.addActionListener(this);
         this.rejouer.setToolTipText("Rejouer ce défi");
         outils.add(this.rejouer);
 
-        this.aide = new JButton(new ImageIcon("Themes/"+this.ctrl.getTheme()+"/question-circular-button.png"));
+        this.aide = new JButton(new ImageIcon("Images/Interface/question-circular-button.png"));
         this.aide.addActionListener(this);
         this.aide.setToolTipText("À l'aiiiiiiiiide je suis coincé en 720 !!!!!");
         outils.add(this.aide);
@@ -147,7 +147,7 @@ public class Jeu extends BaseFenetre implements ActionListener
 		            this.estSelectionne = false;
 		            this.pieceSelectionnee = null;
 		            this.pX = this.pY = -1;
-		            this.nombreCoups = 0;
+		            this.nombreCoups += 2;
         		}
         		else
         			if(e.getSource() == menu) 

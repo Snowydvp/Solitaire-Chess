@@ -28,7 +28,7 @@ public class Menu extends JPanel implements ActionListener
         this.setLayout(new BorderLayout());
 
         JPanel espaceLogo = new JPanel(new BorderLayout());
-        espaceLogo.add(new JLabel(new ImageIcon("Themes/"+this.ctrl.getTheme()+"/logo.png")));
+        espaceLogo.add(new JLabel(new ImageIcon("Images/Interface/logo.png")));
         espaceLogo.add(new JLabel("Que voulez-vous faire ?", JLabel.CENTER), BorderLayout.SOUTH);
         this.add(espaceLogo);
 

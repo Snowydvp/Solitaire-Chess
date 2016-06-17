@@ -86,7 +86,7 @@ public class Partie
 	
 	public boolean peutJouerNiveau(String difficulte, int niveau) 
 	{
-		if ( !difficulte.equals("Edite"))
+		if ( !difficulte.equals("Personnalisés"))
 			return niveau <= this.niveauxMaximum.get(difficulte);
 		return true;
 		

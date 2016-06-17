@@ -22,6 +22,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JToolBar;
 import javax.swing.border.BevelBorder;
 
 import Projet.Controleur;
@@ -38,14 +39,15 @@ import Projet.Metier.Pieces.Tour;
 public class Editeur extends BaseFenetre implements ActionListener
 {
 	private static final long serialVersionUID = 1L;
-	private JButton valider;
+    private JButton valider;
     private JButton reinitialiserPlateau;
-    private JButton test;
     private JButton menu;
     private JButton aide;
     private JButton suivant;
     private JButton precedent;
     private JButton supprimer;
+    
+    private JToolBar barreActions;
     
     private ArrayList<Piece> piecesDisponibles;
     
@@ -60,62 +62,58 @@ public class Editeur extends BaseFenetre implements ActionListener
 
     public Editeur(Controleur ctrl, Fenetre fenetre)
     {
-    	super(ctrl,fenetre);
-    	
-    	this.estEditeur = true;
-    	this.ctrl.setNiveau(new Niveau(0,"Debutant"));
-    	this.ctrl.setPlateau(new Plateau(this.ctrl.getNiveau().getPiece()));
-    	
-    	this.pieceDisponibleSelectionne = null;
-    	this.piecesDisponibles = new ArrayList<Piece>();
-    	
-    	this.piecesDisponibles.add(new Roi(0, 0));
-    	this.piecesDisponibles.add(new Reine(0, 0));
-    	this.piecesDisponibles.add(new Fou(0, 0));
-    	this.piecesDisponibles.add(new Fou(0, 0));
-    	this.piecesDisponibles.add(new Tour(0, 0));
-    	this.piecesDisponibles.add(new Tour(0, 0));
-    	this.piecesDisponibles.add(new Cavalier(0, 0));
-    	this.piecesDisponibles.add(new Cavalier(0, 0));
-    	this.piecesDisponibles.add(new Pion(0, 0));
-    	this.piecesDisponibles.add(new Pion(0, 0));
-    	
+        super(ctrl,fenetre);
+
+        this.estEditeur = true;
+        this.ctrl.setNiveau(new Niveau(0,"Debutant"));
+        this.ctrl.setPlateau(new Plateau(this.ctrl.getNiveau().getPiece()));
+
+        this.pieceDisponibleSelectionne = null;
+        this.piecesDisponibles = new ArrayList<Piece>();
+
+        this.piecesDisponibles.add(new Roi(0, 0));
+        this.piecesDisponibles.add(new Reine(0, 0));
+        this.piecesDisponibles.add(new Fou(0, 0));
+        this.piecesDisponibles.add(new Fou(0, 0));
+        this.piecesDisponibles.add(new Tour(0, 0));
+        this.piecesDisponibles.add(new Tour(0, 0));
+        this.piecesDisponibles.add(new Cavalier(0, 0));
+        this.piecesDisponibles.add(new Cavalier(0, 0));
+        this.piecesDisponibles.add(new Pion(0, 0));
+        this.piecesDisponibles.add(new Pion(0, 0));
+
         JPanel centre = new JPanel(new BorderLayout());
 
         JPanel outils = new JPanel();
-        this.menu     = new JButton(new ImageIcon("Themes/"+this.ctrl.getTheme()+"/menu.png"));
+        this.menu = new JButton(new ImageIcon("Images/Interface/menu.png"));
         this.menu.addActionListener(this);
         this.menu.setToolTipText("Retour au menu");
         outils.add(this.menu);
 
-        this.test = new JButton(new ImageIcon("Themes/"+this.ctrl.getTheme()+"/eraser.png"));
-        this.test.addActionListener(this);
-        this.test.setToolTipText("Tester le défi");
-        outils.add(this.test);
-        
-        this.supprimer = new JButton(new ImageIcon("Themes/"+this.ctrl.getTheme()+"/annuler.gif"));
-        this.supprimer.addActionListener(this);
-        this.supprimer.setToolTipText("Supprimer une pièce");
-        outils.add(this.supprimer);
-        
-        this.valider = new JButton(new ImageIcon("Themes/"+this.ctrl.getTheme()+"/valider.gif"));
-        this.valider.addActionListener(this);
-        this.valider.setToolTipText("Valider le défi");
-        outils.add(this.valider);
 
-        this.reinitialiserPlateau = new JButton(new ImageIcon("Themes/"+this.ctrl.getTheme()+"/fire.png"));
+        this.reinitialiserPlateau = new JButton(new ImageIcon("Images/Interface/fire.png"));
         this.reinitialiserPlateau.addActionListener(this);
         this.reinitialiserPlateau.setToolTipText("Reinitialiser le plateau");
         outils.add(this.reinitialiserPlateau);
 
-        this.aide = new JButton(new ImageIcon("Themes/"+this.ctrl.getTheme()+"/question-circular-button.png"));
+        this.aide = new JButton(new ImageIcon("Images/Interface/question-circular-button.png"));
         this.aide.addActionListener(this);
-        this.aide.setToolTipText("À l'aiiiiiiiiide je suis coincé en 720 !!!!!");
+        this.aide.setToolTipText("Afficher l'aide de l'éditeur de niveau");
         outils.add(this.aide);
-        
+
+        this.supprimer = new JButton(new ImageIcon("Images/Interface/annuler.png"));
+        this.supprimer.addActionListener(this);
+        this.supprimer.setToolTipText("Supprimer une pièce");
+        outils.add(this.supprimer);
+
+        this.valider = new JButton(new ImageIcon("Images/Interface/valider.png"));
+        this.valider.addActionListener(this);
+        this.valider.setToolTipText("Valider le défi");
+        outils.add(this.valider);
+
         this.difficulte = new JLabel("Difficulté : ", JLabel.LEFT);
-        this.numNiveau  = new JLabel("Niveau : ", JLabel.RIGHT);
-        
+        this.numNiveau = new JLabel("Niveau : ", JLabel.RIGHT);
+
         JPanel labelCentre = new JPanel(new BorderLayout());
         labelCentre.add(this.difficulte, BorderLayout.WEST);
         labelCentre.add(this.numNiveau, BorderLayout.EAST);
@@ -156,7 +154,7 @@ public class Editeur extends BaseFenetre implements ActionListener
         this.add(this.suivant, BorderLayout.EAST);
         this.add(panelCaptures, BorderLayout.SOUTH);
         this.add(centre);
-        
+
         this.refreshFenetre();
         this.refreshPiecesRestantes();
     }
@@ -217,11 +215,6 @@ public class Editeur extends BaseFenetre implements ActionListener
 			            this.fenetre.setTitle("Solitaire Chess - Menu");
 			            this.fenetre.pack();
         			}
-        			else
-        				if(e.getSource() == test)
-        				{
-        	
-        				}
         
         this.refreshFenetre();
         this.refreshPiecesRestantes();
