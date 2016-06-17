@@ -158,8 +158,10 @@ public class MenuDefi extends JPanel implements ActionListener {
 			int num = Integer.parseInt(tmp.getText());
 			String difficulte = tmp.getName();
 			
-			this.ctrl.setNiveau(new Niveau(num, difficulte));
-			
+			if ( this.edite.isSelected())
+				this.ctrl.setNiveau(new Niveau(num));
+			else
+				this.ctrl.setNiveau(new Niveau(num, difficulte));
         	this.setVisible(false);
         	Jeu j = new Jeu(this.ctrl, this.fenetre);
         	this.fenetre.setJeu(j);

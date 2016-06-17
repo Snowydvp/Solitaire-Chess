@@ -5,6 +5,8 @@ import Projet.Controleur;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
+import java.net.URI;
 
 import javax.swing.*;
 
@@ -149,5 +151,20 @@ public class Menu extends JPanel implements ActionListener
     			            this.fenetre.pack();
     			            this.fenetre.setLocation((int)(Toolkit.getDefaultToolkit().getScreenSize().getWidth() / 2 - this.fenetre.getWidth() / 2), (int)(Toolkit.getDefaultToolkit().getScreenSize().getHeight() / 2 - this.fenetre.getHeight() / 2));
         				}
+        				else
+        					if ( e.getSource() == this.themes ) 
+        					{
+        						new GestionTheme(ctrl, fenetre);
+        					}
+        					else
+        						if ( e.getSource() == this.aide )
+        						{
+            						URI uri = URI.create("https://di.iut.univ-lehavre.fr/pedago/info1/M2107_projetTut/deplacement.html");
+            						try {
+    									Desktop.getDesktop().browse(uri);
+    								} catch (IOException e1) {
+    									e1.printStackTrace();
+    								}
+        						}
     }
 }

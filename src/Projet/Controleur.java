@@ -15,10 +15,12 @@ public class Controleur
 	private Niveau niveauCourant;
 	private ArrayList<Plateau> alEtatPrecedent;
 	private ArrayList<Niveau> alNiveauDebutant, alNiveauIntermediaire, alNiveauAvance, alNiveauExpert, alNiveauEdite;
+	private String theme;
 	
 	public Controleur()
 	{
 		this.initNiveau();
+		this.theme           = "Default";
 		this.partie          = new Partie(this);
 		this.pl              = new Plateau(this.getNiveau().getPiece());
 		this.alEtatPrecedent = new ArrayList<>();
@@ -197,8 +199,9 @@ public class Controleur
 	public Plateau  getPlateau    (){return this.pl            ;}
 	public Partie   getPartie     (){return this.partie        ;}
 	public String[] getDifficultes(){return this.tabDifficultee;}
-	public String   getTheme      (){return "Default"          ;}        
+	public String   getTheme      (){return this.theme         ;}        
 	
+	public void setTheme  (String theme){this.theme = theme    ;}  
 	public void setNiveau (Niveau niv){this.niveauCourant = niv;}
 	public void setPlateau(Plateau pl){this.pl = pl            ;}
 	
