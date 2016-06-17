@@ -22,7 +22,8 @@ import javax.swing.*;
 import javax.swing.border.BevelBorder;
 
 /**
- * CrÃ©Ã© par BELLANGER Jessy, LINTOT Maxime, PICOT Maxence et SINAEVE Antoine le 14/06/2016.
+ * @author: BELLANGER Jessy, LINTOT Maxime, PICOT Maxence et SINAEVE Antoine.
+ * @since: 14/06/2016
  */
 public class Jeu extends BaseFenetre implements ActionListener
 {
@@ -39,8 +40,7 @@ public class Jeu extends BaseFenetre implements ActionListener
     private JLabel difficulte;
     private JLabel numNiveau;
     
-    private int nombreCoups;
-    public static int score = 0;
+    private int nbCoupsDefi;
 
     public Jeu(Controleur ctrl, Fenetre fenetre)
     {
@@ -48,7 +48,7 @@ public class Jeu extends BaseFenetre implements ActionListener
 
         this.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
     	this.estEditeur  = false;
-    	this.nombreCoups = 0;
+    	this.nbCoupsDefi = 0;
 
     	this.ctrl.setPlateau(new Plateau(this.ctrl.getNiveau().getPiece()));
     	
@@ -76,10 +76,10 @@ public class Jeu extends BaseFenetre implements ActionListener
         outils.add(this.aide);
 
 
-        this.difficulte = new JLabel("Difficulté : ", JLabel.LEFT);
-        this.numNiveau = new JLabel("Niveau : ", JLabel.RIGHT);
-        this.compteurTotal = new JLabel("Score total : " + score, JLabel.RIGHT);
-        this.compteur = new JLabel("Score défi : "+this.nombreCoups, JLabel.LEFT);
+        this.difficulte = new JLabel();
+        this.numNiveau = new JLabel();
+        this.compteurTotal = new JLabel();
+        this.compteur = new JLabel();
         
         JPanel labelCentre = new JPanel(new BorderLayout());
         labelCentre.add(this.difficulte, BorderLayout.WEST);
@@ -134,13 +134,13 @@ public class Jeu extends BaseFenetre implements ActionListener
         if( e.getSource() == suivant) 
         {
             this.ctrl.augmenterNiveau();
-            this.nombreCoups = 0;
+            this.nbCoupsDefi = 0;
         }
         else 
         	if(e.getSource() == precedent) 
         	{
 	            this.ctrl.diminuerNiveau();
-	            this.nombreCoups = 0;
+	            this.nbCoupsDefi = 0;
         	}
         	else 
         		if(e.getSource() == rejouer)
@@ -149,7 +149,7 @@ public class Jeu extends BaseFenetre implements ActionListener
 		            this.estSelectionne = false;
 		            this.pieceSelectionnee = null;
 		            this.pX = this.pY = -1;
-		            this.nombreCoups += 2;
+		            this.ctrl.getPartie().setNbCoups(this.ctrl.getPartie().getNbCoups()+2);
         		}
         		else
         			if(e.getSource() == menu) 
@@ -193,8 +193,8 @@ public class Jeu extends BaseFenetre implements ActionListener
         
         this.numNiveau.setText("Niveau : "+this.ctrl.getNiveau().getNumNiveau());
         this.difficulte.setText("Difficulte : "+this.ctrl.getNiveau().getDifficulte());
-        this.compteur.setText("Score défi : "+this.nombreCoups);
-        this.compteurTotal.setText("Score total : "+score);
+        this.compteur.setText("Nombre de coup de ce défi : "+this.nbCoupsDefi);
+        this.compteurTotal.setText("Nombre de coups total : "+this.ctrl.getPartie().getNbCoups());
         
         if ( (!this.ctrl.getPartie().peutJouerNiveau(this.ctrl.getNiveau().getDifficulte(), this.ctrl.getNiveau().getNumNiveau()+1)) ||
         		(this.ctrl.getNiveau().getDifficulte().equals("Expert") && (!this.ctrl.getPartie().peutJouerNiveau(this.ctrl.getNiveau().getDifficulte(), this.ctrl.getNiveau().getNumNiveau()+1))))
@@ -235,8 +235,8 @@ public class Jeu extends BaseFenetre implements ActionListener
                 this.estSelectionne    = false;
                 this.pieceSelectionnee = null;
                 this.ctrl.sauvegardeCoup();
-                this.nombreCoups++;
-                Jeu.score++;
+                this.nbCoupsDefi++;
+                this.ctrl.getPartie().setNbCoups(this.ctrl.getPartie().getNbCoups()+1);
             }
             else
             {
@@ -246,7 +246,7 @@ public class Jeu extends BaseFenetre implements ActionListener
         }
         
         if(this.ctrl.victoireNiveauCourant())
-        	this.nombreCoups = 0;
+        	this.nbCoupsDefi = 0;
         
         this.refreshFenetre();
         this.refreshPiecesCapturees();
