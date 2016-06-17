@@ -64,6 +64,7 @@ public class Editeur extends BaseFenetre implements ActionListener
     {
         super(ctrl,fenetre);
 
+        this.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
         this.estEditeur = true;
         this.ctrl.setNiveau(new Niveau(0,"Debutant"));
         this.ctrl.setPlateau(new Plateau(this.ctrl.getNiveau().getPiece()));

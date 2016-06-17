@@ -17,7 +17,7 @@ public class Menu extends JPanel implements ActionListener
 	private Fenetre fenetre;
     private Controleur ctrl;
 
-    private JButton continuer, nouvellePartie, choisirNiveau, creerDefi, defisPersonnalises, aide, scores, quitter;
+    private JButton continuer, nouvellePartie, choisirNiveau, creerDefi, defisPersonnalises, aide, themes, quitter;
 
     public Menu(Controleur ctrl, Fenetre fenetre)
     {
@@ -74,10 +74,10 @@ public class Menu extends JPanel implements ActionListener
         espaceBoutonsGaucheBas.add(this.creerDefi);
 
 
-        this.scores = new JButton("Scores");
-        this.scores.setPreferredSize(new Dimension(75, 26));
-        this.scores.addActionListener(this);
-        espaceBoutonsDroiteHaut.add(this.scores);
+        this.themes = new JButton("Thème");
+        this.themes.setPreferredSize(new Dimension(75, 26));
+        this.themes.addActionListener(this);
+        espaceBoutonsDroiteHaut.add(this.themes);
 
         this.aide = new JButton("Aide");
         this.aide.setPreferredSize(new Dimension(75, 26));

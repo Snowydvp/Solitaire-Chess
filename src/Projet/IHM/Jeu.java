@@ -45,6 +45,7 @@ public class Jeu extends BaseFenetre implements ActionListener
     {
     	super(ctrl,fenetre);
 
+        this.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
     	this.estEditeur  = false;
     	this.nombreCoups = 0;
 
