@@ -5,6 +5,11 @@ import java.util.ArrayList;
 import Projet.Metier.Pieces.Piece;
 import Projet.Metier.Pieces.Roi;
 
+/**
+ * Classe gérant le plateau du jeu avec les pièces répartis dessus.
+ * @author BELLANGER Jessy, LINTOT Maxime, PICOT Maxence et SINAEVE Antoine
+ *
+ */
 public class Plateau
 {
 	private Piece[][]        plateau;

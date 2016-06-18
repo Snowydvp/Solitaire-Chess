@@ -8,6 +8,12 @@ import java.awt.Image;
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 
+
+/**
+ * Classe gérant les panels construit à base d'images superposées.
+ * @author BELLANGER Jessy, LINTOT Maxime, PICOT Maxence et SINAEVE Antoine
+ *
+ */
 public class ImagePanel extends JPanel
 {
 	private static final long serialVersionUID = 1L;
@@ -17,6 +23,15 @@ public class ImagePanel extends JPanel
     
     private int deplacementPossible;
 
+	/**
+	 * Constructeur par défaut.
+	 * @param img est le chemin de l'image d'arrière plan.
+	 * @param imgPiece est l'image de la pièce.
+	 * @param estSelectionnee est le boolean qui dit si c'est une case selectionnée ou non.
+	 * @param deplacementPosssible est le boolean qui dit si le deplacement est possible sur cette casse
+	 * par rapport a la piece selectionnee.
+	 * 
+	 */
     public ImagePanel(String img, Image imgPiece, boolean estSelectionnee, int deplacementPossible)
     {
     	this.deplacementPossible = deplacementPossible;
@@ -27,12 +42,18 @@ public class ImagePanel extends JPanel
         setPreferredSize(size);
     }
 
+    
+	/**
+	 * Méthode permettant de paint les images sur le JPanel
+	 * @param g est l'element graphique de java.
+	 * 
+	 */
     public void paint(Graphics g)
     {
         super.paintComponent(g);
         g.drawImage(img, 0, 0, null);
         
-        if ( this.estSelectionne )
+        if(this.estSelectionne)
         {
             g.setColor(Color.BLACK);
         	g.drawRect( 1,  1, this.getWidth() - 2, this.getHeight() - 2);
@@ -41,7 +62,7 @@ public class ImagePanel extends JPanel
         	g.fillRect(1,  1,  this.getWidth() - 1, this.getHeight() - 1);
         }
         else
-        	if ( this.deplacementPossible == 1 )
+        	if(this.deplacementPossible == 1)
         	{
 	        	g.setColor(new Color(0, 0, 255));
 	        	g.drawRect( 1,  1, this.getWidth() - 2, this.getHeight() - 2);
@@ -49,14 +70,15 @@ public class ImagePanel extends JPanel
 	        	g.setColor(new Color(0, 0, 255, 25));
 	        	g.fillRect(1,  1,  this.getWidth() - 1, this.getHeight() - 1);
         	}
-        	else if ( this.deplacementPossible == 0 )
-        	{
-	        	g.setColor(new Color(255, 0, 0));
-	        	g.drawRect( 1,  1, this.getWidth() - 2, this.getHeight() - 2);
-	        	g.drawRect( 2,  2, this.getWidth() - 4, this.getHeight() - 4);
-	        	g.setColor(new Color(255, 0, 0, 25));
-	        	g.fillRect(1,  1,  this.getWidth() - 1, this.getHeight() - 1);
-        	}
+        	else 
+        		if(this.deplacementPossible == 0)
+        		{
+		        	g.setColor(new Color(255, 0, 0));
+		        	g.drawRect( 1,  1, this.getWidth() - 2, this.getHeight() - 2);
+		        	g.drawRect( 2,  2, this.getWidth() - 4, this.getHeight() - 4);
+		        	g.setColor(new Color(255, 0, 0, 25));
+		        	g.fillRect(1,  1,  this.getWidth() - 1, this.getHeight() - 1);
+        		}
         
         g.drawImage(imgPiece, 0, 0, null);
     }

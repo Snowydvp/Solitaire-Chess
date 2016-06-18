@@ -4,6 +4,9 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
+import java.io.File;
+import java.io.IOException;
+import java.net.URI;
 import java.util.ArrayList;
 
 import javax.swing.*;
@@ -11,8 +14,14 @@ import javax.swing.*;
 import Projet.Controleur;
 import Projet.Metier.Niveau;
 
-public class MenuDefi extends JPanel implements ActionListener {
-	
+/**
+ * Classe gérant l'affichage de la séléction des défis si ils sont accessible ou non.
+ * @author BELLANGER Jessy, LINTOT Maxime, PICOT Maxence et SINAEVE Antoine
+ *
+ */
+public class MenuDefi extends JPanel implements ActionListener 
+{
+	private static final long serialVersionUID = 1L;
 	private JRadioButton debutant;
 	private JRadioButton intermediaire;
 	private JRadioButton avance;
@@ -26,10 +35,23 @@ public class MenuDefi extends JPanel implements ActionListener {
     private JPanel listeEdite;
 
 	private JButton retourMenu;
+	
+    private JMenu menuPrincipal;
+	private JMenu menuAutre;
+    
+	private JMenuItem quitterMenu;
+	private JMenuItem retourMenuItem;
+	private JMenuItem relges;
 
 	private Controleur ctrl;
 	private Fenetre fenetre;
 	
+	/**
+	 * Constructeur par défaut
+	 * @param ctrl est le controleur
+	 * @param fenetre est la frame principale
+	 * 
+	 */
 	public MenuDefi(Controleur ctrl, Fenetre fenetre)
 	{
 		this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
@@ -42,7 +64,6 @@ public class MenuDefi extends JPanel implements ActionListener {
 		this.listeAvance = initialisePanel(this.ctrl.getNiveauAvance(), "Avance");
 		this.listeExpert = initialisePanel(this.ctrl.getNiveauExpert(), "Expert");
         this.listeEdite = initialisePanel(this.ctrl.getNiveauEdite(), "Edite");
-
 
 
 		JPanel difficulte = new JPanel();
@@ -99,30 +120,47 @@ public class MenuDefi extends JPanel implements ActionListener {
         this.add(menu);
 	}
 	
-	public JPanel initialisePanel(ArrayList<Niveau> alNiveau, String s) {
+	/**
+	 * Méthode permettant d'initialiser les panels en fonction de la difficulté.
+	 * @param alNiveau est la ArrayList des niveaux de la difficulté.
+	 * @param s est le nom de la difficulté.
+	 * 
+	 */
+	public JPanel initialisePanel(ArrayList<Niveau> alNiveau, String s) 
+	{
 		JPanel tmp = new JPanel(new GridLayout(0, 5, 10, 10));
 		tmp.setBorder(BorderFactory.createTitledBorder(
 				BorderFactory.createEtchedBorder(),
 				s,0,0,new Font("Dialog", 1, 12),Color.BLACK
 		));
-		for ( int j = 0; j < alNiveau.size(); j++) {
+		
+		for(int j = 0; j < alNiveau.size(); j++) 
+		{
 			JButton buttonTmp = new JButton(alNiveau.get(j).getNumNiveau()+"");
             buttonTmp.setSize(55, 26);
             buttonTmp.setName(s);
             buttonTmp.addActionListener(this);
-			if ( this.ctrl.getPartie().peutJouerNiveau(s,alNiveau.get(j).getNumNiveau()))
+			if(this.ctrl.getPartie().peutJouerNiveau(s,alNiveau.get(j).getNumNiveau()))
 				buttonTmp.setBackground(Color.WHITE);
-			else {
+			else 
+			{
                 buttonTmp.setBackground(Color.GRAY);
                 buttonTmp.setEnabled(false);
             }
+			
 			tmp.add(buttonTmp);
 			tmp.setVisible(false);
 		}
 		return tmp;
 	}
 
-	public void actionPerformed(ActionEvent e) {
+	/**
+	 * Méthode permettant de définir les différentes actions.
+	 * @param e est l'evenement.
+	 * 
+	 */
+	public void actionPerformed(ActionEvent e) 
+	{
 		this.listeDebutant.setVisible(false);
 		this.listeIntermediaire.setVisible(false);
 		this.listeAvance.setVisible(false);
@@ -140,35 +178,62 @@ public class MenuDefi extends JPanel implements ActionListener {
 			this.listeExpert.setVisible(true);
         else if(e.getSource() == this.edite)
             this.listeEdite.setVisible(true);
-		else if(e.getSource() == this.retourMenu) {
-			this.setVisible(false);
-            this.fenetre.add(this.fenetre.getMenu(), BorderLayout.CENTER);
-			this.fenetre.getMenu().setVisible(true);
-			this.fenetre.setTitle("Solitaire Chess - Menu");
-			this.fenetre.pack();
-			this.fenetre.setLocation((int)(Toolkit.getDefaultToolkit().getScreenSize().getWidth() / 2 - this.fenetre.getWidth() / 2), (int)(Toolkit.getDefaultToolkit().getScreenSize().getHeight() / 2 - this.fenetre.getHeight() / 2));
+		else if(e.getSource() == this.retourMenu || e.getSource() == this.retourMenuItem)
+			this.fenetre.afficherMenu(this);
+		else if(e.getSource() == this.relges)
+		{
+			File html = new File("html/regles.html");
+			URI uri = html.toURI();
+			try {Desktop.getDesktop().browse(uri);} 
+			catch (IOException e1) {e1.printStackTrace();}
 		}
-
-		this.fenetre.pack();
-		
-		if ( e.getSource() instanceof JButton && !(e.getSource() == this.retourMenu))
+		else if(e.getSource() == this.quitterMenu)
+			System.exit(0);
+		else if(e.getSource() instanceof JButton)
 		{
 			JButton tmp = (JButton) e.getSource();
 			
 			int num = Integer.parseInt(tmp.getText());
 			String difficulte = tmp.getName();
 			
-			if ( this.edite.isSelected())
-				this.ctrl.setNiveau(new Niveau(num));
-			else
-				this.ctrl.setNiveau(new Niveau(num, difficulte));
-        	this.setVisible(false);
+			if ( this.edite.isSelected()) this.ctrl.setNiveau(new Niveau(num-1));
+			else this.ctrl.setNiveau(new Niveau(num, difficulte));
+			
         	Jeu j = new Jeu(this.ctrl, this.fenetre);
-        	this.fenetre.setJeu(j);
-            this.fenetre.add(j, BorderLayout.CENTER);
-            this.fenetre.setTitle("Solitaire Chess - Jeu");
-            this.fenetre.pack();
-            this.fenetre.setLocation((int)(Toolkit.getDefaultToolkit().getScreenSize().getWidth() / 2 - this.fenetre.getWidth() / 2), (int)(Toolkit.getDefaultToolkit().getScreenSize().getHeight() / 2 - this.fenetre.getHeight() / 2));
+        	this.fenetre.afficherJeu(this, j);
 		}
+		
+		this.fenetre.pack();
 	}
+	
+	/**
+	 * Méthode permettant de définir la barre de menu de la fenetre.
+	 * 
+	 */
+    public void setMenuBarre()
+    { 
+    	JMenuBar menuRacourci = new JMenuBar();
+    	
+        this.menuPrincipal = new JMenu("Menu principal");
+        this.retourMenuItem = new JMenuItem("Retour menu");
+        this.retourMenuItem.addActionListener(this);
+        this.retourMenuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_R, ActionEvent.CTRL_MASK));
+        this.menuPrincipal.add(this.retourMenuItem);
+        
+        this.quitterMenu = new JMenuItem("Quitter");
+        this.quitterMenu.addActionListener(this);
+        this.quitterMenu.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_Q, ActionEvent.CTRL_MASK));
+        this.menuPrincipal.add(this.quitterMenu);
+        
+        this.menuAutre = new JMenu("Autres");
+        this.relges = new JMenuItem("Règles");
+        this.relges.addActionListener(this);
+        this.relges.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_H, ActionEvent.CTRL_MASK));
+        this.menuAutre.add(this.relges);
+        
+        menuRacourci.add(this.menuPrincipal);
+        menuRacourci.add(this.menuAutre);
+        
+        this.fenetre.setJMenuBar(menuRacourci);
+    }
 }

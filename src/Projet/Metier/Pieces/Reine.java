@@ -1,13 +1,25 @@
 package Projet.Metier.Pieces;
 
-
+/**
+ * Classe permettant la creation d'une Reine
+ * @author Ashbringer
+ *
+ */
 public class Reine extends Piece
 {
+	/**
+	 * Constructeur permettent d'instancier une piece de type Reine
+	 * @param posX
+	 * @param posY
+	 */
 	public Reine(int posX, int posY)
 	{
 		super(posX, posY);
 	}
 
+	/**
+	 * Verifie si le deplacement de la piece est possible
+	 */
 	public boolean deplacementValide(int cibleX, int cibleY, Piece[][] plateau)
 	{
 		int deltaX = cibleX - this.posX;
@@ -18,5 +30,8 @@ public class Reine extends Piece
 															//diagonalement
 	}
 
+	/**
+	 * Accesseur qui retourne la premiere lettre du type de la piece
+	 */
 	public char getType() {return 'R';}
 }

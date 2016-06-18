@@ -1,48 +1,120 @@
 package Projet.IHM;
 
-import java.awt.Toolkit;
+import java.awt.*;
 
-import javax.swing.ImageIcon;
-import javax.swing.JFrame;
+import javax.swing.*;
 
 import Projet.Controleur;
+import Projet.IHM.Projet.Usine;
 
+/**
+ * Fenetre principale de l'application, c'est elle qui va gérer l'affichage de chaque mode.s
+ * @author BELLANGER Jessy, LINTOT Maxime, PICOT Maxence et SINAEVE Antoine
+ *
+ */
 public class Fenetre extends JFrame
 {
 	private static final long serialVersionUID = 1L;
-	private Controleur ctrl;
 	private Menu menu;
 	private Jeu jeu;
 	private Editeur editeur;
 	private MenuDefi menuDefi;
 	
+	/**
+	 * Constructeur par défaut.
+	 * @param ctrl est le Controleur.
+	 * 
+	 */
 	public Fenetre(Controleur ctrl) 
-	{	
-		this.setTitle("Solitaire Chess - Menu");
+	{
+		this.setIconImage(Usine.ICONE_APPLICATION);
 		this.setResizable(false);
-		this.setIconImage(new ImageIcon("Images/Interface/crown.png").getImage());
-		
-		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
-		
-		this.ctrl     = ctrl;
-		this.jeu      = null;
-		this.editeur  = null;
-		this.menuDefi = null;
-		this.menu     = new Menu(this.ctrl,this);
-		this.add(this.menu);
-		
+		this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+
+        this.menu         = new Menu(ctrl, this);
+        this.add(this.menu);
+
 		this.pack();
 		
-        this.setLocation((int)(Toolkit.getDefaultToolkit().getScreenSize().getWidth() / 2 - this.getWidth() / 2), (int)(Toolkit.getDefaultToolkit().getScreenSize().getHeight() / 2 - this.getHeight() / 2));
+        this.centrer();
 		this.setVisible(true);
 	}
 	
-	public Menu     getMenu()    {return this.menu    ;}
-	public Jeu      getJeu()     {return this.jeu     ;}
-	public Editeur  getEditeur() {return this.editeur ;}
-	public MenuDefi getMenuDefi(){return this.menuDefi;}
-	
-	public void setJeu(Jeu j)           {this.jeu = j      ;}
-	public void setEditeur(Editeur e)   {this.editeur = e  ;}
+	/**
+	 * Méthode permettant de centrer la fenetre principal.
+	 * 
+	 */
+    public void centrer()
+    {
+        this.pack();
+        this.setLocation((int)(Toolkit.getDefaultToolkit().getScreenSize().getWidth() / 2 - this.getWidth() / 2), (int)(Toolkit.getDefaultToolkit().getScreenSize().getHeight() / 2 - this.getHeight() / 2));
+    }
+
+	public void setJeu(Jeu j)           {this.jeu      = j ;}
+	public void setEditeur(Editeur e)   {this.editeur  = e ;}
 	public void setMenuDefi(MenuDefi mD){this.menuDefi = mD;}
+
+	/**
+	 * Méthode permettant d'afficher le menu principal sur la fenetre.
+	 * @param contenuACacher est le panel qui va etre remplacer par le menu principal.
+	 * 
+	 */
+    public void afficherMenu(JPanel contenuACacher)
+    {
+        contenuACacher.setVisible(false);
+
+        this.add(this.menu);
+        this.menu.setMenuBarre();
+        this.menu.setVisible(true);
+        this.setTitle("Solitaire Chess - Menu");
+        this.centrer();
+    }
+
+	/**
+	 * Méthode permettant d'afficher le mode jeu sur la fenetre.
+	 * @param contenuACacher est le panel qui va etre remplacer par le mode jeu.
+	 * 
+	 */
+    public void afficherJeu(JPanel contenuACacher, Jeu j)
+    {
+        contenuACacher.setVisible(false);
+        this.setJeu(j);
+        this.add(this.jeu);
+        this.jeu.setMenuBarre();
+        this.jeu.setVisible(true);
+        this.setTitle("Solitaire Chess - Jeu");
+        this.centrer();
+    }
+    
+	/**
+	 * Méthode permettant d'afficher le mode editeur sur la fenetre.
+	 * @param contenuACacher est le panel qui va etre remplacer par le mode editeur.
+	 * 
+	 */
+    public void afficherEditeur(JPanel contenuACacher, Editeur e)
+    {
+        contenuACacher.setVisible(false);
+        this.setEditeur(e);
+        this.add(this.editeur);
+        this.editeur.setMenuBarre();
+        this.editeur.setVisible(true);
+        this.setTitle("Solitaire Chess - Editeur");
+        this.centrer();
+    }
+    
+	/**
+	 * Méthode permettant d'afficher la selection des défis sur la fenetre.
+	 * @param contenuACacher est le panel qui va etre remplacer par le menu de sélection des défis.
+	 * 
+	 */
+    public void afficherMenuDefi(JPanel contenuACacher, MenuDefi mD)
+    {
+        contenuACacher.setVisible(false);
+        this.setMenuDefi(mD);
+        this.add(this.menuDefi);
+        this.menuDefi.setMenuBarre();
+        this.menuDefi.setVisible(true);
+        this.setTitle("Solitaire Chess - Séléction défi");
+        this.centrer();
+    }
 }

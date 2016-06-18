@@ -1,6 +1,8 @@
 package Projet.Metier;
 
 import java.io.File;
+
+
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -9,6 +11,11 @@ import java.util.Scanner;
 
 import Projet.Controleur;
 
+/**
+ * Classe gérant la création et le chargement d'une partie.
+ * @author BELLANGER Jessy, LINTOT Maxime, PICOT Maxence et SINAEVE Antoine
+ *
+ */
 public class Partie
 {
 	private Controleur ctrl;
@@ -53,7 +60,10 @@ public class Partie
 			String difficultee = sc.next();	
 			int niveau = sc.nextInt();
 			
-			this.ctrl.setNiveau(new Niveau(niveau, difficultee));
+			if ( difficultee.equals("Edite"))
+				this.ctrl.setNiveau(new Niveau(niveau-1));
+			else
+				this.ctrl.setNiveau(new Niveau(niveau, difficultee));
 			
 			for(int cpt  = 0;cpt < 4;cpt++)
 				this.niveauxMaximum.put(sc.next(), sc.nextInt());
@@ -90,7 +100,6 @@ public class Partie
 	
 	public void initFichier()
 	{
-		FileWriter fw;
 		try {
 			this.fichier.createNewFile();
 		} catch (IOException e) {System.out.print("Erreur d'accès au fichier "+this.fichier.getName());}
@@ -101,7 +110,9 @@ public class Partie
 	 **/
 	public boolean peutJouerNiveau(String difficulte, int niveau) 
 	{
-		if ( !difficulte.equals("Edite"))
+		if(this.ctrl.getCheatActive())
+			return true;
+		else if ( !difficulte.equals("Edite"))
 			return niveau <= this.niveauxMaximum.get(difficulte);
 		return true;
 		

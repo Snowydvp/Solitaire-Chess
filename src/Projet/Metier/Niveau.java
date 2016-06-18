@@ -5,15 +5,24 @@ import java.util.Scanner;
 
 import Projet.Metier.Pieces.*;
 
+/**
+ * Class permettent la creation des niveaux
+ * @author Ashbringer
+ *
+ */
 public class Niveau
 {
 	private Piece[][] tabPiece;
 	private int numNiveau;
 	private String difficulte;
 	
+	/**
+	 * Construteur lié à la creation des niveaux édités 
+	 * @param niveau
+	 */
 	public Niveau(int niveau)
 	{
-		this.numNiveau = niveau;
+		this.numNiveau = niveau+1;
 		this.difficulte = "Edite";
 		try
 		{
@@ -50,6 +59,10 @@ public class Niveau
 		}catch (Exception e){}
 	}
 	
+	/**
+	 * Constructeur utiliser pour l'edition des niveaux
+	 * @param tabPiece
+	 */
 	public Niveau(Piece[][] tabPiece)
 	{
 		this.tabPiece = tabPiece;
@@ -57,6 +70,11 @@ public class Niveau
 		this.numNiveau = 0;
 	}
 	
+	/**
+	 * Constructeur qui permet la création des niveaux preéfinis
+	 * @param numNiveau
+	 * @param difficulte
+	 */
 	public Niveau(int numNiveau, String difficulte)
 	{
 		
@@ -95,6 +113,10 @@ public class Niveau
 		}catch (Exception e){}
 	}
 	
+	/**
+	 * Accesseur permettent de recuperer le tableau du niveau
+	 * @return
+	 */
 	public Piece[][] getPiece()
 	{
 		Piece[][] pieceOrigine = new Piece[4][4];
@@ -104,6 +126,10 @@ public class Niveau
 		return pieceOrigine;
 	}
 	
+	/**
+	 * Accesseur qui return un boolean en fonction de la difficulte
+	 * @return
+	 */
 	public int getNumDifficulte()
 	{
 		int d = 1;
@@ -113,7 +139,19 @@ public class Niveau
 		return d;
 	}
 	
+	/**
+	 * Accesseur qui renvoie si le tab est bien instancier ou non
+	 * @return
+	 */
 	public boolean getInstancier(){return tabPiece == null;}
+	/**
+	 * Accesseur qui retourne le niveau
+	 * @return
+	 */
 	public int     getNumNiveau (){ return this.numNiveau ;}
+	/**
+	 * Accesseur qui retourne la difficulter du niveau
+	 * @return
+	 */
 	public String  getDifficulte(){ return this.difficulte;}
 }

@@ -3,10 +3,14 @@ package Projet;
 import java.util.ArrayList;
 
 import Projet.IHM.Fenetre;
-import Projet.IHM.Jeu;
 import Projet.Metier.*;
 import Projet.Metier.Pieces.Piece;
 
+/**
+ * Classe liant la partie IHM à la partie métier. 
+ * @author BELLANGER Jessy, LINTOT Maxime, PICOT Maxence et SINAEVE Antoine
+ *
+ */
 public class Controleur
 {
 	private final String[] tabDifficultee = {"Debutant", "Intermediaire", "Avance", "Expert"};
@@ -16,10 +20,16 @@ public class Controleur
 	private ArrayList<Plateau> alEtatPrecedent;
 	private ArrayList<Niveau> alNiveauDebutant, alNiveauIntermediaire, alNiveauAvance, alNiveauExpert, alNiveauEdite;
 	private String theme;
+	private boolean cheatActive;
 	
+	/**
+	 * Constructeur par dÃ©faut
+	 * 
+	 */
 	public Controleur()
 	{
 		this.initNiveau();
+		this.cheatActive     = false;
 		this.theme           = "Default";
 		this.partie          = new Partie(this);
 		this.pl              = new Plateau(this.getNiveau().getPiece());
@@ -29,33 +39,44 @@ public class Controleur
 		new Fenetre(this);
 	}
 	
-	
+	/**
+	 * Méthode permettant d'augmenter le niveau courant.
+	 * Cette méthode gère aussi l'augmentation de difficulté en cas de niveau maximum atteint.
+	 * 
+	 */
 	public void augmenterNiveau()
 	{
-		
-		if ( !this.niveauCourant.getDifficulte().equals("Edite"))
+		if(!this.niveauCourant.getDifficulte().equals("Edite"))
 		{
-			if (this.niveauCourant.getNumNiveau() < this.getDifficulteCourante().size())
+			if(this.niveauCourant.getNumNiveau() < this.getDifficulteCourante().size())
 				this.setNiveau(new Niveau(this.niveauCourant.getNumNiveau() + 1, this.niveauCourant.getDifficulte()));
 			else if (!this.niveauCourant.getDifficulte().equals("Expert"))
 				this.setNiveau(new Niveau(1, this.tabDifficultee[this.augmenterDifficulte(this.niveauCourant.getDifficulte())]));
 		}
 		else
-		{
-			this.setNiveau(new Niveau(this.niveauCourant.getNumNiveau() + 1));
-		}
+			this.setNiveau(new Niveau(this.niveauCourant.getNumNiveau()));
+		
 		this.pl = new Plateau(this.niveauCourant.getPiece());	
 		this.partie.enregistrerPartie();
 		this.alEtatPrecedent.clear();
 		this.alEtatPrecedent.add(new Plateau(this.copieTableau(this.pl.getPlateau())));
 	}
 	
+	/**
+	 * Méthode permettant de diminuer le niveau courant.
+	 * Cette méthode gère aussi la diminution de la difficulté en cas de niveau minimum atteint.
+	 * 
+	 */
 	public void diminuerNiveau()
 	{
-		if ( this.niveauCourant.getNumNiveau() > 1)
+		if(this.niveauCourant.getNumNiveau() > 1)
 			this.setNiveau(new Niveau(this.niveauCourant.getNumNiveau() - 1, this.niveauCourant.getDifficulte()));
-		else if (!this.niveauCourant.getDifficulte().equals("Debutant"))
-			this.setNiveau(new Niveau(this.getDifficulteCourante().size(), this.tabDifficultee[this.diminuerDifficulte(this.niveauCourant.getDifficulte())]));
+		else
+			if(!this.niveauCourant.getDifficulte().equals("Debutant"))
+				this.setNiveau(new Niveau(this.getDifficulteCourante().size(), this.tabDifficultee[this.diminuerDifficulte(this.niveauCourant.getDifficulte())]));
+
+		if(this.niveauCourant.getDifficulte().equals("Edite"))
+			this.setNiveau(new Niveau(this.niveauCourant.getNumNiveau()-1));
 		
 		this.pl = new Plateau(this.niveauCourant.getPiece());
 		
@@ -63,82 +84,120 @@ public class Controleur
 		this.alEtatPrecedent.add(new Plateau(this.copieTableau(this.pl.getPlateau())));
 	}
 	
+	/**
+	 * Méthode permettant de creer une nouvelle partie.
+	 * 
+	 */
 	public void creerPartie()
 	{
 		this.partie.nouvellePartie();
 	}
 	
+	/**
+	 * Méthode permettant de rejouer le niveau courant.
+	 * 
+	 */
 	public void rejouer()
 	{
-		this.setNiveau(new Niveau(this.niveauCourant.getNumNiveau(), this.niveauCourant.getDifficulte()));
+		if(!this.niveauCourant.getDifficulte().equals("Edite"))
+			this.setNiveau(new Niveau(this.niveauCourant.getNumNiveau(), this.niveauCourant.getDifficulte()));
+		else
+			this.setNiveau(new Niveau(this.niveauCourant.getNumNiveau()-1));
+		
 		this.pl = new Plateau(this.niveauCourant.getPiece());
 		
 		this.alEtatPrecedent.clear();
 		this.alEtatPrecedent.add(new Plateau(this.copieTableau(this.pl.getPlateau())));
 	}
 	
+	/**
+	 * Méthode appelé dans diminuerNiveau pour diminuer la difficulté du niveau courant si celui ci
+	 * est de numéro 1.
+	 * @param d est la difficulté du niveau courant.
+	 * @return l'indice de la difficulté obtenue.
+	 * 
+	 */
 	private int diminuerDifficulte(String d) 
 	{
 		int index = -1;
-		for ( int i = 0; i < this.tabDifficultee.length; i++)
+		for(int i = 0; i < this.tabDifficultee.length; i++)
 			if(this.tabDifficultee[i].equalsIgnoreCase(d))
 				index = i;
 
 		
-		if ( index - 1 < 0)
-			return 0;
-		else
-			return index - 1;
+		if(index - 1 < 0) return 0;
+		else return index - 1;
  	}
 	
+	/**
+	 * Méthode appelé dans augmenterNiveau pour augmenter la difficulté du niveau courant si celui ci
+	 * est de numéro maximum de cette difficulté.
+	 * @param d est la difficulté du niveau courant.
+	 * @return l'indice de la difficulté obtenue.
+	 * 
+	 */
 	private int augmenterDifficulte(String d) 
 	{
 		int index = -1;
-		for ( int i = 0; i < this.tabDifficultee.length; i++)
+		for(int i = 0; i < this.tabDifficultee.length; i++)
 			if(this.tabDifficultee[i].equalsIgnoreCase(d))
 				index = i;
 
 		
-		if ( index + 1 > 3)
-			return index;
-		else
-			return index + 1;
+		if(index + 1 > 3) return index;
+		else return index + 1;
 	}
 	
-	public boolean victoireNiveauCourant() {
+	/**
+	 * Méthode vérifiant si le joueur est victorieux sur le niveau courant.
+	 * @return vrai si il a gagné et faux si il n'a pas encore gagné
+	 * 
+	 */
+	public boolean victoireNiveauCourant() 
+	{
 		int nbPiece = 0;
 		
-		for ( int i = 0; i < 4; i++)
-			for ( int j = 0; j < 4; j++ )
-				if ( this.pl.getPlateau()[i][j] != null )
+		for(int i = 0; i < 4; i++)
+			for(int j = 0; j < 4; j++)
+				if(this.pl.getPlateau()[i][j] != null)
 					nbPiece++;
 		
-		if ( nbPiece == 1)
-		{
+		if(nbPiece == 1 && !(this.niveauCourant.getDifficulte().equals("Expert") && this.niveauCourant.getNumNiveau() == this.alNiveauExpert.size())
+				        && !(this.niveauCourant.getDifficulte().equals("Edite") && this.niveauCourant.getNumNiveau() == this.alNiveauEdite.size()))
 			this.augmenterNiveau();
-			return true;
-		}
 		
-		return false;
+		return nbPiece == 1;
 	}
 	
+	/**
+	 * Méthode permmettant de remettre le plateau a l'état précédent.
+	 * (fonctionnalitée annuler coup)
+	 * 
+	 */
 	public void coupPrecedent()
 	{
 		if(this.alEtatPrecedent.size() > 1)
 		{
 			this.alEtatPrecedent.remove(this.alEtatPrecedent.size()-1);
 			Piece[][] plateauPrecedent = this.alEtatPrecedent.get(this.alEtatPrecedent.size()-1).getPlateau();
-			this.pl = new Plateau(this.copieTableau(plateauPrecedent), this.pl.getPiecesCapturees()); //il faut recopier la valeur de plateuPrecedent
-			
+			this.pl = new Plateau(this.copieTableau(plateauPrecedent), this.pl.getPiecesCapturees());
 		}
 	}
 	
+	/**
+	 * Méthode permmettant de sauvegarder l'état du plateau aprés deplacement.
+	 * 
+	 */
 	public void sauvegardeCoup()
 	{
 		this.alEtatPrecedent.add(new Plateau(this.copieTableau(this.pl.getPlateau())));
-
 	}
 	
+	/**
+	 * Méthode permmettant d'initialiser tout les niveaux dansdes ArrayList et
+	 * ainsi connaitre le nombre de niveau par difficulté.
+	 * 
+	 */
 	public void initNiveau()
 	{
 		alNiveauDebutant      = new ArrayList<>();
@@ -147,26 +206,32 @@ public class Controleur
 		alNiveauExpert        = new ArrayList<>();
 		alNiveauEdite         = new ArrayList<>();
 		
-			for(int i = 1; i < 100; i++)
-			{
-				Niveau tmp = new Niveau(i, tabDifficultee[0]);
-				if (!tmp.getInstancier())
-					alNiveauDebutant.add(tmp);
-				Niveau tmp1 = new Niveau(i, tabDifficultee[1]);
-				if (!tmp1.getInstancier())
-					alNiveauIntermediaire.add(tmp1);
-				Niveau tmp2 = new Niveau(i, tabDifficultee[2]);
-				if (!tmp2.getInstancier())
-					alNiveauAvance.add(tmp2);
-				Niveau tmp3 = new Niveau(i, tabDifficultee[3]);
-				if (!tmp3.getInstancier())
-					alNiveauExpert.add(tmp3);
-				Niveau tmp4 = new Niveau(i-1);
-				if (!tmp4.getInstancier())
-					alNiveauEdite.add(tmp4);
-			}
+		for(int i = 1; i < 100; i++)
+		{
+			Niveau tmp = new Niveau(i, tabDifficultee[0]);
+			if(!tmp.getInstancier())
+				alNiveauDebutant.add(tmp);
+			Niveau tmp1 = new Niveau(i, tabDifficultee[1]);
+			if(!tmp1.getInstancier())
+				alNiveauIntermediaire.add(tmp1);
+			Niveau tmp2 = new Niveau(i, tabDifficultee[2]);
+			if(!tmp2.getInstancier())
+				alNiveauAvance.add(tmp2);
+			Niveau tmp3 = new Niveau(i, tabDifficultee[3]);
+			if(!tmp3.getInstancier())
+				alNiveauExpert.add(tmp3);
+			Niveau tmp4 = new Niveau(i-1);
+			if(!tmp4.getInstancier())
+				alNiveauEdite.add(tmp4);
+		}
 	}
 	
+	/**
+	 * Méthode permmettant de recopier un tableau de Piece à deux dimensions.
+	 * @param or est un tableau de piece à deux dimensions.
+	 * @return le tableau de piece recopié.
+	 * 
+	 */
 	public Piece[][] copieTableau(Piece[][] or)
 	{
 		Piece tabPiece[][] = new Piece[4][4];
@@ -183,9 +248,14 @@ public class Controleur
 		return tabPiece;
 	}
 	
+	/**
+	 * Méthode permmettant de connaitre la difficulté courante
+	 * @return la ArrayList de niveau de la difficulté courante.
+	 * 
+	 */
 	public ArrayList<Niveau> getDifficulteCourante()
 	{
-		ArrayList difficulteCourante = this.alNiveauDebutant;
+		ArrayList<Niveau> difficulteCourante = this.alNiveauDebutant;
 		if(this.niveauCourant.getDifficulte().equals("Intermediaire"))
 			difficulteCourante = this.alNiveauDebutant;
 		else if(this.niveauCourant.getDifficulte().equals("Avance"))
@@ -199,11 +269,14 @@ public class Controleur
 	public Plateau  getPlateau    (){return this.pl            ;}
 	public Partie   getPartie     (){return this.partie        ;}
 	public String[] getDifficultes(){return this.tabDifficultee;}
-	public String   getTheme      (){return this.theme         ;}        
+	public String   getTheme      (){return this.theme         ;}    
+	public boolean  getCheatActive(){return this.cheatActive   ;}
 	
-	public void setTheme  (String theme){this.theme = theme    ;}  
-	public void setNiveau (Niveau niv){this.niveauCourant = niv;}
-	public void setPlateau(Plateau pl){this.pl = pl            ;}
+	
+	public void setTheme      (String theme){this.theme = theme      ;}  
+	public void setNiveau     (Niveau niv)  {this.niveauCourant = niv;}
+	public void setPlateau    (Plateau pl)  {this.pl = pl            ;}
+	public void setCheatActive(boolean b)   {this.cheatActive = b    ;}
 	
 	public ArrayList<Niveau> getNiveauDebutant     (){return this.alNiveauDebutant     ;}
 	public ArrayList<Niveau> getNiveauIntermediaire(){return this.alNiveauIntermediaire;}

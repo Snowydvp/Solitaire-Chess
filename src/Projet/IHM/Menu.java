@@ -5,13 +5,18 @@ import Projet.Controleur;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.io.File;
 import java.io.IOException;
 import java.net.URI;
 
 import javax.swing.*;
 
 /**
- * Créé par BELLANGER Jessy, LINTOT Maxime, PICOT Maxence et SINAEVE Antoine le 14/06/2016.
+ * Menu principale, c'est ici que sont définit tout les boutons pour naviguer
+ * dans l'application.
+ * @author BELLANGER Jessy, LINTOT Maxime, PICOT Maxence et SINAEVE Antoine
+ *
  */
 public class Menu extends JPanel implements ActionListener
 {
@@ -19,13 +24,33 @@ public class Menu extends JPanel implements ActionListener
 	private Fenetre fenetre;
     private Controleur ctrl;
 
-    private JButton continuer, nouvellePartie, choisirNiveau, creerDefi, defisPersonnalises, aide, themes, quitter;
+    private JButton continuer, nouvellePartie, choisirNiveau, creerDefi, regle, options, quitter;
+    
+	private JMenu menuPrincipal;
+	private JMenu menuPartie;
+	private JMenu menuNiveau;
+	private JMenu menuAutre;
+	
+	private JMenuItem quitterMenu;
+	private JMenuItem nouvellePartieMenu;
+	private JMenuItem continuerPartie;
+	private JMenuItem editeurDefi;
+	private JMenuItem selectionDefi;
+	private JMenuItem optionsMenu;
+	private JMenuItem regles;
 
+	/**
+	 * Constructeur par défaut
+	 * @param ctrl est le controleur
+	 * @param fenetre est la frame principale
+	 * 
+	 */
     public Menu(Controleur ctrl, Fenetre fenetre)
     {
         this.ctrl    = ctrl;
         this.fenetre = fenetre;
         this.fenetre.setTitle("Solitaire Chess - Menu");
+        this.setMenuBarre();
 
         this.setLayout(new BorderLayout());
 
@@ -62,109 +87,131 @@ public class Menu extends JPanel implements ActionListener
         this.continuer.addActionListener(this);
         espaceBoutonsGaucheHaut.add(this.continuer);
 
-        this.choisirNiveau = new JButton("Choisir défi");
-        this.choisirNiveau.addActionListener(this);
-        espaceBoutonsGaucheHaut.add(this.choisirNiveau);
-
-
-        this.defisPersonnalises = new JButton("Défis personnalisés");
-        this.defisPersonnalises.addActionListener(this);
-        espaceBoutonsGaucheBas.add(this.defisPersonnalises);
-
         this.creerDefi = new JButton("Créer un défi");
         this.creerDefi.addActionListener(this);
         espaceBoutonsGaucheBas.add(this.creerDefi);
 
+        this.choisirNiveau = new JButton("Choisir défi");
+        this.choisirNiveau.addActionListener(this);
+        espaceBoutonsGaucheBas.add(this.choisirNiveau);
 
-        this.themes = new JButton("Thème");
-        this.themes.setPreferredSize(new Dimension(75, 26));
-        this.themes.addActionListener(this);
-        espaceBoutonsDroiteHaut.add(this.themes);
+        this.options = new JButton("Options");
+        this.options.setPreferredSize(new Dimension(80, 26));
+        this.options.addActionListener(this);
+        espaceBoutonsDroiteHaut.add(this.options);
 
-        this.aide = new JButton("Aide");
-        this.aide.setPreferredSize(new Dimension(75, 26));
-        this.aide.addActionListener(this);
-        espaceBoutonsDroiteMilieu.add(this.aide);
+        this.regle = new JButton("Règles");
+        this.regle.setPreferredSize(new Dimension(80, 26));
+        this.regle.addActionListener(this);
+        espaceBoutonsDroiteMilieu.add(this.regle);
 
         this.quitter = new JButton("Quitter");
-        this.quitter.setPreferredSize(new Dimension(75, 26));
+        this.quitter.setPreferredSize(new Dimension(80, 26));
         this.quitter.addActionListener(this);
         espaceBoutonsDroiteBas.add(this.quitter);
-
     }
 
+	/**
+	 * Méthode permettant de définir les différentes actions.
+	 * @param e est l'evenement.
+	 * 
+	 */
     public void actionPerformed(ActionEvent e)
     {
-        if(e.getSource() == this.quitter)
+        if(e.getSource() == this.quitter || e.getSource() == this.quitterMenu)
             System.exit(0);
 
-        if (e.getSource() == this.continuer) 
+        if(e.getSource() == this.continuer || e.getSource() == this.continuerPartie) 
         {
-            this.setVisible(false);
             Jeu j = new Jeu(this.ctrl, this.fenetre);
-            this.fenetre.setJeu(j);
-            this.fenetre.add(j, BorderLayout.CENTER);
-            this.fenetre.setTitle("Solitaire Chess - Jeu");
-            this.fenetre.pack();
-            this.fenetre.setLocation((int)(Toolkit.getDefaultToolkit().getScreenSize().getWidth() / 2 - this.fenetre.getWidth() / 2), (int)(Toolkit.getDefaultToolkit().getScreenSize().getHeight() / 2 - this.fenetre.getHeight() / 2));
+            this.fenetre.afficherJeu(this,j);
         }
         else
-        	if (e.getSource() == this.creerDefi) 
+        	if(e.getSource() == this.creerDefi || e.getSource() == this.editeurDefi) 
         	{
-	            this.setVisible(false);
 	            Editeur ed = new Editeur(this.ctrl, this.fenetre);
-	            this.fenetre.setEditeur(ed);
-	            this.fenetre.add(ed, BorderLayout.CENTER);
-	            this.fenetre.setTitle("Solitaire Chess - Editeur");
-	            this.fenetre.pack();
-	            this.fenetre.setLocation((int)(Toolkit.getDefaultToolkit().getScreenSize().getWidth() / 2 - this.fenetre.getWidth() / 2), (int)(Toolkit.getDefaultToolkit().getScreenSize().getHeight() / 2 - this.fenetre.getHeight() / 2));
+	            this.fenetre.afficherEditeur(this,ed);
         	}
         	else 
-        		if (e.getSource() == this.nouvellePartie)
+        		if(e.getSource() == this.nouvellePartie || e.getSource() == this.nouvellePartieMenu)
         		{
-		        	this.setVisible(false);
 		        	this.ctrl.creerPartie();
 		        	Jeu j = new Jeu(this.ctrl, this.fenetre);
-		        	this.fenetre.setJeu(j);
-		            this.fenetre.add(j, BorderLayout.CENTER);
-		            this.fenetre.setTitle("Solitaire Chess - Jeu");
-		            this.fenetre.pack();
-		            this.fenetre.setLocation((int)(Toolkit.getDefaultToolkit().getScreenSize().getWidth() / 2 - this.fenetre.getWidth() / 2), (int)(Toolkit.getDefaultToolkit().getScreenSize().getHeight() / 2 - this.fenetre.getHeight() / 2));	       
+		        	this.fenetre.afficherJeu(this,j);
         		}
         		else 
-        			if (e.getSource() == this.choisirNiveau)
+        			if(e.getSource() == this.choisirNiveau || e.getSource() == this.selectionDefi)
         			{
-			        	this.setVisible(false);
 			        	MenuDefi mD = new MenuDefi(this.ctrl, this.fenetre);
-			        	this.fenetre.setMenuDefi(mD);
-			            this.fenetre.add(mD, BorderLayout.CENTER);
-			            this.fenetre.setTitle("Solitaire Chess - Liste Défis");
-			            this.fenetre.pack();
-			            this.fenetre.setLocation((int)(Toolkit.getDefaultToolkit().getScreenSize().getWidth() / 2 - this.fenetre.getWidth() / 2), (int)(Toolkit.getDefaultToolkit().getScreenSize().getHeight() / 2 - this.fenetre.getHeight() / 2));
-			       
+			        	this.fenetre.afficherMenuDefi(this,mD);
         			}
         			else
-        				if(e.getSource() == this.defisPersonnalises)
-        				{
-    			        	this.setVisible(false);
-    			            this.fenetre.setTitle("Solitaire Chess - Liste Défis");
-    			            this.fenetre.pack();
-    			            this.fenetre.setLocation((int)(Toolkit.getDefaultToolkit().getScreenSize().getWidth() / 2 - this.fenetre.getWidth() / 2), (int)(Toolkit.getDefaultToolkit().getScreenSize().getHeight() / 2 - this.fenetre.getHeight() / 2));
-        				}
-        				else
-        					if ( e.getSource() == this.themes ) 
-        					{
-        						new GestionTheme(ctrl, fenetre);
-        					}
-        					else
-        						if ( e.getSource() == this.aide )
-        						{
-            						URI uri = URI.create("https://di.iut.univ-lehavre.fr/pedago/info1/M2107_projetTut/deplacement.html");
-            						try {
-    									Desktop.getDesktop().browse(uri);
-    								} catch (IOException e1) {
-    									e1.printStackTrace();
-    								}
-        						}
+    					if(e.getSource() == this.options || e.getSource() == this.optionsMenu) 
+    					{
+    						new GestionOptions(ctrl, fenetre);
+    					}
+    					else
+    						if(e.getSource() == this.regle || e.getSource() == this.regles)
+    						{
+    							File html = new File("html/regles.html");
+        						URI uri = html.toURI();
+        						try {
+									Desktop.getDesktop().browse(uri);
+								} catch (IOException e1) {
+									e1.printStackTrace();
+								}
+    						}
+    }
+    
+	/**
+	 * Méthode permettant de définir la barre de menu de la fenetre.
+	 * 
+	 */
+    public void setMenuBarre()
+    {
+    	JMenuBar menuRacourci = new JMenuBar();
+    	
+        this.menuPrincipal = new JMenu("Menu principal");
+        this.quitterMenu = new JMenuItem("Quitter");
+        this.quitterMenu.addActionListener(this);
+        this.quitterMenu.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_Q, ActionEvent.CTRL_MASK));
+        this.menuPrincipal.add(this.quitterMenu);
+        
+        this.menuPartie = new JMenu("Partie");
+        this.continuerPartie = new JMenuItem("Continuer");
+        this.continuerPartie.addActionListener(this);
+        this.continuerPartie.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_ENTER, ActionEvent.CTRL_MASK));
+        this.menuPartie.add(this.continuerPartie);
+        this.nouvellePartieMenu = new JMenuItem("Nouvelle partie");
+        this.nouvellePartieMenu.addActionListener(this);
+        this.nouvellePartieMenu.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_N, ActionEvent.CTRL_MASK));
+        this.menuPartie.add(this.nouvellePartieMenu);
+        
+        this.menuNiveau = new JMenu("Niveau");
+        this.selectionDefi = new JMenuItem("Séléction défis");
+        this.selectionDefi.addActionListener(this);
+        this.selectionDefi.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_S, ActionEvent.CTRL_MASK));
+        this.menuNiveau.add(this.selectionDefi);
+        this.editeurDefi = new JMenuItem("Editeur défis");
+        this.editeurDefi.addActionListener(this);
+        this.editeurDefi.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_E, ActionEvent.CTRL_MASK));
+        this.menuNiveau.add(this.editeurDefi);
+        
+        this.menuAutre = new JMenu("Autres");
+        this.regles = new JMenuItem("Règles");
+        this.regles.addActionListener(this);
+        this.regles.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_H, ActionEvent.CTRL_MASK));
+        this.menuAutre.add(this.regles);
+        this.optionsMenu = new JMenuItem("Options");
+        this.optionsMenu.addActionListener(this);
+        this.optionsMenu.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_O, ActionEvent.CTRL_MASK));
+        this.menuAutre.add(this.optionsMenu);
+        
+        menuRacourci.add(this.menuPrincipal);
+        menuRacourci.add(this.menuPartie);
+        menuRacourci.add(this.menuNiveau);
+        menuRacourci.add(this.menuAutre);
+        
+        this.fenetre.setJMenuBar(menuRacourci);
     }
 }

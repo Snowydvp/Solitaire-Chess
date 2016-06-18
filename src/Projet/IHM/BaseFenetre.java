@@ -15,6 +15,11 @@ import Projet.Metier.Pieces.Reine;
 import Projet.Metier.Pieces.Roi;
 import Projet.Metier.Pieces.Tour;
 
+/**
+ * Classe gérant la base de la fenetre pour le mode jeu et le mode éditeur.
+ * @author BELLANGER Jessy, LINTOT Maxime, PICOT Maxence et SINAEVE Antoine
+ *
+ */
 public abstract class BaseFenetre extends JPanel implements MouseListener
 {
 	private static final long serialVersionUID = 1L;
@@ -27,13 +32,16 @@ public abstract class BaseFenetre extends JPanel implements MouseListener
     protected Image imgPiece;
     protected boolean estSelectionne;
     protected Piece pieceSelectionnee;
-    protected int pX,pY;
-    protected boolean estEditeur;
-
     protected final int TAILLE_CASE;
-    
+	
     protected Fenetre fenetre;
 	
+	/**
+	 * Constructeur par défaut
+	 * @param ctrl est le controleur
+	 * @param fenetre est la frame principale
+	 * 
+	 */
 	public BaseFenetre(Controleur ctrl, Fenetre fenetre)
 	{
         this.setLayout(new BorderLayout());
@@ -41,11 +49,14 @@ public abstract class BaseFenetre extends JPanel implements MouseListener
         this.fenetre           = fenetre;
         this.estSelectionne    = false;
         this.pieceSelectionnee = null;
-        this.pX = this.pY      = -1;
         
         this.TAILLE_CASE       = new ImageIcon("Images/Themes/"+this.ctrl.getTheme()+"/pion.gif").getIconWidth();
 	}
 	
+	/**
+	 * Méthode permmettant de refresh tout les composant de la fenetre principale.
+	 * 
+	 */
     public void refreshFenetre()
     {
         this.grille.removeAll();
@@ -60,21 +71,19 @@ public abstract class BaseFenetre extends JPanel implements MouseListener
                 boolean b = false;
                 int deplacementPossible = -1;
                 
-                if ( this.pieceSelectionnee != null && !this.estEditeur )
+                if(this.pieceSelectionnee != null) 
                 	deplacementPossible = this.ctrl.getPlateau().simuleDeplacement(this.pieceSelectionnee, x, y);
                 
-                if ( pieceTmp != null && pieceTmp == this.pieceSelectionnee ) 
+                if(pieceTmp != null)
                 {
-                    b = true;
-                    deplacementPossible = -1;
-                }
-
-                if ( pieceTmp != null ) 
+                	if(pieceTmp != null && pieceTmp == this.pieceSelectionnee) 
+                		b = true;
                 	this.imgPiece = this.getImage(pieceTmp);
+                }
                 else 
-                	this.imgPiece = new ImageIcon("Images/Interface/vide52.gif").getImage();
+                	this.imgPiece = new ImageIcon("Images/Themes/"+this.ctrl.getTheme()+"/vide52.gif").getImage();
 
-                if ( (y + x) % 2 == 0) 
+                if((y + x) % 2 == 0) 
                 {
                     String difficulte = this.ctrl.getNiveau().getDifficulte();
                     if (difficulte.equals("Debutant") || difficulte.equals("Edite"))
@@ -97,24 +106,31 @@ public abstract class BaseFenetre extends JPanel implements MouseListener
         }
     }
 
-    protected Image getImage(Piece p ) 
+    
+	/**
+	 * Méthode permmettant de remettre le plateau a l'état précédent.
+	 * @param p est la piece dont on veux récuperer l'image.
+	 * @return l'image correspondant a la piece passé en paramètre.
+	 * 
+	 */
+    protected Image getImage(Piece p) 
     {
-        if ( p instanceof Cavalier )
+        if(p instanceof Cavalier)
             return new ImageIcon("Images/Themes/"+this.ctrl.getTheme()+"/cavalier.gif").getImage();
         else
-        	if ( p instanceof Fou )
+        	if(p instanceof Fou)
         		return new ImageIcon("Images/Themes/"+this.ctrl.getTheme()+"/fou.gif").getImage();
         	else 
-        		if ( p instanceof Pion )
+        		if(p instanceof Pion)
         			return new ImageIcon("Images/Themes/"+this.ctrl.getTheme()+"/pion.gif").getImage();
         		else
-        			if ( p instanceof Reine)
+        			if(p instanceof Reine)
         				return new ImageIcon("Images/Themes/"+this.ctrl.getTheme()+"/reine.gif").getImage();
         			else 
-        				if ( p instanceof Roi )
+        				if(p instanceof Roi)
         					return new ImageIcon("Images/Themes/"+this.ctrl.getTheme()+"/roi.gif").getImage();
         				else
-        					if ( p instanceof Tour)
+        					if(p instanceof Tour)
         						return new ImageIcon("Images/Themes/"+this.ctrl.getTheme()+"/tour.gif").getImage();
         return null;
     }
