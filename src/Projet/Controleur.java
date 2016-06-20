@@ -7,7 +7,7 @@ import Projet.Metier.*;
 import Projet.Metier.Pieces.Piece;
 
 /**
- * Classe liant la partie IHM à la partie métier. 
+ * Cette classe lie la partie IHM à la partie métier. 
  * @author BELLANGER Jessy, LINTOT Maxime, PICOT Maxence et SINAEVE Antoine
  *
  */
@@ -63,7 +63,7 @@ public class Controleur
 	}
 	
 	/**
-	 * Méthode permettant de diminuer le niveau courant.
+	 * Charge le niveau précédent
 	 * Cette méthode gère aussi la diminution de la difficulté en cas de niveau minimum atteint.
 	 * 
 	 */
@@ -85,7 +85,7 @@ public class Controleur
 	}
 	
 	/**
-	 * Méthode permettant de creer une nouvelle partie.
+	 * Crée une nouvelle partie
 	 * 
 	 */
 	public void creerPartie()
@@ -94,7 +94,7 @@ public class Controleur
 	}
 	
 	/**
-	 * Méthode permettant de rejouer le niveau courant.
+	 * Replace toutes les pièces afin d'obtenir le plateau d'origine
 	 * 
 	 */
 	public void rejouer()
@@ -130,8 +130,8 @@ public class Controleur
  	}
 	
 	/**
-	 * Méthode appelé dans augmenterNiveau pour augmenter la difficulté du niveau courant si celui ci
-	 * est de numéro maximum de cette difficulté.
+	 * Méthode appelé dans augmenterNiveau pour augmenter la difficulté 
+	 * si le niveau courant est le dernier de sa difficulté.
 	 * @param d est la difficulté du niveau courant.
 	 * @return l'indice de la difficulté obtenue.
 	 * 
@@ -185,7 +185,7 @@ public class Controleur
 	}
 	
 	/**
-	 * Méthode permmettant de sauvegarder l'état du plateau aprés deplacement.
+	 * Méthode appelé après chaque déplacement permmettant de sauvegarder l'état du plateau.
 	 * 
 	 */
 	public void sauvegardeCoup()
@@ -194,7 +194,7 @@ public class Controleur
 	}
 	
 	/**
-	 * Méthode permmettant d'initialiser tout les niveaux dansdes ArrayList et
+	 * Méthode permmettant d'initialiser tout les niveaux dans des ArrayList et
 	 * ainsi connaitre le nombre de niveau par difficulté.
 	 * 
 	 */
@@ -250,7 +250,7 @@ public class Controleur
 	
 	/**
 	 * Méthode permmettant de connaitre la difficulté courante
-	 * @return la ArrayList de niveau de la difficulté courante.
+	 * @return l'ArrayList de niveau de la difficulté courante.
 	 * 
 	 */
 	public ArrayList<Niveau> getDifficulteCourante()
@@ -264,7 +264,7 @@ public class Controleur
 			difficulteCourante = this.alNiveauAvance;
 		return difficulteCourante;
 	}
-	
+
 	public Niveau   getNiveau     (){return this.niveauCourant ;}
 	public Plateau  getPlateau    (){return this.pl            ;}
 	public Partie   getPartie     (){return this.partie        ;}

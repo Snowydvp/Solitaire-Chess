@@ -43,7 +43,7 @@ import Projet.Metier.Pieces.Roi;
 import Projet.Metier.Pieces.Tour;
 
 /**
- * Classe gérant le mode éditeur de l'application
+ * Gère le mode éditeur de l'application
  * @author BELLANGER Jessy, LINTOT Maxime, PICOT Maxence et SINAEVE Antoine
  *
  */
@@ -76,7 +76,6 @@ public class Editeur extends BaseFenetre implements ActionListener
 	 * Constructeur par défaut.
 	 * @param ctrl est le Controleur.
 	 * @param fenetre est la frame principale.
-	 * 
 	 */
     public Editeur(Controleur ctrl, Fenetre fenetre)
     {
@@ -128,10 +127,11 @@ public class Editeur extends BaseFenetre implements ActionListener
     }
 
 	/**
-	 * Méthode permettant de définir les différentes actions.
+	 * Méthode réecrite de l'interface ActionListener: gère les actions liés aux composants du panel.
 	 * @param e est l'evenement.
 	 * 
 	 */
+    @Override
     public void actionPerformed(ActionEvent e)
     {
         if((e.getSource() == this.validerDefi || e.getSource() == valider) && this.piecesDisponibles.size() <= 8) 
@@ -177,7 +177,7 @@ public class Editeur extends BaseFenetre implements ActionListener
     }
     
 	/**
-	 * Méthode permettant de rafraichir le contenu des pieces disponibles restantes.
+	 * Rafraichît le contenu des pieces disponibles restantes.
 	 * 
 	 */
     protected void refreshPiecesRestantes() 
@@ -205,7 +205,7 @@ public class Editeur extends BaseFenetre implements ActionListener
     public void mousePressed (MouseEvent e){}
     
 	/**
-	 * Méthode permettant de définir les différentes actions de la souris.
+	 * Méthode réecrite de l'interface MouseListener: gère les actions liés à la souris.
 	 * @param e est l'evenement de la souris.
 	 * 
 	 */
@@ -289,7 +289,7 @@ public class Editeur extends BaseFenetre implements ActionListener
     }
     
 	/**
-	 * Méthode permettant de sauvegarder le niveau creé dans un fichier .txt
+	 * Sauvegarde le niveau creé dans un fichier .txt
 	 * 
 	 */
     public void sauvegarderNiveau()
@@ -320,7 +320,7 @@ public class Editeur extends BaseFenetre implements ActionListener
     }
     
 	/**
-	 * Méthode permettant de définir la barre de menu de la fenetre.
+	 * Définit la barre de menu de la fenetre.
 	 * 
 	 */
     public void setMenuBarre()
@@ -369,7 +369,7 @@ public class Editeur extends BaseFenetre implements ActionListener
     }
     
 	/**
-	 * Méthode permettant de reinitialiser le plateau et les pieces disponibles.
+	 * Réinitialise le plateau et les pieces disponibles.
 	 * 
 	 */
     private void initEditeur()

@@ -14,7 +14,7 @@ public abstract class Piece implements Cloneable
 	protected Plateau pl;
 	
 	/**
-	 * Constructeur permettent l'instanciation d'une piece
+	 * Constructeur de la classe.
 	 * @param posX
 	 * @param posY
 	 */
@@ -25,29 +25,19 @@ public abstract class Piece implements Cloneable
 	}
 	
 	/**
-	 * Accesseur permettent de connaitre la position vertical de la piece
-	 * @return
+	 * @return position X dans le plateau
 	 */
 	public int getPosX() {return this.posX;}
 	/**
-	 * Accesseur permettent de connaitre la position horizontal de la piece
-	 * @return
+	 * @return position Y dans le plateau
 	 */
 	public int getPosY() {return this.posY;}
-	
-	/**
-	 * Accesseur permettent de modifier la position vertical de la piece
-	 * @return
-	 */	
+
 	public void setPosX(int posX) {this.posX=posX;}
-	/**
-	 * Accesseur permettent de modifier la position horizontal de la piece
-	 * @return
-	 */	
 	public void setPosY(int posY) {this.posY=posY;}
 
 	/**
-	 * Methode abstract commune a toute les pieces qui retourne si le deplacement et valide ou non
+	 * Methode abstract commune a toute les pieces qui détermine la validité du déplacement.
 	 * @param cibleX
 	 * @param cibleY
 	 * @param plateau
@@ -61,7 +51,7 @@ public abstract class Piece implements Cloneable
 	public abstract char    getType();
 
 	/**
-	 * Methode qui retourne si une piece gene le deplacement de la piece selectionner
+	 * Methode qui retourne si une piece gene le deplacement de la piece selectionnée
 	 * @param cibleX
 	 * @param cibleY
 	 * @param plateau
@@ -95,7 +85,7 @@ public abstract class Piece implements Cloneable
 	}
 
 	/**
-	 * Methode permettent de cloner les pieces
+	 * @return Copie conforme de la piece
 	 */
 	public Piece clone() 
 	{

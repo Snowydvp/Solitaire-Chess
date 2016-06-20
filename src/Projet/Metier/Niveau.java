@@ -7,7 +7,7 @@ import Projet.Metier.Pieces.*;
 
 /**
  * Class permettent la creation des niveaux
- * @author Ashbringer
+ * @author BELLANGER Jessy, LINTOT Maxime, PICOT Maxence et SINAEVE Antoine
  *
  */
 public class Niveau
@@ -60,8 +60,7 @@ public class Niveau
 	}
 	
 	/**
-	 * Constructeur utiliser pour l'edition des niveaux
-	 * @param tabPiece
+	 * @param tabPiece: Tableau de pièces
 	 */
 	public Niveau(Piece[][] tabPiece)
 	{
@@ -71,7 +70,7 @@ public class Niveau
 	}
 	
 	/**
-	 * Constructeur qui permet la création des niveaux preéfinis
+	 * Constructeur qui lit le niveau dans un fichier
 	 * @param numNiveau
 	 * @param difficulte
 	 */
@@ -114,8 +113,7 @@ public class Niveau
 	}
 	
 	/**
-	 * Accesseur permettent de recuperer le tableau du niveau
-	 * @return
+	 * @return Double tableau des pièces correspondant au niveau.
 	 */
 	public Piece[][] getPiece()
 	{
@@ -127,8 +125,7 @@ public class Niveau
 	}
 	
 	/**
-	 * Accesseur qui return un boolean en fonction de la difficulte
-	 * @return
+	 * @return entier correspondant à la difficulté
 	 */
 	public int getNumDifficulte()
 	{
@@ -139,19 +136,7 @@ public class Niveau
 		return d;
 	}
 	
-	/**
-	 * Accesseur qui renvoie si le tab est bien instancier ou non
-	 * @return
-	 */
 	public boolean getInstancier(){return tabPiece == null;}
-	/**
-	 * Accesseur qui retourne le niveau
-	 * @return
-	 */
 	public int     getNumNiveau (){ return this.numNiveau ;}
-	/**
-	 * Accesseur qui retourne la difficulter du niveau
-	 * @return
-	 */
 	public String  getDifficulte(){ return this.difficulte;}
 }

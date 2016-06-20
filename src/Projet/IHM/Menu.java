@@ -13,7 +13,7 @@ import java.net.URI;
 import javax.swing.*;
 
 /**
- * Menu principale, c'est ici que sont définit tout les boutons pour naviguer
+ * Menu principal, c'est ici que sont définit tout les boutons pour naviguer
  * dans l'application.
  * @author BELLANGER Jessy, LINTOT Maxime, PICOT Maxence et SINAEVE Antoine
  *
@@ -112,10 +112,11 @@ public class Menu extends JPanel implements ActionListener
     }
 
 	/**
-	 * Méthode permettant de définir les différentes actions.
+	 * Méthode réecrite de l'interface ActionListener: Gère les actions liés aux composants du panel
 	 * @param e est l'evenement.
 	 * 
 	 */
+    @Override
     public void actionPerformed(ActionEvent e)
     {
         if(e.getSource() == this.quitter || e.getSource() == this.quitterMenu)
@@ -164,7 +165,7 @@ public class Menu extends JPanel implements ActionListener
     }
     
 	/**
-	 * Méthode permettant de définir la barre de menu de la fenetre.
+	 * Définit la barre de menu de la fenetre.
 	 * 
 	 */
     public void setMenuBarre()

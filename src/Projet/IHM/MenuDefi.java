@@ -15,7 +15,7 @@ import Projet.Controleur;
 import Projet.Metier.Niveau;
 
 /**
- * Classe gérant l'affichage de la séléction des défis si ils sont accessible ou non.
+ * Gère l'affichage de la séléction des défis si ils sont accessible ou non.
  * @author BELLANGER Jessy, LINTOT Maxime, PICOT Maxence et SINAEVE Antoine
  *
  */
@@ -121,10 +121,10 @@ public class MenuDefi extends JPanel implements ActionListener
 	}
 	
 	/**
-	 * Méthode permettant d'initialiser les panels en fonction de la difficulté.
-	 * @param alNiveau est la ArrayList des niveaux de la difficulté.
+	 * Initialise les panels en fonction de la difficulté.
+	 * @param alNiveau est l'ArrayList des niveaux de la difficulté.
 	 * @param s est le nom de la difficulté.
-	 * 
+	 * @return Panel contenant le bouton d'accès aux défis de la difficulté	
 	 */
 	public JPanel initialisePanel(ArrayList<Niveau> alNiveau, String s) 
 	{
@@ -155,10 +155,10 @@ public class MenuDefi extends JPanel implements ActionListener
 	}
 
 	/**
-	 * Méthode permettant de définir les différentes actions.
+	 * Méthode réecrite de l'interface ActionListener: Gère les actions liés aux composants du panel
 	 * @param e est l'evenement.
-	 * 
 	 */
+	@Override
 	public void actionPerformed(ActionEvent e) 
 	{
 		this.listeDebutant.setVisible(false);
@@ -207,7 +207,7 @@ public class MenuDefi extends JPanel implements ActionListener
 	}
 	
 	/**
-	 * Méthode permettant de définir la barre de menu de la fenetre.
+	 * Définit la barre de menu de la fenetre.
 	 * 
 	 */
     public void setMenuBarre()

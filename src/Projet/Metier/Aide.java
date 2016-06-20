@@ -7,7 +7,7 @@ import Projet.Controleur;
 import Projet.Metier.Pieces.Piece;
 
 /**
- * Classe gérant l'aide jeu quand le joueur est bloqué.
+ * Aide du jeu lorsque le joueur est bloqué.
  * @author BELLANGER Jessy, LINTOT Maxime, PICOT Maxence et SINAEVE Antoine
  *
  */

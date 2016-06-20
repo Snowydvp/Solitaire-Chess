@@ -28,7 +28,7 @@ import javax.swing.*;
 import javax.swing.border.BevelBorder;
 
 /**
- * Classe gérant le mode Jeu avec le système de score.
+ * Gère le mode Jeu avec le système de score.
  * @author BELLANGER Jessy, LINTOT Maxime, PICOT Maxence et SINAEVE Antoine
  *
  */
@@ -156,10 +156,11 @@ public class Jeu extends BaseFenetre implements ActionListener
     }
 
 	/**
-	 * Méthode permettant de définir les différentes actions.
+	 * Méthode réecrite de l'interface ActionListener: Définit les différentes actions liés aux composants du panel.
 	 * @param e est l'evenement.
 	 * 
 	 */
+     @Override
     public void actionPerformed(ActionEvent e)
     {
         if(this.suivant.isEnabled() && (e.getSource() == suivant || e.getSource() == this.defiSuivant))
@@ -218,7 +219,7 @@ public class Jeu extends BaseFenetre implements ActionListener
     }
     
 	/**
-	 * Méthode permettant de refresh le contenu des pieces capturées.
+	 * Actualise l'affichage des pièces capturées.
 	 * 
 	 */
     protected void refreshPiecesCapturees() 
@@ -253,17 +254,17 @@ public class Jeu extends BaseFenetre implements ActionListener
         else
         	this.precedent.setEnabled(true);
     }
-
+    
     public void mouseClicked (MouseEvent e){}
     public void mouseEntered (MouseEvent e){}
     public void mouseExited  (MouseEvent e){}
     public void mousePressed (MouseEvent e){}
     
 	/**
-	 * Méthode permettant de définir les différentes actions de la souris.
+	 * Méthode réecrite de l'interface MouseListener: Définit les différentes actions liées à souris.
 	 * @param e est l'evenement de la souris.
-	 * 
 	 */
+    @Override
     public void mouseReleased(MouseEvent e) 
     {
         int y = e.getY() / this.TAILLE_CASE;
@@ -298,7 +299,7 @@ public class Jeu extends BaseFenetre implements ActionListener
     }
     
 	/**
-	 * Méthode permettant de définir la barre de menu de la fenetre.
+	 * Définit la barre de menu de la fenetre.
 	 * 
 	 */
     public void setMenuBarre()

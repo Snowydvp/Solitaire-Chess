@@ -16,7 +16,7 @@ import Projet.Metier.Pieces.Roi;
 import Projet.Metier.Pieces.Tour;
 
 /**
- * Classe gérant la base de la fenetre pour le mode jeu et le mode éditeur.
+ * Gère la base de la fenetre pour le mode jeu et le mode éditeur.
  * @author BELLANGER Jessy, LINTOT Maxime, PICOT Maxence et SINAEVE Antoine
  *
  */
@@ -54,7 +54,7 @@ public abstract class BaseFenetre extends JPanel implements MouseListener
 	}
 	
 	/**
-	 * Méthode permmettant de refresh tout les composant de la fenetre principale.
+	 * Actualise tout les composant de la frame principale.
 	 * 
 	 */
     public void refreshFenetre()
@@ -108,7 +108,7 @@ public abstract class BaseFenetre extends JPanel implements MouseListener
 
     
 	/**
-	 * Méthode permmettant de remettre le plateau a l'état précédent.
+	 * ????
 	 * @param p est la piece dont on veux récuperer l'image.
 	 * @return l'image correspondant a la piece passé en paramètre.
 	 * 

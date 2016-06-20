@@ -12,7 +12,7 @@ import java.util.Scanner;
 import Projet.Controleur;
 
 /**
- * Classe gérant la création et le chargement d'une partie.
+ * Classe gérant la création et le chargement d'une partie dans un fichier.
  * @author BELLANGER Jessy, LINTOT Maxime, PICOT Maxence et SINAEVE Antoine
  *
  */

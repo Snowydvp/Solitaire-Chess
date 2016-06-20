@@ -11,7 +11,7 @@ import Projet.Controleur;
 import Projet.IHM.Projet.Usine;
 
 /**
- * Classe gérant les options de l'application.
+ * Gère les options de l'application.
  * @author BELLANGER Jessy, LINTOT Maxime, PICOT Maxence et SINAEVE Antoine
  *
  */
@@ -97,10 +97,11 @@ public class GestionOptions extends JDialog implements ActionListener
 	}
 
 	/**
-	 * Méthode permettant de définir les différentes actions.
-	 * @param e est l'evenement.
+	 * Méthode réecrite de l'interface ActionListener: gère l'action du bouton
+	 * @param e est l'évenement.
 	 * 
 	 */
+	@Override
 	public void actionPerformed(ActionEvent e) 
 	{
 		if(e.getSource() == this.valider)

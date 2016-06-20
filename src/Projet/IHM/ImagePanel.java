@@ -10,7 +10,7 @@ import javax.swing.JPanel;
 
 
 /**
- * Classe gérant les panels construit à base d'images superposées.
+ * Gère les panels construit à base d'images superposées.
  * @author BELLANGER Jessy, LINTOT Maxime, PICOT Maxence et SINAEVE Antoine
  *
  */
@@ -27,9 +27,8 @@ public class ImagePanel extends JPanel
 	 * Constructeur par défaut.
 	 * @param img est le chemin de l'image d'arrière plan.
 	 * @param imgPiece est l'image de la pièce.
-	 * @param estSelectionnee est le boolean qui dit si c'est une case selectionnée ou non.
-	 * @param deplacementPosssible est le boolean qui dit si le deplacement est possible sur cette casse
-	 * par rapport a la piece selectionnee.
+	 * @param estSelectionnee informe si la case est séléctionné.
+	 * @param deplacementPosssible informe si le déplacement est possible sur cette case.
 	 * 
 	 */
     public ImagePanel(String img, Image imgPiece, boolean estSelectionnee, int deplacementPossible)
@@ -44,7 +43,7 @@ public class ImagePanel extends JPanel
 
     
 	/**
-	 * Méthode permettant de paint les images sur le JPanel
+	 * Dessine les images sur le JPanel
 	 * @param g est l'element graphique de java.
 	 * 
 	 */

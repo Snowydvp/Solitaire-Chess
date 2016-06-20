@@ -8,7 +8,7 @@ import Projet.Controleur;
 import Projet.IHM.Projet.Usine;
 
 /**
- * Fenetre principale de l'application, c'est elle qui va gérer l'affichage de chaque mode.s
+ * Fenetre principale de l'application: elle gère l'affichage de chaque mode.
  * @author BELLANGER Jessy, LINTOT Maxime, PICOT Maxence et SINAEVE Antoine
  *
  */
@@ -41,7 +41,7 @@ public class Fenetre extends JFrame
 	}
 	
 	/**
-	 * Méthode permettant de centrer la fenetre principal.
+	 * Recentre la frame par rapport à l'ecran.
 	 * 
 	 */
     public void centrer()
@@ -55,7 +55,7 @@ public class Fenetre extends JFrame
 	public void setMenuDefi(MenuDefi mD){this.menuDefi = mD;}
 
 	/**
-	 * Méthode permettant d'afficher le menu principal sur la fenetre.
+	 * Affiche le menu principal sur la fenetre.
 	 * @param contenuACacher est le panel qui va etre remplacer par le menu principal.
 	 * 
 	 */
@@ -71,8 +71,9 @@ public class Fenetre extends JFrame
     }
 
 	/**
-	 * Méthode permettant d'afficher le mode jeu sur la fenetre.
+	 * Affiche le mode jeu sur la fenetre.
 	 * @param contenuACacher est le panel qui va etre remplacer par le mode jeu.
+	 * @param j est le panel du jeu
 	 * 
 	 */
     public void afficherJeu(JPanel contenuACacher, Jeu j)
@@ -87,7 +88,7 @@ public class Fenetre extends JFrame
     }
     
 	/**
-	 * Méthode permettant d'afficher le mode editeur sur la fenetre.
+	 * Affiche le mode editeur sur la fenetre.
 	 * @param contenuACacher est le panel qui va etre remplacer par le mode editeur.
 	 * 
 	 */
@@ -103,7 +104,7 @@ public class Fenetre extends JFrame
     }
     
 	/**
-	 * Méthode permettant d'afficher la selection des défis sur la fenetre.
+	 * Affiche la selection des défis sur la fenetre.
 	 * @param contenuACacher est le panel qui va etre remplacer par le menu de sélection des défis.
 	 * 
 	 */
